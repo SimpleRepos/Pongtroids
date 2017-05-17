@@ -117,6 +117,9 @@
     <ClCompile Include="Scene_Game.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="cl_Input.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cl_DomainShader.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="Scene_Game.h">
       <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_Input.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

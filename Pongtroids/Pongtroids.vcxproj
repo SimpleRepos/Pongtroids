@@ -148,6 +148,7 @@
     <ClCompile Include="cl_HullShader.cpp" />
     <ClCompile Include="cl_ImageLoader.cpp" />
     <ClCompile Include="cl_IndexBuffer.cpp" />
+    <ClCompile Include="cl_Input.cpp" />
     <ClCompile Include="cl_PixelShader.cpp" />
     <ClCompile Include="cl_RasterizerState.cpp" />
     <ClCompile Include="cl_StaticVertexBuffer.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="cl_HullShader.h" />
     <ClInclude Include="cl_ImageLoader.h" />
     <ClInclude Include="cl_IndexBuffer.h" />
+    <ClInclude Include="cl_Input.h" />
     <ClInclude Include="cl_PixelShader.h" />
     <ClInclude Include="cl_RasterizerState.h" />
     <ClInclude Include="cl_StaticVertexBuffer.h" />

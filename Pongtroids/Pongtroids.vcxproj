@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cl_Camera.cpp" />
     <ClCompile Include="cl_DomainShader.cpp" />
     <ClCompile Include="cl_Font.cpp" />
     <ClCompile Include="cl_Game.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="cl_Input.cpp" />
     <ClCompile Include="cl_PixelShader.cpp" />
     <ClCompile Include="cl_RasterizerState.cpp" />
+    <ClCompile Include="cl_Transform.cpp" />
     <ClCompile Include="cl_StaticVertexBuffer.cpp" />
     <ClCompile Include="cl_Texture.cpp" />
     <ClCompile Include="cl_Timer.cpp" />
@@ -164,6 +166,7 @@
     <ClCompile Include="vcl_Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cl_Camera.h" />
     <ClInclude Include="cl_DomainShader.h" />
     <ClInclude Include="cl_Font.h" />
     <ClInclude Include="cl_Game.h" />
@@ -176,7 +179,7 @@
     <ClInclude Include="cl_Input.h" />
     <ClInclude Include="cl_PixelShader.h" />
     <ClInclude Include="cl_RasterizerState.h" />
-    <ClInclude Include="cl_StaticMesh.h" />
+    <ClInclude Include="cl_Transform.h" />
     <ClInclude Include="cl_StaticVertexBuffer.h" />
     <ClInclude Include="cl_Texture.h" />
     <ClInclude Include="cl_Timer.h" />
@@ -195,6 +198,23 @@
   <ItemGroup>
     <None Include="tcl_ConstantBuffer.inl" />
     <None Include="tcl_DynamicVertexBuffer.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Assets\checkers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="PixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="VertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

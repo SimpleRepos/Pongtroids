@@ -96,24 +96,6 @@
     <ClCompile Include="cl_VertexShader.cpp">
       <Filter>Source Files\Graphics\Pipeline State</Filter>
     </ClCompile>
-    <ClCompile Include="cl_Font.cpp">
-      <Filter>Source Files\Graphics\Pipeline State</Filter>
-    </ClCompile>
-    <ClCompile Include="cl_GfxFactory.cpp">
-      <Filter>Source Files\Graphics\Pipeline State</Filter>
-    </ClCompile>
-    <ClCompile Include="cl_Graphics.cpp">
-      <Filter>Source Files\Graphics\Pipeline State</Filter>
-    </ClCompile>
-    <ClCompile Include="cl_ImageLoader.cpp">
-      <Filter>Source Files\Graphics\Pipeline State</Filter>
-    </ClCompile>
-    <ClCompile Include="cl_Texture.cpp">
-      <Filter>Source Files\Graphics\Pipeline State</Filter>
-    </ClCompile>
-    <ClCompile Include="st_ColorF.cpp">
-      <Filter>Source Files\Graphics\Pipeline State</Filter>
-    </ClCompile>
     <ClCompile Include="st_ShaderSet.cpp">
       <Filter>Source Files\Graphics\Pipeline State</Filter>
     </ClCompile>
@@ -125,6 +107,30 @@
     </ClCompile>
     <ClCompile Include="Scene_Game.cpp">
       <Filter>Source Files\Scenes\Scene_Game</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_Font.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_GfxFactory.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_Graphics.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_ImageLoader.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_Texture.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="st_ColorF.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_Camera.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_Transform.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -206,8 +212,11 @@
     <ClInclude Include="Scene_Game.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
-    <ClInclude Include="cl_StaticMesh.h">
+    <ClInclude Include="cl_Camera.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_Transform.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -217,5 +226,18 @@
     <None Include="tcl_ConstantBuffer.inl">
       <Filter>Source Files\Graphics\Buffers</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Assets\checkers.png">
+      <Filter>Resource Files\Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="VertexShader.hlsl">
+      <Filter>Resource Files\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="PixelShader.hlsl">
+      <Filter>Resource Files\Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

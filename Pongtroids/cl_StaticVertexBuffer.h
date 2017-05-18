@@ -10,6 +10,8 @@ public:
   ///<param name="slotNum">Index of register to assign to</param>
   void set(UINT slotNum);
 
+  size_t NUM_VERTS;
+
 private:
   friend class GfxFactory;
   StaticVertexBuffer(const void* data, size_t numVertices, size_t stride, ID3D11Device* device, ID3D11DeviceContext* context);

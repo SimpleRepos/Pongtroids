@@ -176,6 +176,7 @@
     <ClInclude Include="cl_Input.h" />
     <ClInclude Include="cl_PixelShader.h" />
     <ClInclude Include="cl_RasterizerState.h" />
+    <ClInclude Include="cl_StaticMesh.h" />
     <ClInclude Include="cl_StaticVertexBuffer.h" />
     <ClInclude Include="cl_Texture.h" />
     <ClInclude Include="cl_Timer.h" />

@@ -49,6 +49,12 @@
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{23165ad3-47d1-4c46-9381-d6826e1d124a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scenes\Scene_Game">
+      <UniqueIdentifier>{b1a57684-96d1-470f-817c-4be58e3b5e72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes\Scene_Game">
+      <UniqueIdentifier>{5a756cfa-f870-40a3-8b12-a39ed6f15d7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cl_Game.cpp">
@@ -114,11 +120,11 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Scene_Game.cpp">
-      <Filter>Source Files\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="cl_Input.cpp">
       <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Game.cpp">
+      <Filter>Source Files\Scenes\Scene_Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -194,11 +200,14 @@
     <ClInclude Include="st_ColorF.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="Scene_Game.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="cl_Input.h">
       <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Game.h">
+      <Filter>Header Files\Scenes\Scene_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_StaticMesh.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

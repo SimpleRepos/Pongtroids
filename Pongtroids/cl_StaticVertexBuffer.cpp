@@ -18,7 +18,7 @@ void StaticVertexBuffer::set(UINT slotNum) {
 StaticVertexBuffer::StaticVertexBuffer(const void* data, size_t numVertices, size_t stride, ID3D11Device* device, ID3D11DeviceContext* context) :
   stride(stride),
   context(context),
-  NUM_VERTS(numVertices)
+  SIZE(numVertices)
 {
   if(data == nullptr) { return; }
 

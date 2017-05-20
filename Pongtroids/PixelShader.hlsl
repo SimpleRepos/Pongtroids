@@ -1,4 +1,11 @@
-float4 main() : SV_TARGET
-{
-	return float4(1.0f, 1.0f, 1.0f, 1.0f);
+Texture2D tex : register(t0);
+SamplerState samp;
+
+struct VOut {
+  float4 pos : SV_POSITION;
+  float2 uv : TEXCOORD;
+};
+
+float4 main(VOut input) : SV_TARGET {
+	return tex.Sample(samp, input.uv);
 }

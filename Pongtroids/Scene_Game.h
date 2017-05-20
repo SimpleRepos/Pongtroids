@@ -1,9 +1,14 @@
 #pragma once
 #include "vcl_Scene.h"
+
+#include "cl_VertexShader.h"
+#include "cl_PixelShader.h"
 #include "cl_StaticVertexBuffer.h"
 #include "cl_Texture.h"
+
 #include "cl_Camera.h"
 #include "cl_Transform.h"
+#include "tcl_ConstantBuffer.h"
 
 class Scene_Game : public Scene {
 public:
@@ -12,10 +17,18 @@ public:
   void draw() override;
 
 private:
+  VertexShader vShader;
+  PixelShader pShader;
   StaticVertexBuffer verts;
   Texture tex;
-  Transform xform;
   Camera cam;
+  Transform xform;
+
+  struct CB {
+    DirectX::XMFLOAT4X4 transWVP;
+  };
+
+  ConstantBuffer<CB> cBuffer;
 
 };
 

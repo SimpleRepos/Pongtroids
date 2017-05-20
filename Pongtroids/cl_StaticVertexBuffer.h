@@ -10,7 +10,8 @@ public:
   ///<param name="slotNum">Index of register to assign to</param>
   void set(UINT slotNum);
 
-  size_t NUM_VERTS;
+  ///<summary>Number of vertices in the buffer</summary>
+  size_t SIZE;
 
 private:
   friend class GfxFactory;

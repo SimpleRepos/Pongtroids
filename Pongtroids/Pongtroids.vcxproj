@@ -152,6 +152,10 @@
     <ClCompile Include="cl_Input.cpp" />
     <ClCompile Include="cl_PixelShader.cpp" />
     <ClCompile Include="cl_RasterizerState.cpp" />
+    <ClCompile Include="cl_StaticMesh.old.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="cl_Transform.cpp" />
     <ClCompile Include="cl_StaticVertexBuffer.cpp" />
     <ClCompile Include="cl_Texture.cpp" />
@@ -179,6 +183,10 @@
     <ClInclude Include="cl_Input.h" />
     <ClInclude Include="cl_PixelShader.h" />
     <ClInclude Include="cl_RasterizerState.h" />
+    <ClInclude Include="cl_StaticMesh.old.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="cl_Transform.h" />
     <ClInclude Include="cl_StaticVertexBuffer.h" />
     <ClInclude Include="cl_Texture.h" />
@@ -195,11 +203,12 @@
     <ClInclude Include="vcl_Scene.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Assets\asteroid.mesh" />
     <None Include="tcl_ConstantBuffer.inl" />
     <None Include="tcl_DynamicVertexBuffer.inl" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Assets\checkers.png" />
+    <None Include="..\Assets\checkers.png" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl">
@@ -214,6 +223,19 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Assets\Cupid%27s Revenge.mp3">
+      <FileType>Document</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Assets\ProFontWindows-Bold.ttf">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\Assets\ProFontWindows.ttf">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

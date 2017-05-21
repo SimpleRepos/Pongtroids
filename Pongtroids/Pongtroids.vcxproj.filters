@@ -105,9 +105,6 @@
     <ClCompile Include="st_ShaderSet.cpp">
       <Filter>Source Files\Graphics\Pipeline State</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
     <ClCompile Include="cl_Input.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
@@ -137,6 +134,12 @@
     </ClCompile>
     <ClCompile Include="cl_ImageLoader.cpp">
       <Filter>Source Files\Graphics\GfxCore</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_StaticMesh.old.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +224,9 @@
     <ClInclude Include="cl_ImageLoader.h">
       <Filter>Header Files\Graphics\GfxCore</Filter>
     </ClInclude>
+    <ClInclude Include="cl_StaticMesh.old.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="tcl_DynamicVertexBuffer.inl">
@@ -228,6 +234,9 @@
     </None>
     <None Include="tcl_ConstantBuffer.inl">
       <Filter>Source Files\Graphics\Buffers</Filter>
+    </None>
+    <None Include="..\Assets\asteroid.mesh">
+      <Filter>Resource Files\Assets</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -242,5 +251,18 @@
     <FxCompile Include="PixelShader.hlsl">
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\Assets\Cupid%27s Revenge.mp3">
+      <Filter>Resource Files\Assets</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\Assets\ProFontWindows.ttf">
+      <Filter>Resource Files\Assets</Filter>
+    </Font>
+    <Font Include="..\Assets\ProFontWindows-Bold.ttf">
+      <Filter>Resource Files\Assets</Filter>
+    </Font>
   </ItemGroup>
 </Project>

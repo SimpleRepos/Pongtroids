@@ -55,6 +55,12 @@
     <Filter Include="Source Files\Scenes\Scene_Game">
       <UniqueIdentifier>{5a756cfa-f870-40a3-8b12-a39ed6f15d7f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Graphics\GfxCore">
+      <UniqueIdentifier>{6debd6fe-14bb-4293-b502-7fcb75b640a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\GfxCore">
+      <UniqueIdentifier>{62895036-b0db-41f0-ad87-61863843d341}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cl_Game.cpp">
@@ -111,15 +117,6 @@
     <ClCompile Include="cl_Font.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="cl_GfxFactory.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="cl_Graphics.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="cl_ImageLoader.cpp">
-      <Filter>Source Files\Graphics</Filter>
-    </ClCompile>
     <ClCompile Include="cl_Texture.cpp">
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
@@ -130,7 +127,16 @@
       <Filter>Source Files\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="cl_Transform.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_Graphics.cpp">
+      <Filter>Source Files\Graphics\GfxCore</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_GfxFactory.cpp">
+      <Filter>Source Files\Graphics\GfxCore</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_ImageLoader.cpp">
+      <Filter>Source Files\Graphics\GfxCore</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,13 +176,7 @@
     <ClInclude Include="cl_Game.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="cl_Graphics.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="cl_Font.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="cl_GfxFactory.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="cl_Texture.h">
@@ -197,12 +197,6 @@
     <ClInclude Include="st_SharedState.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
-    <ClInclude Include="cl_ImageLoader.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="ns_Vertex.h">
-      <Filter>Header Files\Graphics</Filter>
-    </ClInclude>
     <ClInclude Include="st_ColorF.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
@@ -216,7 +210,16 @@
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="cl_Transform.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_GfxFactory.h">
+      <Filter>Header Files\Graphics\GfxCore</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_Graphics.h">
+      <Filter>Header Files\Graphics\GfxCore</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_ImageLoader.h">
+      <Filter>Header Files\Graphics\GfxCore</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

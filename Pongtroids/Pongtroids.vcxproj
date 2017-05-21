@@ -186,7 +186,6 @@
     <ClInclude Include="cl_VertexShader.h" />
     <ClInclude Include="cl_Window.h" />
     <ClInclude Include="ns_Utility.h" />
-    <ClInclude Include="ns_Vertex.h" />
     <ClInclude Include="Scene_Game.h" />
     <ClInclude Include="st_ColorF.h" />
     <ClInclude Include="st_ShaderSet.h" />

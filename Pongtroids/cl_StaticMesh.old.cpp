@@ -1,4 +1,4 @@
-#include "cl_StaticMesh.h"
+#include "cl_StaticMesh.old.h"
 #include "cl_Game.h"
 
 namespace {

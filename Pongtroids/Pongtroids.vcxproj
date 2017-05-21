@@ -167,6 +167,7 @@
     <ClCompile Include="Scene_Game.cpp" />
     <ClCompile Include="st_ColorF.cpp" />
     <ClCompile Include="st_ShaderSet.cpp" />
+    <ClCompile Include="temp_meshLoader.cpp" />
     <ClCompile Include="vcl_Scene.cpp" />
   </ItemGroup>
   <ItemGroup>

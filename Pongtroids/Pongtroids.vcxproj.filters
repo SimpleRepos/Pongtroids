@@ -139,6 +139,9 @@
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="temp_meshLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -238,11 +241,18 @@
     <None Include="..\Assets\asteroid.mesh">
       <Filter>Resource Files\Assets</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Assets\checkers.png">
+    <None Include="..\Assets\Cupid%27s Revenge.mp3">
       <Filter>Resource Files\Assets</Filter>
-    </Image>
+    </None>
+    <None Include="..\Assets\ProFontWindows.ttf">
+      <Filter>Resource Files\Assets</Filter>
+    </None>
+    <None Include="..\Assets\ProFontWindows-Bold.ttf">
+      <Filter>Resource Files\Assets</Filter>
+    </None>
+    <None Include="..\Assets\checkers.png">
+      <Filter>Resource Files\Assets</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">
@@ -251,18 +261,5 @@
     <FxCompile Include="PixelShader.hlsl">
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="..\Assets\Cupid%27s Revenge.mp3">
-      <Filter>Resource Files\Assets</Filter>
-    </Media>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="..\Assets\ProFontWindows.ttf">
-      <Filter>Resource Files\Assets</Filter>
-    </Font>
-    <Font Include="..\Assets\ProFontWindows-Bold.ttf">
-      <Filter>Resource Files\Assets</Filter>
-    </Font>
   </ItemGroup>
 </Project>

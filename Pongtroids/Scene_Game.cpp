@@ -8,11 +8,11 @@
 
 Scene_Game::Scene_Game(SharedState& shared) : 
   Scene(shared),
-  vShader(shared.factory.createVShader("../Debug/VertexShader.cso", D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)),
-  pShader(shared.factory.createPShader("../Debug/PixelShader.cso")),
+  vShader(shared.factory.createVShader("../Assets/VertexShader.cso", D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)),
+  pShader(shared.factory.createPShader("../Assets/PixelShader.cso")), 
   tex(shared.factory.createTexture(L"../Assets/asteroid_diffuse.png")),
   cBuffer(shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()),
-  asteroid(shared.factory.createStaticMesh("../Assets/asteroid.mesh", &shared.gfx))
+  mesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh"))
 {
   shared.win.addKeyFunc(VK_ESCAPE, [](HWND, LPARAM) { PostQuitMessage(0); });
 
@@ -24,7 +24,6 @@ Scene_Game::Scene_Game(SharedState& shared) :
   cam.setAspectRatio((float)shared.gfx.VIEWPORT_DIMS.width, (float)shared.gfx.VIEWPORT_DIMS.height);
   cam.setEyePos(0, 0, -5);
   cam.setTargetDir(0, 0, 1);
-
 }
 
 Scene* Scene_Game::update() {
@@ -34,9 +33,7 @@ Scene* Scene_Game::update() {
 
 void Scene_Game::draw() {
   shared.gfx.clear(ColorF::MAGENTA);
-
-  cBuffer.object = cam.getTransposedWVP(xform.asMatrix());
+  cBuffer.object = cam.getTransposedWVP(xform);
   cBuffer.update();
-  asteroid.draw();
-
+  shared.gfx.draw(mesh);
 }

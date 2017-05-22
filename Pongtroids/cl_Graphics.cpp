@@ -2,11 +2,13 @@
 #include <cassert>
 #include "ns_Utility.h"
 #include "cl_GfxFactory.h"
+#include "cl_StaticMesh.h"
 
 #pragma comment(lib, "d3d11.lib")
 
 Graphics::Graphics(Window& win) :
-  VIEWPORT_DIMS(win.USER_AREA_DIMS)
+  VIEWPORT_DIMS(win.USER_AREA_DIMS),
+  lastDrawnMesh(nullptr)
 {
   generateDeviceContextAndSwapChain(win.getHandle());
   generateBackBufferView();
@@ -33,12 +35,23 @@ void Graphics::clearEx(bool clearTarget, bool clearDepth, bool clearStencil, con
   if(flags) { context->ClearDepthStencilView(depthStencilView, flags, depth, stencil); }
 }
 
+void Graphics::draw(const StaticMesh& mesh) {
+  if(lastDrawnMesh != &mesh) { mesh.set(); }
+
+  if(mesh.INDEXED) { drawIndexed(mesh.SIZE); }
+  else             { draw(mesh.SIZE); }
+
+  lastDrawnMesh = &mesh;
+}
+
 void Graphics::draw(UINT vertexCount) {
   context->Draw(vertexCount, 0);
+  lastDrawnMesh = nullptr;
 }
 
 void Graphics::drawIndexed(UINT indexCount, UINT startOffset) {
   context->DrawIndexed(indexCount, 0, startOffset);
+  lastDrawnMesh = nullptr;
 }
 
 void Graphics::present() {

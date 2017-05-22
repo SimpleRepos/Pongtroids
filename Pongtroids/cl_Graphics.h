@@ -5,6 +5,7 @@
 #include "cl_Window.h"
 
 class GfxFactory;
+class StaticMesh;
 
 ///<summary>Encapsulates core D3D interafaces</summary>
 class Graphics {
@@ -18,6 +19,9 @@ public:
 
   ///<summary>Clear the indicated buffers using the indicated values</summary>
   void clearEx(bool clearTarget, bool clearDepth, bool clearStencil, const ColorF& color = ColorF::BLACK, float depth = 1.0f, UINT8 stencil = 0);
+
+  ///<summary>Draw a static mesh</summary>
+  void draw(const StaticMesh& mesh);
 
   ///<summary>Draw primitives using the assigned vertex buffer</summary>
   void draw(UINT vertexCount);
@@ -42,6 +46,8 @@ private:
   #if defined(DEBUG) || defined(_DEBUG)
   CComPtr<ID3D11Debug> debug;
   #endif
+
+  const StaticMesh* lastDrawnMesh;
 
   void generateDeviceContextAndSwapChain(HWND winHandle);
   void generateBackBufferView();

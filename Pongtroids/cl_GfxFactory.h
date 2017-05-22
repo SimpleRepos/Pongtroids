@@ -94,7 +94,7 @@ public:
 
   std::pair<DirectX::XMUINT2, std::vector<ColorF::uCol32>> loadRawTextureData(const std::wstring& filename);
 
-  StaticMesh createStaticMesh(const std::string& filename, Graphics* gfx);
+  StaticMesh createStaticMeshFromOldMeshFileFormat(const std::string& filename);
 
 private:
   std::unique_ptr<ImageLoader> imageLoader;

@@ -8,7 +8,7 @@ class StaticVertexBuffer {
 public:
   ///<summary>Assign this vertex buffer to a GPU register</summary>
   ///<param name="slotNum">Index of register to assign to</param>
-  void set(UINT slotNum);
+  void set(UINT slotNum) const;
 
   ///<summary>Number of vertices in the buffer</summary>
   size_t SIZE;

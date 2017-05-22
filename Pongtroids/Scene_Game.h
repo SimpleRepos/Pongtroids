@@ -22,7 +22,7 @@ private:
   Camera cam;
   Transform xform;
   ConstantBuffer<DirectX::XMFLOAT4X4> cBuffer;
-  StaticMesh asteroid;
+  StaticMesh mesh;
 
 };
 

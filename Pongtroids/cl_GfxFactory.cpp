@@ -73,7 +73,7 @@ std::pair<DirectX::XMUINT2, std::vector<ColorF::uCol32>> GfxFactory::loadRawText
   return imageLoader->loadRaw(filename);
 }
 
-StaticMesh GfxFactory::createStaticMesh(const std::string& filename, Graphics* gfx) {
+StaticMesh GfxFactory::createStaticMeshFromOldMeshFileFormat(const std::string& filename) {
   std::ifstream file(filename, std::ios::binary);
   if(!file) { throw std::runtime_error("Failed to open mesh file."); }
 
@@ -99,7 +99,7 @@ StaticMesh GfxFactory::createStaticMesh(const std::string& filename, Graphics* g
   std::vector<UINT> indices(shortIndices.size());
   for(auto i : shortIndices) { indices.push_back((UINT)i); }
 
-  return StaticMesh(verts, indices, this, gfx);
+  return StaticMesh(verts, indices, this);
 
 }
 

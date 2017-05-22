@@ -2,7 +2,7 @@
 #include "ns_Utility.h"
 
 
-void StaticVertexBuffer::set(UINT slotNum) {
+void StaticVertexBuffer::set(UINT slotNum) const {
   if(vBuffer == nullptr) {
     context->IASetVertexBuffers(slotNum, 0, 0, 0, 0);
     return;

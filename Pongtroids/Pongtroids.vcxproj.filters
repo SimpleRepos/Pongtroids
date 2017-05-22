@@ -139,7 +139,7 @@
       <Filter>Source Files\Core</Filter>
     </ClCompile>
     <ClCompile Include="cl_StaticMesh.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -225,10 +225,10 @@
       <Filter>Header Files\Graphics\GfxCore</Filter>
     </ClInclude>
     <ClInclude Include="cl_StaticMesh.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="ns_Vertex.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

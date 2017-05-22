@@ -1,7 +1,7 @@
 #include "cl_IndexBuffer.h"
 #include "ns_Utility.h"
 
-void IndexBuffer::set() {
+void IndexBuffer::set() const {
   context->IASetIndexBuffer(iBuffer, DXGI_FORMAT_R32_UINT, 0);
 }
 

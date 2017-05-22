@@ -7,7 +7,7 @@
 class IndexBuffer {
 public:
   ///<summary>Set this index buffer as active</summary>
-  void set();
+  void set() const;
 
   const size_t SIZE;
 

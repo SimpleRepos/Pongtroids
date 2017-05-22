@@ -24,7 +24,7 @@ void Transform::mulScale(DirectX::XMFLOAT3 factors) {
   scale.z *= factors.z;
 }
 
-DirectX::XMFLOAT4X4 Transform::asMatrix() const {
+Transform::operator DirectX::XMFLOAT4X4() const {
   XMVECTOR vOrigin   = XMVectorZero();
   XMVECTOR vRot      = XMLoadFloat4(&rotationQuaternion);
   XMVECTOR vTrans    = XMLoadFloat3(&translation);

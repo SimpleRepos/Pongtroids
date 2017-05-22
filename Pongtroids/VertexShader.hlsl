@@ -9,6 +9,7 @@ struct VOut {
 
 struct VIn {
   float4 pos : POSITION;
+  float4 norm : NORMAL;
   float2 uv  : TEXCOORD;
 };
 

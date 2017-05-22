@@ -84,7 +84,7 @@ Scene_Game::Scene_Game(SharedState& shared) :
   pShader(shared.factory.createPShader("../Debug/PixelShader.cso")),
   verts(shared.factory.createStaticVertexBuffer(getRoidVerts())),
   iBuffer(shared.factory.createIndexBuffer(getRoidIndices())),
-  tex(shared.factory.createTexture(L"../Assets/checkers.png")),
+  tex(shared.factory.createTexture(L"../Assets/asteroid_diffuse.png")),
   cBuffer(shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>())
 {
   shared.win.addKeyFunc(VK_ESCAPE, [](HWND, LPARAM) { PostQuitMessage(0); });

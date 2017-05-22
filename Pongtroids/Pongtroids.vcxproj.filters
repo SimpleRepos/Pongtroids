@@ -244,6 +244,18 @@
     <None Include="..\Assets\checkers.png">
       <Filter>Resource Files\Assets</Filter>
     </None>
+    <None Include="..\readme.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\license.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\Assets\asteroid_diffuse.png">
+      <Filter>Resource Files\Assets</Filter>
+    </None>
+    <None Include="..\Assets\asteroid_normal.png">
+      <Filter>Resource Files\Assets</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

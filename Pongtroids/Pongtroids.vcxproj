@@ -196,6 +196,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Assets\asteroid.mesh" />
+    <None Include="..\license.md">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="..\readme.md" />
     <None Include="tcl_ConstantBuffer.inl" />
     <None Include="tcl_DynamicVertexBuffer.inl" />
   </ItemGroup>
@@ -228,6 +232,10 @@
     <None Include="..\Assets\ProFontWindows.ttf">
       <FileType>Document</FileType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Assets\asteroid_diffuse.png" />
+    <None Include="..\Assets\asteroid_normal.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -67,3 +67,10 @@ OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 
 -----------------------------------------------------------------------
+Asteroid Textures
+-----------------------------------------------------------------------
+Pattern 70 by Yughues
+From https://opengameart.org/content/tilling-texture-pack-13
+
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------

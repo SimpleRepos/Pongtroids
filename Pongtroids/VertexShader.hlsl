@@ -8,14 +8,14 @@ struct VOut {
 };
 
 struct VIn {
-  float4 pos : POSITION;
-  float4 norm : NORMAL;
-  float2 uv  : TEXCOORD;
+  float3 pos  : POSITION;
+  float3 norm : NORMAL;
+  float2 uv   : TEXCOORD;
 };
 
 VOut main(VIn input) {
   VOut output;
-  output.pos = mul(input.pos, transWVP);
+  output.pos = mul(float4(input.pos, 1), transWVP);
   output.uv = input.uv;
 	return output;
 }

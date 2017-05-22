@@ -161,6 +161,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ns_Utility.cpp" />
     <ClCompile Include="Scene_Game.cpp" />
+    <ClCompile Include="cl_StaticMesh.cpp" />
     <ClCompile Include="st_ColorF.cpp" />
     <ClCompile Include="st_ShaderSet.cpp" />
     <ClCompile Include="vcl_Scene.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="cl_Input.h" />
     <ClInclude Include="cl_PixelShader.h" />
     <ClInclude Include="cl_RasterizerState.h" />
+    <ClInclude Include="cl_StaticMesh.h" />
     <ClInclude Include="cl_Transform.h" />
     <ClInclude Include="cl_StaticVertexBuffer.h" />
     <ClInclude Include="cl_Texture.h" />
@@ -186,6 +188,7 @@
     <ClInclude Include="cl_VertexShader.h" />
     <ClInclude Include="cl_Window.h" />
     <ClInclude Include="ns_Utility.h" />
+    <ClInclude Include="ns_Vertex.h" />
     <ClInclude Include="Scene_Game.h" />
     <ClInclude Include="st_ColorF.h" />
     <ClInclude Include="st_ShaderSet.h" />

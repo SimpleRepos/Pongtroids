@@ -138,6 +138,9 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
+    <ClCompile Include="cl_StaticMesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cl_DomainShader.h">
@@ -220,6 +223,12 @@
     </ClInclude>
     <ClInclude Include="cl_ImageLoader.h">
       <Filter>Header Files\Graphics\GfxCore</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_StaticMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ns_Vertex.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

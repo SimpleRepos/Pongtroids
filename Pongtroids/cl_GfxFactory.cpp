@@ -11,6 +11,9 @@
 #include "cl_Texture.h"
 #include "cl_StaticVertexBuffer.h"
 #include "cl_RasterizerState.h"
+#include "cl_StaticMesh.h"
+#include <fstream>
+#include "ns_Vertex.h"
 
 GfxFactory::GfxFactory(ID3D11Device* device, ID3D11DeviceContext* context) :
   imageLoader(std::make_unique<ImageLoader>()),
@@ -69,3 +72,35 @@ Texture GfxFactory::createTexture(const DirectX::XMUINT2 dimensions, const std::
 std::pair<DirectX::XMUINT2, std::vector<ColorF::uCol32>> GfxFactory::loadRawTextureData(const std::wstring& filename) {
   return imageLoader->loadRaw(filename);
 }
+
+StaticMesh GfxFactory::createStaticMesh(const std::string& filename, Graphics* gfx) {
+  std::ifstream file(filename, std::ios::binary);
+  if(!file) { throw std::runtime_error("Failed to open mesh file."); }
+
+  constexpr unsigned MAGIC_WORD = 'HSEM';
+
+  struct {
+    unsigned magic;
+    unsigned reserved;
+    unsigned vertCt;
+    unsigned indexCt;
+    unsigned unused[18];
+  } header;
+
+  file.read((char*)&header, sizeof(header));
+  if(header.magic != MAGIC_WORD) { throw std::runtime_error("Bad mesh file"); }
+
+  std::vector<Vertex::Pos3Norm3Tex2> verts(header.vertCt);
+  file.read((char*)verts.data(), sizeof(Vertex::Pos3Norm3Tex2) * verts.size());
+
+  std::vector<short> shortIndices(header.indexCt);
+  file.read((char*)shortIndices.data(), sizeof(short) * shortIndices.size());
+
+  std::vector<UINT> indices(shortIndices.size());
+  for(auto i : shortIndices) { indices.push_back((UINT)i); }
+
+  return StaticMesh(verts, indices, this, gfx);
+
+}
+
+

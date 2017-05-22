@@ -19,6 +19,8 @@ class DomainShader;
 class PixelShader;
 class StaticVertexBuffer;
 class RasterizerState;
+class StaticMesh;
+class Graphics;
 
 ///<summary>Factory for graphics objects</summary>
 class GfxFactory {
@@ -91,6 +93,8 @@ public:
   Texture createTexture(const DirectX::XMUINT2 dimensions, const std::vector<uint8_t>& data, D3D11_FILTER filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR);
 
   std::pair<DirectX::XMUINT2, std::vector<ColorF::uCol32>> loadRawTextureData(const std::wstring& filename);
+
+  StaticMesh createStaticMesh(const std::string& filename, Graphics* gfx);
 
 private:
   std::unique_ptr<ImageLoader> imageLoader;

@@ -152,10 +152,6 @@
     <ClCompile Include="cl_Input.cpp" />
     <ClCompile Include="cl_PixelShader.cpp" />
     <ClCompile Include="cl_RasterizerState.cpp" />
-    <ClCompile Include="cl_StaticMesh.old.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="cl_Transform.cpp" />
     <ClCompile Include="cl_StaticVertexBuffer.cpp" />
     <ClCompile Include="cl_Texture.cpp" />
@@ -167,7 +163,6 @@
     <ClCompile Include="Scene_Game.cpp" />
     <ClCompile Include="st_ColorF.cpp" />
     <ClCompile Include="st_ShaderSet.cpp" />
-    <ClCompile Include="temp_meshLoader.cpp" />
     <ClCompile Include="vcl_Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -184,10 +179,6 @@
     <ClInclude Include="cl_Input.h" />
     <ClInclude Include="cl_PixelShader.h" />
     <ClInclude Include="cl_RasterizerState.h" />
-    <ClInclude Include="cl_StaticMesh.old.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="cl_Transform.h" />
     <ClInclude Include="cl_StaticVertexBuffer.h" />
     <ClInclude Include="cl_Texture.h" />

@@ -6,7 +6,8 @@ void IndexBuffer::set() {
 }
 
 IndexBuffer::IndexBuffer(const std::vector<UINT>& indices, ID3D11Device* device, ID3D11DeviceContext* context) : 
-  context(context) 
+  context(context),
+  SIZE(indices.size())
 {
   if(indices.empty()) { return; }
 

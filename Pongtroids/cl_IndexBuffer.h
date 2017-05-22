@@ -9,6 +9,8 @@ public:
   ///<summary>Set this index buffer as active</summary>
   void set();
 
+  const size_t SIZE;
+
 private:
   friend class GfxFactory;
   IndexBuffer(const std::vector<UINT>& indices, ID3D11Device* device, ID3D11DeviceContext* context);

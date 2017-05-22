@@ -135,14 +135,8 @@
     <ClCompile Include="cl_ImageLoader.cpp">
       <Filter>Source Files\Graphics\GfxCore</Filter>
     </ClCompile>
-    <ClCompile Include="cl_StaticMesh.old.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="temp_meshLoader.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -226,9 +220,6 @@
     </ClInclude>
     <ClInclude Include="cl_ImageLoader.h">
       <Filter>Header Files\Graphics\GfxCore</Filter>
-    </ClInclude>
-    <ClInclude Include="cl_StaticMesh.old.h">
-      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

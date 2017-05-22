@@ -4,8 +4,8 @@
 #include "cl_VertexShader.h"
 #include "cl_PixelShader.h"
 #include "cl_StaticVertexBuffer.h"
+#include "cl_IndexBuffer.h"
 #include "cl_Texture.h"
-
 #include "cl_Camera.h"
 #include "cl_Transform.h"
 #include "tcl_ConstantBuffer.h"
@@ -20,15 +20,11 @@ private:
   VertexShader vShader;
   PixelShader pShader;
   StaticVertexBuffer verts;
+  IndexBuffer iBuffer;
   Texture tex;
   Camera cam;
   Transform xform;
-
-  struct CB {
-    DirectX::XMFLOAT4X4 transWVP;
-  };
-
-  ConstantBuffer<CB> cBuffer;
+  ConstantBuffer<DirectX::XMFLOAT4X4> cBuffer;
 
 };
 

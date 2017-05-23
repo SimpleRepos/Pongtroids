@@ -8,6 +8,13 @@ void Transform::translate(DirectX::XMFLOAT3 offset) {
   translation.z += offset.z;
 }
 
+void Transform::translate(DirectX::XMVECTOR& offset) {
+  XMStoreFloat3(
+    &translation,
+    XMLoadFloat3(&translation) + offset
+  );
+}
+
 void Transform::rotate(DirectX::XMFLOAT3 axis, float radians) {
   XMStoreFloat4(
     &rotationQuaternion, 
@@ -18,10 +25,24 @@ void Transform::rotate(DirectX::XMFLOAT3 axis, float radians) {
   );
 }
 
+void Transform::rotate(DirectX::XMVECTOR& axis, float radians) {
+  XMStoreFloat4(
+    &rotationQuaternion, 
+    XMQuaternionMultiply(
+      XMLoadFloat4(&rotationQuaternion), 
+      XMQuaternionRotationAxis(axis, radians)
+    )
+  );
+}
+
 void Transform::mulScale(DirectX::XMFLOAT3 factors) {
   scale.x *= factors.x;
   scale.y *= factors.y;
   scale.z *= factors.z;
+}
+
+void Transform::mulScale(float uniformFactor) {
+  mulScale({ uniformFactor, uniformFactor, uniformFactor });
 }
 
 Transform::operator DirectX::XMFLOAT4X4() const {

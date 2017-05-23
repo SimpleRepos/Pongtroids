@@ -3,8 +3,11 @@
 
 struct Transform {
   void translate(DirectX::XMFLOAT3 offset);
+  void translate(DirectX::XMVECTOR& offset);
   void rotate(DirectX::XMFLOAT3 axis, float radians);
+  void rotate(DirectX::XMVECTOR& axis, float radians);
   void mulScale(DirectX::XMFLOAT3 factors);
+  void mulScale(float uniformFactor);
 
   DirectX::XMFLOAT3 translation = { 0, 0, 0 };
   DirectX::XMFLOAT4 rotationQuaternion = { 0, 0, 0, 1 };

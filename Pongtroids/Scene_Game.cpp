@@ -5,6 +5,7 @@
 #include <cmath>
 #include <fstream>
 #include "ns_Vertex.h"
+#include <random>
 
 Scene_Game::Scene_Game(SharedState& shared) : 
   Scene(shared),
@@ -12,7 +13,8 @@ Scene_Game::Scene_Game(SharedState& shared) :
   pShader(shared.factory.createPShader("../Assets/PixelShader.cso")), 
   tex(shared.factory.createTexture(L"../Assets/asteroid_diffuse.png")),
   cBuffer(shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()),
-  mesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh"))
+  mesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh")),
+  roid({0,0}, {0.2f, 0.3f})
 {
   shared.win.addKeyFunc(VK_ESCAPE, [](HWND, LPARAM) { PostQuitMessage(0); });
 
@@ -27,13 +29,13 @@ Scene_Game::Scene_Game(SharedState& shared) :
 }
 
 Scene* Scene_Game::update() {
-  xform.rotate(DirectX::XMFLOAT3(1, 1, 1), (float)shared.timer.getTickDT());
+  roid.update((float)shared.timer.getTickDT());
   return this;
 }
 
 void Scene_Game::draw() {
   shared.gfx.clear(ColorF::MAGENTA);
-  cBuffer.object = cam.getTransposedWVP(xform);
+  cBuffer.object = cam.getTransposedWVP(roid.xform);
   cBuffer.update();
   shared.gfx.draw(mesh);
 }

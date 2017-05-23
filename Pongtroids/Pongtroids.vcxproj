@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="simpleCollision.cpp" />
+    <ClCompile Include="st_Asteroid.cpp" />
     <ClCompile Include="cl_Camera.cpp" />
     <ClCompile Include="cl_DomainShader.cpp" />
     <ClCompile Include="cl_Font.cpp" />
@@ -167,6 +169,8 @@
     <ClCompile Include="vcl_Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="simpleCollision.h" />
+    <ClInclude Include="st_Asteroid.h" />
     <ClInclude Include="cl_Camera.h" />
     <ClInclude Include="cl_DomainShader.h" />
     <ClInclude Include="cl_Font.h" />

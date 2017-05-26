@@ -8,6 +8,7 @@
 #include "tcl_DynamicVertexBuffer.h"
 #include <memory>
 #include <DirectXMath.h>
+#include "ns_Vertex.h"
 
 class ImageLoader;
 class Texture;
@@ -95,6 +96,8 @@ public:
   std::pair<DirectX::XMUINT2, std::vector<ColorF::uCol32>> loadRawTextureData(const std::wstring& filename);
 
   StaticMesh createStaticMeshFromOldMeshFileFormat(const std::string& filename);
+
+  StaticMesh createStaticMeshFromVertices(const std::vector<Vertex::Pos3Norm3Tex2>& verts, const std::vector<UINT> indices = {});
 
 private:
   std::unique_ptr<ImageLoader> imageLoader;

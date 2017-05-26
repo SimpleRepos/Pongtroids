@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 
 struct SharedState;
 
@@ -9,12 +10,17 @@ public:
   virtual ~Scene() = default;
 
   ///<summary>Update the simulation by SharedState::Timer::getTickDT() seconds</summary>
-  virtual Scene* update() = 0;
+  Scene* update();
+  virtual void passiveUpdate() {}
+  virtual Scene* activeUpdate() = 0;
 
   ///<summary>Render the scene</summary>
-  virtual void draw() = 0;
+  void draw();
+  virtual void passiveDraw() {}
+  virtual void activeDraw() = 0;
 
 protected:
   SharedState& shared;
+  std::unique_ptr<Scene> subState;
 
 };

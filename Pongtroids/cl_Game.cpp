@@ -14,6 +14,7 @@ Game::~Game() {
 void Game::run() {
   while(shared.win.update() && scene) {
     shared.timer.tick();
+    shared.input.update();
 
     Scene* next = scene->update();
     if(next != scene.get()) { scene.reset(next); }

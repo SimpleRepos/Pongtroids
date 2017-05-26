@@ -8,12 +8,13 @@
 #include "tcl_ConstantBuffer.h"
 #include "cl_StaticMesh.h"
 #include "st_Asteroid.h"
+#include "st_Paddle.h"
 
 class Scene_Game : public Scene {
 public:
   Scene_Game(SharedState& shared);
-  Scene* update() override;
-  void draw() override;
+  Scene* activeUpdate() override;
+  void activeDraw() override;
 
 private:
   VertexShader vShader;
@@ -23,6 +24,8 @@ private:
   ConstantBuffer<DirectX::XMFLOAT4X4> cBuffer;
   StaticMesh mesh;
   Asteroid roid;
+  Paddle paddle;
+  StaticMesh paddleMesh;
 
 };
 

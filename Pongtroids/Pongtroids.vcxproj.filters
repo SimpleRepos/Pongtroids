@@ -147,6 +147,12 @@
     <ClCompile Include="simpleCollision.cpp">
       <Filter>Source Files\Scenes\Scene_Game</Filter>
     </ClCompile>
+    <ClCompile Include="cl_Ball.cpp">
+      <Filter>Source Files\Scenes\Scene_Game</Filter>
+    </ClCompile>
+    <ClCompile Include="st_Paddle.cpp">
+      <Filter>Source Files\Scenes\Scene_Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cl_DomainShader.h">
@@ -240,6 +246,12 @@
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
     <ClInclude Include="simpleCollision.h">
+      <Filter>Header Files\Scenes\Scene_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_Ball.h">
+      <Filter>Header Files\Scenes\Scene_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="st_Paddle.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
   </ItemGroup>

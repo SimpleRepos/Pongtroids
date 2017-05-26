@@ -13,7 +13,6 @@
 #include "cl_RasterizerState.h"
 #include "cl_StaticMesh.h"
 #include <fstream>
-#include "ns_Vertex.h"
 
 GfxFactory::GfxFactory(ID3D11Device* device, ID3D11DeviceContext* context) :
   imageLoader(std::make_unique<ImageLoader>()),
@@ -103,4 +102,6 @@ StaticMesh GfxFactory::createStaticMeshFromOldMeshFileFormat(const std::string& 
 
 }
 
-
+StaticMesh GfxFactory::createStaticMeshFromVertices(const std::vector<Vertex::Pos3Norm3Tex2>& verts, const std::vector<UINT> indices) {
+  return StaticMesh(verts, indices, this);
+}

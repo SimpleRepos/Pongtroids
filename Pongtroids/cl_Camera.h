@@ -97,6 +97,9 @@ public:
   ///<summary>Set the near and far limits of the view frustum</summary>
   void setDepthLimits(float zNear, float zFar);
   
+  ///<summary>Create orthographic projection with indicated dimensions (set FoV or aspect ratio to switch back)</summary>
+  void setOrthographic(float width, float height);
+
 private:
   DirectX::XMFLOAT3 eyePos;
   enum LookMode { AT, TOWARD } lookMode;
@@ -111,4 +114,6 @@ private:
   mutable DirectX::XMFLOAT4X4 view;
   mutable DirectX::XMFLOAT4X4 proj;
 
+  bool ortho = false;
+  float orthoDims[2];
 };

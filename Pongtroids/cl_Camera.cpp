@@ -37,8 +37,18 @@ XMFLOAT4X4 Camera::getView() const {
 
 XMFLOAT4X4 Camera::getProj() const {
   if(dirtyProj) {
-    XMMATRIX p = DirectX::XMMatrixPerspectiveFovLH(fovY, aspectRatio, nearZ, farZ);
-    XMStoreFloat4x4(&proj, p);
+    if(ortho) {
+      XMStoreFloat4x4(
+        &proj, 
+        DirectX::XMMatrixOrthographicLH(orthoDims[0], orthoDims[1], nearZ, farZ)
+      );
+    }
+    else {
+      XMStoreFloat4x4(
+        &proj, 
+        DirectX::XMMatrixPerspectiveFovLH(fovY, aspectRatio, nearZ, farZ)
+      );
+    }
 
     dirtyProj = false;
   }
@@ -169,11 +179,13 @@ void Camera::setTargetDir(float x, float y, float z) {
 void Camera::setFovY(float fov) {
   dirtyProj = true;
   fovY = fov;
+  ortho = false;
 }
 
 void Camera::setAspectRatio(float ratio) {
   dirtyProj = true;
   aspectRatio = ratio;
+  ortho = false;
 }
 
 void Camera::setAspectRatio(float width, float height) {
@@ -187,5 +199,10 @@ void Camera::setDepthLimits(float zNear, float zFar) {
   farZ = zFar;
 }
 
-
+void Camera::setOrthographic(float width, float height) {
+  dirtyProj = true;
+  orthoDims[0] = width;
+  orthoDims[1] = height;
+  ortho = true;
+}
 

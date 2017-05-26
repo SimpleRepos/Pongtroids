@@ -9,13 +9,13 @@
 
 namespace {
 
-  std::vector<Vertex::Pos3Norm3Tex2> paddleVerts = {
-    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(-0.125f, +0.5f, 0), DirectX::XMFLOAT3(0, 0, 1), DirectX::XMFLOAT2(0, 0) },
-    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(+0.125f, +0.5f, 0), DirectX::XMFLOAT3(0, 0, 1), DirectX::XMFLOAT2(1, 0) },
-    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(-0.125f, -0.5f, 0), DirectX::XMFLOAT3(0, 0, 1), DirectX::XMFLOAT2(0, 1) },
-    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(-0.125f, -0.5f, 0), DirectX::XMFLOAT3(0, 0, 1), DirectX::XMFLOAT2(0, 1) },
-    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(+0.125f, +0.5f, 0), DirectX::XMFLOAT3(0, 0, 1), DirectX::XMFLOAT2(1, 0) },
-    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(+0.125f, -0.5f, 0), DirectX::XMFLOAT3(0, 0, 1), DirectX::XMFLOAT2(1, 1) }
+  std::vector<Vertex::Pos3Norm3Tex2> squareVerts = {
+    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(-1, +1, 0), DirectX::XMFLOAT3(0, 0, 1), DirectX::XMFLOAT2(0, 0) },
+    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(+1, +1, 0), DirectX::XMFLOAT3(0, 0, 1), DirectX::XMFLOAT2(1, 0) },
+    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(-1, -1, 0), DirectX::XMFLOAT3(0, 0, 1), DirectX::XMFLOAT2(0, 1) },
+    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(-1, -1, 0), DirectX::XMFLOAT3(0, 0, 1), DirectX::XMFLOAT2(0, 1) },
+    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(+1, +1, 0), DirectX::XMFLOAT3(0, 0, 1), DirectX::XMFLOAT2(1, 0) },
+    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(+1, -1, 0), DirectX::XMFLOAT3(0, 0, 1), DirectX::XMFLOAT2(1, 1) }
   };
 }
 
@@ -26,8 +26,8 @@ Scene_Game::Scene_Game(SharedState& shared) :
   tex(shared.factory.createTexture(L"../Assets/asteroid_diffuse.png")),
   cBuffer(shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()),
   mesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh")),
-  roid({0,0}, {0.2f, 0.3f}),
-  paddleMesh(shared.factory.createStaticMeshFromVertices(paddleVerts))
+  roid({0,0}, { 30, 20 }),
+  paddleMesh(shared.factory.createStaticMeshFromVertices(squareVerts))
 {
   shared.win.addKeyFunc(VK_ESCAPE, [](HWND, LPARAM) { PostQuitMessage(0); });
 
@@ -36,13 +36,12 @@ Scene_Game::Scene_Game(SharedState& shared) :
   tex.set(0);
   cBuffer.set(0);
 
-  cam.setAspectRatio((float)shared.gfx.VIEWPORT_DIMS.width, (float)shared.gfx.VIEWPORT_DIMS.height);
+  cam.setOrthographic((float)shared.gfx.VIEWPORT_DIMS.width, (float)shared.gfx.VIEWPORT_DIMS.height);
+  cam.setDepthLimits(-100, 1000);
   cam.setEyePos(0, 0, -5);
   cam.setTargetDir(0, 0, 1);
 
-  auto& ppos = paddle.xform.translation;
-  ppos.x = paddle.RIGHT_X;
-
+  paddle.xform.mulScale({ 10, 10, 1 });
 }
 
 Scene* Scene_Game::activeUpdate() {
@@ -53,7 +52,7 @@ Scene* Scene_Game::activeUpdate() {
 }
 
 void Scene_Game::activeDraw() {
-  shared.gfx.clear(ColorF::MAGENTA);
+  shared.gfx.clear(ColorF::BLACK);
 
   cBuffer.object = cam.getTransposedWVP(roid.xform);
   cBuffer.update();

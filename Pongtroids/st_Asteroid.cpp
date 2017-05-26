@@ -2,7 +2,7 @@
 
 using namespace DirectX;
 
-SC::Rect Asteroid::bounds = { -2, 2.5f, 2, -2.5f };
+SC::Rect Asteroid::bounds = { -300, 300, 300, -300 };
 
 void Asteroid::update(float dt) {
   XMVECTOR vel = XMLoadFloat2(&velocity);
@@ -12,21 +12,23 @@ void Asteroid::update(float dt) {
   //bounds interactions
   float transgress;
   //bounce off horizontally
-  transgress = xform.translation.x - bounds.right;
+  transgress = (xform.translation.x + collider.radius) - bounds.right;
   if(transgress > 0) {
-    xform.translation.x = bounds.right - transgress;
+    xform.translation.x -= 2 * transgress;
     velocity.x = -velocity.x;
   }
-  transgress = bounds.left - xform.translation.x;
+
+  transgress = bounds.left - (xform.translation.x - collider.radius);
   if(transgress > 0) {
-    xform.translation.x = bounds.left + transgress;
+    xform.translation.x += 2 * transgress;
     velocity.x = -velocity.x;
   }
+
   //loop around vertically
-  transgress = xform.translation.y - bounds.top;
-  if(transgress > 0) { xform.translation.y = bounds.bottom + transgress; }
-  transgress = bounds.bottom - xform.translation.y;
-  if(transgress > 0) { xform.translation.y = bounds.top - transgress; }
+  transgress = xform.translation.y - (bounds.top + collider.radius);
+  if(transgress > 0) { xform.translation.y = (bounds.bottom - collider.radius) + transgress; }
+  transgress = (bounds.bottom - collider.radius) - xform.translation.y;
+  if(transgress > 0) { xform.translation.y = (bounds.top + collider.radius) - transgress; }
 
 }
 
@@ -36,9 +38,9 @@ Asteroid::Asteroid(DirectX::XMFLOAT2 position, DirectX::XMFLOAT2 velocity, Size 
   alive(true)
 {
   switch(size) {
-  case LARGE:  collider.radius = 0.5f;   break;
-  case MEDIUM: collider.radius = 0.25f;  break;
-  case SMALL:  collider.radius = 0.125f; break;
+  case LARGE:  collider.radius = 50; break;
+  case MEDIUM: collider.radius = 25;  break;
+  case SMALL:  collider.radius = 12;  break;
   };
 
   xform.mulScale(collider.radius);

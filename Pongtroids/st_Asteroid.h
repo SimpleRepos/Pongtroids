@@ -10,7 +10,7 @@ struct Asteroid {
   void update(float dt);
 
 
-  Size size;
+  const Size size;
   Transform xform;
   DirectX::XMFLOAT2 velocity;
   bool alive;

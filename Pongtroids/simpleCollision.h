@@ -14,10 +14,10 @@ namespace SC {
   //Rect has helper functions for treating it as an
   //x,y,width,height rect, as that is more convenient
   //for some applications.
-  //The raw representation is left,right,top,bottom, though,
-  //as that is more convenient for acting on during testing.
-  //The floats can be accessed directly, so the functions
-  //are optional.
+  //The raw representation is left,top,right,bottom (LTRB),
+  //though, as that is more convenient for acting on during
+  //testing. The floats can be accessed directly, so the
+  //functions are optional.
   struct Rect {
     float left, top, right, bottom;
 

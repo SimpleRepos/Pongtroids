@@ -1,14 +1,28 @@
 #include "st_Paddle.h"
+#include "st_Asteroid.h"
+
+const SC::Rect Paddle::bounds = { -390, 290, 390, -290 };
+const float Paddle::SPEED = 100;
+
+namespace {
+  float clamp(float val, float min, float max) {
+    if(val < min) { val = min; }
+    if(val > max) { val = max; }
+    return val;
+  }
+}
 
 void Paddle::update(SharedState& shared, float dt) {
-  float motion = 0;
-  if(shared.input.keyboard().buttons[VK_UP].held)   { motion += SPEED; }
-  if(shared.input.keyboard().buttons[VK_DOWN].held) { motion -= SPEED; }
-  motion *= dt;
+  const float displacement = SPEED * dt;
 
   auto& y = xform.translation.y;
-  y += motion;
-  if(y > TOP_BOUND)    { y = TOP_BOUND; }
-  if(y < BOTTOM_BOUND) { y = BOTTOM_BOUND; }
+  if(shared.input.keyboard().buttons[VK_UP].held)   { y += displacement; }
+  if(shared.input.keyboard().buttons[VK_DOWN].held) { y -= displacement; }
+  y = clamp(y, bounds.bottom, bounds.top);
+
+  auto& x = xform.translation.x;
+  if(shared.input.keyboard().buttons[VK_LEFT].held)   { x -= displacement; }
+  if(shared.input.keyboard().buttons[VK_RIGHT].held)  { x += displacement; }
+  x = clamp(x, bounds.left, bounds.right);
 
 }

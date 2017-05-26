@@ -7,6 +7,7 @@
 #include "ns_Vertex.h"
 
 namespace {
+  std::uniform_real_distribution<float> roidVecDist(-50, 50);
 
   std::vector<Vertex::Pos3Norm3Tex2> squareVerts = {
     Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(-1, +1, 0), DirectX::XMFLOAT3(0, 0, 1), DirectX::XMFLOAT2(0, 0) },
@@ -25,7 +26,7 @@ Scene_Game::Scene_Game(SharedState& shared) :
   tex(shared.factory.createTexture(L"../Assets/asteroid_diffuse.png")),
   cBuffer(shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()),
   mesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh")),
-  roid({0,0}, { 30, 20 }),
+  roid({0,0}, { roidVecDist(shared.rng), roidVecDist(shared.rng) }),
   paddleMesh(shared.factory.createStaticMeshFromVertices(squareVerts)),
   black(shared.factory.createTexture(L"../Assets/black.png"))
 {

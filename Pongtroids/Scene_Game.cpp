@@ -5,7 +5,6 @@
 #include <cmath>
 #include <fstream>
 #include "ns_Vertex.h"
-#include <random>
 
 namespace {
 
@@ -27,7 +26,8 @@ Scene_Game::Scene_Game(SharedState& shared) :
   cBuffer(shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()),
   mesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh")),
   roid({0,0}, { 30, 20 }),
-  paddleMesh(shared.factory.createStaticMeshFromVertices(squareVerts))
+  paddleMesh(shared.factory.createStaticMeshFromVertices(squareVerts)),
+  black(shared.factory.createTexture(L"../Assets/black.png"))
 {
   shared.win.addKeyFunc(VK_ESCAPE, [](HWND, LPARAM) { PostQuitMessage(0); });
 
@@ -41,7 +41,13 @@ Scene_Game::Scene_Game(SharedState& shared) :
   cam.setEyePos(0, 0, -5);
   cam.setTargetDir(0, 0, 1);
 
-  paddle.xform.mulScale({ 10, 10, 1 });
+  paddle.xform.mulScale({ 10, 50, 1 });
+  paddle.xform.translation.x = 375;
+  paddle.collider.x(paddle.xform.translation.x - paddle.xform.scale.x);
+  paddle.collider.width(paddle.xform.scale.x * 2);
+  paddle.collider.height(paddle.xform.scale.y * 2);
+
+  bgx = cam.getTransposedWVP(Transform{ {0,0,100}, {0,0,0,1}, {Asteroid::bounds.right, Asteroid::bounds.top, 1} });
 }
 
 Scene* Scene_Game::activeUpdate() {
@@ -52,13 +58,19 @@ Scene* Scene_Game::activeUpdate() {
 }
 
 void Scene_Game::activeDraw() {
-  shared.gfx.clear(ColorF::BLACK);
+  shared.gfx.clear(ColorF::CYAN);
 
+  tex.set(0);
   cBuffer.object = cam.getTransposedWVP(roid.xform);
   cBuffer.update();
   shared.gfx.draw(mesh);
 
   cBuffer.object = cam.getTransposedWVP(paddle.xform);
+  cBuffer.update();
+  shared.gfx.draw(paddleMesh);
+
+  black.set(0);
+  cBuffer.object = bgx;
   cBuffer.update();
   shared.gfx.draw(paddleMesh);
 

@@ -2,7 +2,7 @@
 
 using namespace DirectX;
 
-SC::Rect Asteroid::bounds = { -300, 300, 300, -300 };
+SC::Rect Asteroid::bounds = { -350, 300, 350, -300 };
 
 void Asteroid::update(float dt) {
   XMVECTOR vel = XMLoadFloat2(&velocity);

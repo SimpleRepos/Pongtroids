@@ -252,6 +252,9 @@
     <None Include="..\Assets\asteroid_diffuse.png" />
     <None Include="..\Assets\asteroid_normal.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Assets\black.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

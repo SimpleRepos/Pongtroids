@@ -289,6 +289,9 @@
     <None Include="..\Assets\asteroid_normal.png">
       <Filter>Resource Files\Assets</Filter>
     </None>
+    <None Include="..\Assets\black.png">
+      <Filter>Resource Files\Assets</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

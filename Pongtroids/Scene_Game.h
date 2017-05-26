@@ -26,6 +26,8 @@ private:
   Asteroid roid;
   Paddle paddle;
   StaticMesh paddleMesh;
+  Texture black;
+  DirectX::XMFLOAT4X4 bgx;
 
 };
 

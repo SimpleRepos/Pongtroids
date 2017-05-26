@@ -16,6 +16,14 @@ public:
   Scene* activeUpdate() override;
   void activeDraw() override;
 
+  static const struct Regions {
+    SC::Rect middle;
+    SC::Rect left;
+    SC::Rect top;
+    SC::Rect right;
+    SC::Rect bottom;
+  } regions;
+
 private:
   VertexShader vShader;
   PixelShader pShader;
@@ -28,6 +36,6 @@ private:
   StaticMesh paddleMesh;
   Texture black;
   DirectX::XMFLOAT4X4 bgx;
-
+  
 };
 

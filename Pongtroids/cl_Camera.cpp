@@ -39,8 +39,8 @@ XMFLOAT4X4 Camera::getProj() const {
   if(dirtyProj) {
     if(ortho) {
       XMStoreFloat4x4(
-        &proj, 
-        DirectX::XMMatrixOrthographicLH(orthoDims[0], orthoDims[1], nearZ, farZ)
+        &proj,                                 //L  R             B             T
+        DirectX::XMMatrixOrthographicOffCenterLH(0, orthoDims[0], orthoDims[1], 0, nearZ, farZ)
       );
     }
     else {

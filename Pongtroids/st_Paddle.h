@@ -9,7 +9,6 @@ struct Paddle {
   Transform xform;
   SC::Rect collider;
 
-  static const SC::Rect bounds;
   static const float SPEED;
 
 };

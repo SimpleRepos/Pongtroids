@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="st_Ball.cpp" />
     <ClCompile Include="st_Paddle.cpp" />
     <ClCompile Include="simpleCollision.cpp" />
     <ClCompile Include="st_Asteroid.cpp" />

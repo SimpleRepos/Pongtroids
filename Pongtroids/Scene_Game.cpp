@@ -57,9 +57,18 @@ Scene_Game::Scene_Game(SharedState& shared) :
   paddle.xform.mulScale({ 20, 100, 1 });
   paddle.xform.translation.x = 765;
   paddle.xform.translation.y = ((float)shared.gfx.VIEWPORT_DIMS.height - paddle.xform.scale.y) / 2;
-  paddle.collider.x(paddle.xform.translation.x - paddle.xform.scale.x);
+  paddle.collider.x(paddle.xform.translation.x);
+  paddle.collider.y(paddle.xform.translation.y);
   paddle.collider.width(paddle.xform.scale.x);
   paddle.collider.height(paddle.xform.scale.y);
+
+  ball.xform.translation = { 200, 200, 0 };
+  ball.collider.radius = 10;
+  ball.xform.mulScale(ball.collider.radius);
+  DirectX::XMVECTOR bVel = DirectX::XMVectorSet(roidVecDist(shared.rng), roidVecDist(shared.rng), 0, 0);
+  bVel = DirectX::XMVector2Normalize(bVel);
+  bVel = DirectX::XMVectorScale(bVel, 200);
+  DirectX::XMStoreFloat2(&ball.velocity, bVel);
 
   Transform bg;
   bg.translation.x = MID_REGION.left;
@@ -73,6 +82,7 @@ Scene* Scene_Game::activeUpdate() {
   float dt = (float)shared.timer.getTickDT();
   roid.update(dt);
   paddle.update(shared, dt);
+  ball.update(dt, paddle);
   return this;
 }
 
@@ -85,6 +95,10 @@ void Scene_Game::activeDraw() {
   shared.gfx.draw(mesh);
 
   cBuffer.object = cam.getTransposedWVP(paddle.xform);
+  cBuffer.update();
+  shared.gfx.draw(paddleMesh);
+
+  cBuffer.object = cam.getTransposedWVP(ball.xform);
   cBuffer.update();
   shared.gfx.draw(paddleMesh);
 

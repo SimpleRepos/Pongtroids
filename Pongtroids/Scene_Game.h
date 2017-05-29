@@ -9,6 +9,7 @@
 #include "cl_StaticMesh.h"
 #include "st_Asteroid.h"
 #include "st_Paddle.h"
+#include "st_Ball.h"
 
 class Scene_Game : public Scene {
 public:
@@ -36,6 +37,7 @@ private:
   StaticMesh paddleMesh;
   Texture black;
   DirectX::XMFLOAT4X4 bgx;
+  Ball ball;
   
 };
 

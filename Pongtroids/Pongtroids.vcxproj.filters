@@ -150,6 +150,9 @@
     <ClCompile Include="st_Paddle.cpp">
       <Filter>Source Files\Scenes\Scene_Game</Filter>
     </ClCompile>
+    <ClCompile Include="st_Ball.cpp">
+      <Filter>Source Files\Scenes\Scene_Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cl_DomainShader.h">

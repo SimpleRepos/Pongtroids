@@ -13,8 +13,6 @@ namespace {
     return { std::cosf(radians) * scale, std::sinf(radians) * scale };
   }
 
-  
-
   std::vector<Vertex::Pos3Norm3Tex2> squareVerts = {
     Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(0, 0, 0), DirectX::XMFLOAT3(0, 0, -1), DirectX::XMFLOAT2(0, 0) },
     Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(1, 0, 0), DirectX::XMFLOAT3(0, 0, -1), DirectX::XMFLOAT2(1, 0) },
@@ -24,17 +22,16 @@ namespace {
     Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(1, 1, 0), DirectX::XMFLOAT3(0, 0, -1), DirectX::XMFLOAT2(1, 1) },
   };
 
-  constexpr float REGIONS_INF = 99999;
   const SC::Rect MID_REGION = { 50, 0, 750, 600 };
 }
 
-const Scene_Game::Regions Scene_Game::regions = {
+const Scene_Game::Regions Scene_Game::regions = { //~~@ this is tacky and should derive from the viewport size instead
   MID_REGION,
-  // L                  T                   R                 B
-  { -REGIONS_INF,      -REGIONS_INF,        MID_REGION.left, REGIONS_INF    }, //L
-  { -REGIONS_INF,      -REGIONS_INF,        REGIONS_INF,     MID_REGION.top }, //T
-  {  MID_REGION.right, -REGIONS_INF,        REGIONS_INF,     REGIONS_INF    }, //R
-  { -REGIONS_INF,       MID_REGION.bottom,  REGIONS_INF,     REGIONS_INF    }  //B
+  //L                 T                   R                 B
+  { 0,                0,                 MID_REGION.left, 600            }, //L
+  { 0,                0,                 800,             MID_REGION.top }, //T
+  { MID_REGION.right, 0,                 800,             600            }, //R
+  { 0,                MID_REGION.bottom, 800,             600            }  //B
 };
 
 Scene_Game::Scene_Game(SharedState& shared) : 

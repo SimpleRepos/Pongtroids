@@ -10,18 +10,16 @@ void Ball::update(float dt, Paddle& rPaddle) {
   collider.center.y = xform.translation.y;
 
   //check bounds
-  if(velocity.y > 0 && SC::testOverlap(regions.bottom, collider)) {
-    velocity.y = -velocity.y;
-  }
-  if(velocity.y < 0 && SC::testOverlap(regions.top,    collider)) {
-    velocity.y = -velocity.y;
-  }
+  if(velocity.y > 0 && SC::testOverlap(regions.bottom, collider)) { velocity.y = -velocity.y; }
+  if(velocity.y < 0 && SC::testOverlap(regions.top,    collider)) { velocity.y = -velocity.y; }
+  if(xform.translation.x < regions.left.left)   {  } //~~_
+  if(xform.translation.x > regions.right.right) {  } //~~_
 
   //check paddle in direction of travel
   if(velocity.x > 0 && SC::testOverlap(rPaddle.collider, collider)) {
     velocity.x = -velocity.x;
   }
-  if(velocity.x < 0 && xform.translation.x < 0 /*SC::testOverlap(lPaddle, collider)*/) {
+  if(velocity.x < 0 && xform.translation.x < 50 /*SC::testOverlap(lPaddle, collider)*/) {
     velocity.x = -velocity.x;
   }
 

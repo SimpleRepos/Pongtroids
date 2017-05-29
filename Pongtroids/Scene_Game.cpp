@@ -7,7 +7,13 @@
 #include "ns_Vertex.h"
 
 namespace {
-  std::uniform_real_distribution<float> roidVecDist(-50, 50); //~~@ speed/angle dists
+  DirectX::XMFLOAT2 randomDirectionScaledVector(std::mt19937& rng, float scale) {
+    static std::uniform_real_distribution<float> radianDist(0, DirectX::XM_2PI);
+    float radians = radianDist(rng);
+    return { std::cosf(radians) * scale, std::sinf(radians) * scale };
+  }
+
+  
 
   std::vector<Vertex::Pos3Norm3Tex2> squareVerts = {
     Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(0, 0, 0), DirectX::XMFLOAT3(0, 0, -1), DirectX::XMFLOAT2(0, 0) },
@@ -38,7 +44,7 @@ Scene_Game::Scene_Game(SharedState& shared) :
   tex(shared.factory.createTexture(L"../Assets/asteroid_diffuse.png")),
   cBuffer(shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()),
   mesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh")),
-  roid({400,300}, { roidVecDist(shared.rng), roidVecDist(shared.rng) }, 50),
+  roid({400,300}, randomDirectionScaledVector(shared.rng, 50), 50),
   paddleMesh(shared.factory.createStaticMeshFromVertices(squareVerts)),
   black(shared.factory.createTexture(L"../Assets/black.png"))
 {
@@ -65,10 +71,7 @@ Scene_Game::Scene_Game(SharedState& shared) :
   ball.xform.translation = { 200, 200, 0 };
   ball.collider.radius = 10;
   ball.xform.mulScale(ball.collider.radius);
-  DirectX::XMVECTOR bVel = DirectX::XMVectorSet(roidVecDist(shared.rng), roidVecDist(shared.rng), 0, 0);
-  bVel = DirectX::XMVector2Normalize(bVel);
-  bVel = DirectX::XMVectorScale(bVel, 200);
-  DirectX::XMStoreFloat2(&ball.velocity, bVel);
+  ball.velocity = randomDirectionScaledVector(shared.rng, 200);
 
   Transform bg;
   bg.translation.x = MID_REGION.left;

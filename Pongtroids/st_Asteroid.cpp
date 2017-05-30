@@ -1,10 +1,20 @@
 #include "st_Asteroid.h"
 #include "Scene_Game.h"
+#include "st_ColliderSet.h"
 
 using namespace DirectX;
 
-namespace {
-  const Scene_Game::Regions& regions = Scene_Game::regions;
+Asteroid::Asteroid(DirectX::XMFLOAT2 position, DirectX::XMFLOAT2 direction, float size, const Regions& regions) :
+  regions(regions),
+  size(size),
+  velocity{ direction.x * SPEED, direction.y * SPEED },
+  alive(true)
+{
+  collider.radius = size;
+
+  xform.mulScale(size);
+  xform.translation.x = position.x;
+  xform.translation.y = position.y;
 }
 
 void Asteroid::update(float dt) {
@@ -22,21 +32,8 @@ void Asteroid::update(float dt) {
   }
 
   if(!SC::testOverlap(collider, regions.middle)) {
-    float displace = Scene_Game::regions.middle.height() + size;
+    float displace = regions.middle.height() + size;
     if(velocity.y > 0) { displace = -displace; }
     xform.translation.y += displace;
   }
-}
-
-Asteroid::Asteroid(DirectX::XMFLOAT2 position, DirectX::XMFLOAT2 velocity, float size) :
-  size(size),
-  velocity(velocity),
-  alive(true)
-{
-  collider.radius = size;
-
-  xform.mulScale(size);
-  xform.translation.x = position.x;
-  xform.translation.y = position.y;
-  
 }

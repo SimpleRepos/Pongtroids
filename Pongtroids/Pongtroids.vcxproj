@@ -172,6 +172,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="st_Ball.h" />
+    <ClInclude Include="st_ColliderSet.h" />
     <ClInclude Include="st_Paddle.h" />
     <ClInclude Include="simpleCollision.h" />
     <ClInclude Include="st_Asteroid.h" />

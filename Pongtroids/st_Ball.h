@@ -3,8 +3,14 @@
 #include "simpleCollision.h"
 #include "st_Paddle.h"
 
+struct ColliderSet;
+
 struct Ball {
-  void update(float dt, Paddle& rPaddle);
+  Ball(DirectX::XMFLOAT2 position, DirectX::XMFLOAT2 velocity);
+  void update(float dt, const ColliderSet& colliders);
+
+  static constexpr float RADIUS = 5;
+  static constexpr float SPEED = 200;
 
   Transform xform;
   DirectX::XMFLOAT2 velocity;

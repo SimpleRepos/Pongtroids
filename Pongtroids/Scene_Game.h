@@ -10,6 +10,7 @@
 #include "st_Asteroid.h"
 #include "st_Paddle.h"
 #include "st_Ball.h"
+#include "st_ColliderSet.h"
 
 class Scene_Game : public Scene {
 public:
@@ -17,13 +18,8 @@ public:
   Scene* activeUpdate() override;
   void activeDraw() override;
 
-  static const struct Regions {
-    SC::Rect middle;
-    SC::Rect left;
-    SC::Rect top;
-    SC::Rect right;
-    SC::Rect bottom;
-  } regions;
+  const Regions regions;
+  ColliderSet colliderSet;
 
 private:
   VertexShader vShader;
@@ -33,7 +29,7 @@ private:
   ConstantBuffer<DirectX::XMFLOAT4X4> cBuffer;
   StaticMesh mesh;
   Asteroid roid;
-  Paddle paddle;
+  Paddle rPaddle, lPaddle;
   StaticMesh paddleMesh;
   Texture black;
   DirectX::XMFLOAT4X4 bgx;

@@ -254,6 +254,9 @@
     <ClInclude Include="st_Ball.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
+    <ClInclude Include="st_ColliderSet.h">
+      <Filter>Header Files\Scenes\Scene_Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="tcl_DynamicVertexBuffer.inl">

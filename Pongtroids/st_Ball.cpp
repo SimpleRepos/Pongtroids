@@ -1,28 +1,45 @@
 #include "st_Ball.h"
 #include "Scene_Game.h"
+#include "st_ColliderSet.h"
 
-void Ball::update(float dt, Paddle& rPaddle) {
-  const Scene_Game::Regions& regions = Scene_Game::regions;
+using namespace DirectX;
 
+Ball::Ball(DirectX::XMFLOAT2 position, DirectX::XMFLOAT2 direction) {
+  XMStoreFloat2(&velocity, XMVectorScale(XMLoadFloat2(&direction), SPEED));
+  xform.translation = { position.x, position.y, 0 };
+  collider.radius = RADIUS;
+  xform.mulScale(RADIUS * 2);
+}
+
+void Ball::update(float dt, const ColliderSet& colliders) {
   //integrate
-  xform.translate(DirectX::XMVectorScale(DirectX::XMLoadFloat2(&velocity), dt));
-  collider.center.x = xform.translation.x;
-  collider.center.y = xform.translation.y;
+  xform.translate(XMVectorScale(XMLoadFloat2(&velocity), dt));
+  collider.center.x = xform.translation.x + RADIUS;
+  collider.center.y = xform.translation.y + RADIUS;
 
   //check bounds
-  if(velocity.y > 0 && SC::testOverlap(regions.bottom, collider)) { velocity.y = -velocity.y; }
-  if(velocity.y < 0 && SC::testOverlap(regions.top,    collider)) { velocity.y = -velocity.y; }
-  if(xform.translation.x < regions.left.left)   {  } //~~_
-  if(xform.translation.x > regions.right.right) {  } //~~_
+  if(velocity.y > 0 && SC::testOverlap(colliders.regions.bottom, collider)) { velocity.y = -velocity.y; }
+  if(velocity.y < 0 && SC::testOverlap(colliders.regions.top,    collider)) { velocity.y = -velocity.y; }
+  if(xform.translation.x < colliders.regions.left.left)   {  } //~~_
+  if(xform.translation.x > colliders.regions.right.right) {  } //~~_
 
   //check paddle in direction of travel
-  if(velocity.x > 0 && SC::testOverlap(rPaddle.collider, collider)) {
+  if(velocity.x > 0 && SC::testOverlap(colliders.rPaddle, collider)) {
     velocity.x = -velocity.x;
   }
-  if(velocity.x < 0 && xform.translation.x < 50 /*SC::testOverlap(lPaddle, collider)*/) {
+  if(velocity.x < 0 && SC::testOverlap(colliders.lPaddle, collider)) {
     velocity.x = -velocity.x;
   }
 
   //check roids
-  //~~_
+  for(auto roid : colliders.asteroids) {
+    if(SC::testOverlap(collider, roid->collider)) {
+      XMVECTOR myPos = XMLoadFloat2(reinterpret_cast<const DirectX::XMFLOAT2*>(&collider.center));
+      XMVECTOR roidPos = XMLoadFloat2(reinterpret_cast<const DirectX::XMFLOAT2*>(&roid->collider.center));
+      XMVECTOR dir = XMVector2Normalize(DirectX::XMVectorSubtract(myPos, roidPos));
+      XMStoreFloat2(&velocity, XMVectorScale(dir, SPEED));
+
+      //roid->hit();
+    }
+  }
 }

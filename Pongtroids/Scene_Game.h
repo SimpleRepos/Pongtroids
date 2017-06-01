@@ -1,7 +1,6 @@
 #pragma once
 #include "vcl_Scene.h"
-#include "cl_VertexShader.h"
-#include "cl_PixelShader.h"
+#include "st_ShaderSet.h"
 #include "cl_Texture.h"
 #include "cl_Camera.h"
 #include "cl_Transform.h"
@@ -22,15 +21,14 @@ public:
   ColliderSet colliderSet;
 
 private:
-  VertexShader vShader;
-  PixelShader pShader;
+  ShaderSet shaders;
   Texture tex;
   Camera cam;
   ConstantBuffer<DirectX::XMFLOAT4X4> cBuffer;
-  StaticMesh mesh;
+  StaticMesh roidMesh;
   Asteroid roid;
   Paddle rPaddle, lPaddle;
-  StaticMesh paddleMesh;
+  StaticMesh squareMesh;
   Texture black;
   DirectX::XMFLOAT4X4 bgx;
   Ball ball;

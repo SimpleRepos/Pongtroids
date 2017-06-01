@@ -31,3 +31,8 @@ std::vector<char> Utility::readFile(const std::string& filename) {
   return data;
 }
 
+std::vector<float> Utility::genRandomDirectionVector(std::mt19937& rng) {
+  static std::uniform_real_distribution<float> radianDist(0, PI * 2);
+  float radians = radianDist(rng);
+  return { std::cosf(radians), std::sinf(radians) };
+}

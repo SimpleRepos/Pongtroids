@@ -116,4 +116,5 @@ private:
 
   bool ortho = false;
   float orthoDims[2];
+
 };

@@ -6,14 +6,9 @@
 #include <fstream>
 #include "ns_Vertex.h"
 #include "cl_Window.h"
+#include "ns_Utility.h"
 
 namespace {
-  DirectX::XMFLOAT2 randomDirectionScaledVector(std::mt19937& rng) { //~~@ move this to util
-    static std::uniform_real_distribution<float> radianDist(0, DirectX::XM_2PI);
-    float radians = radianDist(rng);
-    return { std::cosf(radians), std::sinf(radians) };
-  }
-
   std::vector<Vertex::Pos3Norm3Tex2> squareVerts = {
     Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(0, 0, 0), DirectX::XMFLOAT3(0, 0, -1), DirectX::XMFLOAT2(0, 0) },
     Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(1, 0, 0), DirectX::XMFLOAT3(0, 0, -1), DirectX::XMFLOAT2(1, 0) },
@@ -45,22 +40,24 @@ Scene_Game::Scene_Game(SharedState& shared) :
   Scene(shared),
   regions(genRegions(shared.gfx.VIEWPORT_DIMS)),
   colliderSet{ regions, lPaddle.collider, rPaddle.collider, {} },
-  vShader(shared.factory.createVShader("../Assets/VertexShader.cso", D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST)),
-  pShader(shared.factory.createPShader("../Assets/PixelShader.cso")), 
+  shaders(
+    shared.factory,
+    "../Assets/VertexShader.cso", D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, "", "", "",
+    RasterizerState::DEFAULT_DESC, "../Assets/PixelShader.cso"
+  ), 
   tex(shared.factory.createTexture(L"../Assets/asteroid_diffuse.png")),
   cBuffer(shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()),
-  mesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh")),
-  roid({400,300}, randomDirectionScaledVector(shared.rng), 50, regions),
+  roidMesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh")),
+  roid({400,300}, DirectX::XMFLOAT2(Utility::genRandomDirectionVector(shared.rng).data()), 50, regions),
   rPaddle(765, 250, 20, 100, regions.middle),
   lPaddle( 15, 250, 20, 100, regions.middle),
-  paddleMesh(shared.factory.createStaticMeshFromVertices(squareVerts)),
+  squareMesh(shared.factory.createStaticMeshFromVertices(squareVerts)),
   black(shared.factory.createTexture(L"../Assets/black.png")),
-  ball({ 200, 200 }, randomDirectionScaledVector(shared.rng))
+  ball({ 200, 200 }, DirectX::XMFLOAT2(Utility::genRandomDirectionVector(shared.rng).data()))
 {
   shared.win.addKeyFunc(VK_ESCAPE, [](HWND, LPARAM) { PostQuitMessage(0); });
 
-  vShader.set();
-  pShader.set();
+  shaders.set();
   tex.set(0);
   cBuffer.set(0);
 
@@ -90,22 +87,22 @@ void Scene_Game::activeDraw() {
   tex.set(0);
   cBuffer.object = cam.getTransposedWVP(roid.xform);
   cBuffer.update();
-  shared.gfx.draw(mesh);
+  shared.gfx.draw(roidMesh);
 
   cBuffer.object = cam.getTransposedWVP(rPaddle.xform);
   cBuffer.update();
-  shared.gfx.draw(paddleMesh);
+  shared.gfx.draw(squareMesh);
 
   cBuffer.object = cam.getTransposedWVP(lPaddle.xform);
   cBuffer.update();
-  shared.gfx.draw(paddleMesh);
+  shared.gfx.draw(squareMesh);
 
   cBuffer.object = cam.getTransposedWVP(ball.xform);
   cBuffer.update();
-  shared.gfx.draw(paddleMesh);
+  shared.gfx.draw(squareMesh);
 
   black.set(0);
   cBuffer.object = bgx;
   cBuffer.update();
-  shared.gfx.draw(paddleMesh);
+  shared.gfx.draw(squareMesh);
 }

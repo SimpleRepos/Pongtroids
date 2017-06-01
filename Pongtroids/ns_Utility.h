@@ -2,11 +2,15 @@
 #include <functional>
 #include <vector>
 #include <cassert>
+#include <random>
+#include <array>
 
 #define HR(a) { HRESULT hr = a; assert(SUCCEEDED(hr)); }
 
 ///<summary>Utility functions and classes</summary>
 namespace Utility {
+  constexpr float PI = 3.141592654f;
+
   ///<summary>Executes a function on destruction</summary>
   ///<remarks>This class can be used to easily implement exception-safe design patterns without explicitly coding unusual RAII classes</remarks>
   class OnScopeExit {
@@ -32,6 +36,9 @@ namespace Utility {
   ///<summary>Read a file into a vector of char (binary read)</summary>
   ///<param name="filename">Path to the file to be read</param>
   std::vector<char> readFile(const std::string& filename);
+
+  ///<summary>Generate a unit-length float vector of 2 dimensions</summary>
+  std::vector<float> genRandomDirectionVector(std::mt19937& rng);
 
 }
 

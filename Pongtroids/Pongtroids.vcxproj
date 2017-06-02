@@ -142,7 +142,7 @@
     <ClCompile Include="st_Ball.cpp" />
     <ClCompile Include="st_Paddle.cpp" />
     <ClCompile Include="simpleCollision.cpp" />
-    <ClCompile Include="st_Asteroid.cpp" />
+    <ClCompile Include="st_Asteroids.cpp" />
     <ClCompile Include="cl_Camera.cpp" />
     <ClCompile Include="cl_DomainShader.cpp" />
     <ClCompile Include="cl_Font.cpp" />
@@ -175,7 +175,7 @@
     <ClInclude Include="st_ColliderSet.h" />
     <ClInclude Include="st_Paddle.h" />
     <ClInclude Include="simpleCollision.h" />
-    <ClInclude Include="st_Asteroid.h" />
+    <ClInclude Include="st_Asteroids.h" />
     <ClInclude Include="cl_Camera.h" />
     <ClInclude Include="cl_DomainShader.h" />
     <ClInclude Include="cl_Font.h" />

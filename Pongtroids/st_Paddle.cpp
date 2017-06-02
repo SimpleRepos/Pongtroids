@@ -1,5 +1,4 @@
 #include "st_Paddle.h"
-#include "st_Asteroid.h"
 #include "Scene_Game.h"
 
 const float Paddle::SPEED = 200;

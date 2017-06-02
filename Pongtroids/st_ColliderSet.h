@@ -1,4 +1,6 @@
 #pragma once
+#include "simpleCollision.h"
+#include "st_Asteroids.h"
 
 struct Regions {
   SC::Rect middle;
@@ -12,6 +14,6 @@ struct ColliderSet {
   const Regions& regions;
   const SC::Rect& lPaddle;
   const SC::Rect& rPaddle;
-  std::vector<const Asteroid*> asteroids;
+  const Asteroids& asteroids;
 };
 

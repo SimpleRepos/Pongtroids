@@ -32,14 +32,14 @@ void Ball::update(float dt, const ColliderSet& colliders) {
   }
 
   //check roids
-  for(auto roid : colliders.asteroids) {
-    if(SC::testOverlap(collider, roid->collider)) {
+  for(auto& roid : colliders.asteroids.asteroids) {
+    if(SC::testOverlap(collider, roid.collider)) {
       XMVECTOR myPos = XMLoadFloat2(reinterpret_cast<const DirectX::XMFLOAT2*>(&collider.center));
-      XMVECTOR roidPos = XMLoadFloat2(reinterpret_cast<const DirectX::XMFLOAT2*>(&roid->collider.center));
+      XMVECTOR roidPos = XMLoadFloat2(reinterpret_cast<const DirectX::XMFLOAT2*>(&roid.collider.center));
       XMVECTOR dir = XMVector2Normalize(DirectX::XMVectorSubtract(myPos, roidPos));
       XMStoreFloat2(&velocity, XMVectorScale(dir, SPEED));
 
-      //roid->hit();
+      //~~_ roid.hit();
     }
   }
 }

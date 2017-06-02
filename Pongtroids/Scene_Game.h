@@ -6,7 +6,7 @@
 #include "cl_Transform.h"
 #include "tcl_ConstantBuffer.h"
 #include "cl_StaticMesh.h"
-#include "st_Asteroid.h"
+#include "st_Asteroids.h"
 #include "st_Paddle.h"
 #include "st_Ball.h"
 #include "st_ColliderSet.h"
@@ -22,15 +22,17 @@ public:
 
 private:
   ShaderSet shaders;
-  Texture tex;
   Camera cam;
   ConstantBuffer<DirectX::XMFLOAT4X4> cBuffer;
-  StaticMesh roidMesh;
-  Asteroid roid;
+
+  Asteroids asteroids;
+
   Paddle rPaddle, lPaddle;
+
   StaticMesh squareMesh;
-  Texture black;
+  Texture black, white;
   DirectX::XMFLOAT4X4 bgx;
+
   Ball ball;
   
 };

@@ -4,6 +4,7 @@
 #include <cassert>
 #include <random>
 #include <array>
+#include <DirectXMath.h>
 
 #define HR(a) { HRESULT hr = a; assert(SUCCEEDED(hr)); }
 
@@ -38,7 +39,15 @@ namespace Utility {
   std::vector<char> readFile(const std::string& filename);
 
   ///<summary>Generate a unit-length float vector of 2 dimensions</summary>
-  std::vector<float> genRandomDirectionVector(std::mt19937& rng);
+  DirectX::XMFLOAT2 randDirVec(std::mt19937& rng);
+
+  ///<summary>Specify a set of bounds and generate random 2D positions within it</summary>
+  struct RandomPositionGenerator {
+    RandomPositionGenerator(float left, float top, float right, float bottom);
+    DirectX::XMFLOAT2 randPos(std::mt19937& rng);
+
+    std::uniform_real_distribution<float> xDist, yDist;
+  };
 
 }
 

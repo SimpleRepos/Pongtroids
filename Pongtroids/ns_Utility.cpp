@@ -31,8 +31,19 @@ std::vector<char> Utility::readFile(const std::string& filename) {
   return data;
 }
 
-std::vector<float> Utility::genRandomDirectionVector(std::mt19937& rng) {
+DirectX::XMFLOAT2 Utility::randDirVec(std::mt19937& rng) {
   static std::uniform_real_distribution<float> radianDist(0, PI * 2);
   float radians = radianDist(rng);
   return { std::cosf(radians), std::sinf(radians) };
+}
+
+Utility::RandomPositionGenerator::RandomPositionGenerator(float left, float top, float right, float bottom) :
+  xDist(left, right),
+  yDist(top, bottom)
+{
+  //nop
+}
+
+DirectX::XMFLOAT2 Utility::RandomPositionGenerator::randPos(std::mt19937& rng) {
+  return { xDist(rng), yDist(rng) };
 }

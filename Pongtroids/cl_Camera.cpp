@@ -66,11 +66,11 @@ XMFLOAT4X4 Camera::getViewProj() const {
   return ret;
 }
 
-DirectX::XMFLOAT4X4 Camera::getTransposedWVP(const DirectX::XMFLOAT4X4& world) {
+DirectX::XMFLOAT4X4 Camera::getTransposedWVP(const DirectX::XMFLOAT4X4& world) const {
   return getTransposedWVP(XMLoadFloat4x4(&world));
 }
 
-DirectX::XMFLOAT4X4 Camera::getTransposedWVP(const DirectX::XMMATRIX& world) {
+DirectX::XMFLOAT4X4 Camera::getTransposedWVP(const DirectX::XMMATRIX& world) const {
   DirectX::XMMATRIX vp = XMLoadFloat4x4(&getViewProj());
   DirectX::XMFLOAT4X4 ret;
   XMStoreFloat4x4(&ret, DirectX::XMMatrixTranspose(world * vp));

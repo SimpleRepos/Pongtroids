@@ -39,26 +39,25 @@ namespace {
 Scene_Game::Scene_Game(SharedState& shared) : 
   Scene(shared),
   regions(genRegions(shared.gfx.VIEWPORT_DIMS)),
-  colliderSet{ regions, lPaddle.collider, rPaddle.collider, {} },
+  colliderSet{ regions, lPaddle.collider, rPaddle.collider, asteroids },
   shaders(
     shared.factory,
     "../Assets/VertexShader.cso", D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, "", "", "",
     RasterizerState::DEFAULT_DESC, "../Assets/PixelShader.cso"
-  ), 
-  tex(shared.factory.createTexture(L"../Assets/asteroid_diffuse.png")),
+  ),
+  cam(),
   cBuffer(shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()),
-  roidMesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh")),
-  roid({400,300}, DirectX::XMFLOAT2(Utility::genRandomDirectionVector(shared.rng).data()), 50, regions),
+  asteroids(shared, regions, 3), //~~@ magic
   rPaddle(765, 250, 20, 100, regions.middle),
   lPaddle( 15, 250, 20, 100, regions.middle),
   squareMesh(shared.factory.createStaticMeshFromVertices(squareVerts)),
   black(shared.factory.createTexture(L"../Assets/black.png")),
-  ball({ 200, 200 }, DirectX::XMFLOAT2(Utility::genRandomDirectionVector(shared.rng).data()))
+  white(shared.factory.createTexture(L"../Assets/white.png")),
+  ball({ 200, 200 }, Utility::randDirVec(shared.rng))
 {
   shared.win.addKeyFunc(VK_ESCAPE, [](HWND, LPARAM) { PostQuitMessage(0); });
 
   shaders.set();
-  tex.set(0);
   cBuffer.set(0);
 
   cam.setOrthographic((float)shared.gfx.VIEWPORT_DIMS.width, (float)shared.gfx.VIEWPORT_DIMS.height);
@@ -68,13 +67,11 @@ Scene_Game::Scene_Game(SharedState& shared) :
 
   Transform bg = { { regions.middle.left, 0, 100 }, {0,0,0,1}, { regions.middle.width(), regions.middle.height(), 1 } };
   bgx = cam.getTransposedWVP(bg);
-
-  colliderSet.asteroids.push_back(&roid);
 }
 
 Scene* Scene_Game::activeUpdate() {
   float dt = (float)shared.timer.getTickDT();
-  roid.update(dt);
+  asteroids.update(dt);
   rPaddle.update(dt, shared);
   lPaddle.update(rPaddle);
   ball.update(dt, colliderSet);
@@ -84,10 +81,9 @@ Scene* Scene_Game::activeUpdate() {
 void Scene_Game::activeDraw() {
   shared.gfx.clear(ColorF::CYAN);
 
-  tex.set(0);
-  cBuffer.object = cam.getTransposedWVP(roid.xform);
-  cBuffer.update();
-  shared.gfx.draw(roidMesh);
+  asteroids.draw(cBuffer, cam);
+
+  white.set(0);
 
   cBuffer.object = cam.getTransposedWVP(rPaddle.xform);
   cBuffer.update();

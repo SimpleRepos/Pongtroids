@@ -32,7 +32,7 @@ namespace GameScene {
   };
 
   struct Entities {
-    Entities(SharedState& shared, const Regions& regions);
+    Entities(SharedState& shared, const Regions& regions, size_t numRoids);
     void update(float dt, const GameScene::Regions& regions);
     void draw(RenderProgram& prog);
 

@@ -23,8 +23,8 @@ void Ball::update(float dt, GameScene::Entities& entities, const GameScene::Regi
   //check bounds
   if(velocity.y > 0 && SC::testOverlap(regions.bottom, collider)) { velocity.y = -velocity.y; }
   if(velocity.y < 0 && SC::testOverlap(regions.top,    collider)) { velocity.y = -velocity.y; }
-  if(xform.translation.x < regions.left.left)   {  } //~~_
-  if(xform.translation.x > regions.right.right) {  } //~~_
+  if(xform.translation.x < regions.left.left)   { MessageBoxA(0, "You lost.", 0, 0); PostQuitMessage(0); }
+  if(xform.translation.x > regions.right.right) { MessageBoxA(0, "You lost.", 0, 0); PostQuitMessage(0); }
 
   //check paddle in direction of travel
   if(velocity.x > 0 && SC::testOverlap(entities.paddles.getCollider(Paddles::RIGHT), collider)) {

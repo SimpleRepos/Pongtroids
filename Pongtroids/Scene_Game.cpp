@@ -13,7 +13,7 @@ Scene_Game::Scene_Game(SharedState& shared) :
   Scene(shared),
   regions(shared),
   renderProg(shared),
-  entities(shared, regions),
+  entities(shared, regions, 3),
   bg(shared, renderProg, regions)
 {
   shared.win.addKeyFunc(VK_ESCAPE, [](HWND, LPARAM) { PostQuitMessage(0); });

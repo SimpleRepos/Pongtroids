@@ -10,9 +10,10 @@ Asteroids::Asteroids(SharedState& shared, const GameScene::Regions& regions, siz
   tex(shared.factory.createTexture(L"../Assets/asteroid_diffuse.png"))
 {
   RandomPositionGenerator posGen(regions.middle.left, regions.middle.top, regions.middle.right, regions.middle.bottom);
+  std::uniform_real_distribution<float> sizeDist(50, 75);
 
   for(size_t i = 0; i < count; i++) {
-    float size = 50; //~~@ make this random in some range
+    float size = sizeDist(shared.rng);
     asteroids.emplace_back(size, posGen.randPos(shared.rng), randDirVec(shared.rng));
   }
 

@@ -52,8 +52,8 @@ void GameScene::RenderProgram::set() {
 
 ///////////ENTITIES///////////
 
-GameScene::Entities::Entities(SharedState& shared, const Regions& regions) :
-  asteroids(shared, regions, 3), //~~@ magic number
+GameScene::Entities::Entities(SharedState& shared, const Regions& regions, size_t numRoids) :
+  asteroids(shared, regions, numRoids),
   paddles(shared),
   ball(shared, { 400, 300 }, Utility::randDirVec(shared.rng))
 {

@@ -167,12 +167,13 @@
     <ClCompile Include="Scene_Game.cpp" />
     <ClCompile Include="cl_StaticMesh.cpp" />
     <ClCompile Include="st_ColorF.cpp" />
+    <ClCompile Include="ns_GameScene.cpp" />
     <ClCompile Include="st_ShaderSet.cpp" />
     <ClCompile Include="vcl_Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ns_GameScene.h" />
     <ClInclude Include="st_Ball.h" />
-    <ClInclude Include="st_ColliderSet.h" />
     <ClInclude Include="st_Paddles.h" />
     <ClInclude Include="simpleCollision.h" />
     <ClInclude Include="st_Asteroids.h" />

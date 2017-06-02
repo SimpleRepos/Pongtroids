@@ -1,11 +1,15 @@
 #pragma once
+#include "st_SharedState.h"
 #include "cl_Transform.h"
 #include "simpleCollision.h"
-#include "st_SharedState.h"
 #include "cl_StaticMesh.h"
 #include "cl_Texture.h"
 
-class Camera;
+namespace GameScene {
+  struct Regions;
+  struct RenderProgram;
+  struct Entities;
+}
 
 class Paddles {
 public:
@@ -17,7 +21,7 @@ public:
   };
 
   void update(float dt);
-  void draw(ConstantBuffer<DirectX::XMFLOAT4X4>& cBuffer, const Camera& cam);
+  void draw(GameScene::RenderProgram& prog);
 
   const Transform& getXform(Side side)   const { return xforms[side]; }
   const SC::Rect& getCollider(Side side) const { return colliders[side]; }

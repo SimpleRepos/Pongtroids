@@ -1,5 +1,6 @@
 #include "st_Paddles.h"
 #include "cl_Camera.h"
+#include "ns_GameScene.h"
 
 namespace {
   std::vector<Vertex::Pos3Norm3Tex2> squareVerts = {
@@ -17,7 +18,7 @@ Paddles::Paddles(SharedState& shared) :
   BOT_BOUND(shared.gfx.VIEWPORT_DIMS.height - HEIGHT),
   shared(shared),
   mesh(shared.factory.createStaticMeshFromVertices(squareVerts)),
-  tex(shared.factory.createTexture(L"../Assets/white.png"))
+  tex(shared.factory.createTexture(L"../Assets/paddle.png"))
 {
   auto& vp = shared.gfx.VIEWPORT_DIMS;
 
@@ -48,15 +49,15 @@ void Paddles::update(float dt) {
   colliders[RIGHT].y(y);
 }
 
-void Paddles::draw(ConstantBuffer<DirectX::XMFLOAT4X4>& cBuffer, const Camera& cam) {
+void Paddles::draw(GameScene::RenderProgram& prog) {
   tex.set(0);
 
-  cBuffer.object = cam.getTransposedWVP(xforms[LEFT]);
-  cBuffer.update();
+  prog.cBuffer.object = prog.cam.getTransposedWVP(xforms[LEFT]);
+  prog.cBuffer.update();
   shared.gfx.draw(mesh);
 
-  cBuffer.object = cam.getTransposedWVP(xforms[RIGHT]);
-  cBuffer.update();
+  prog.cBuffer.object = prog.cam.getTransposedWVP(xforms[RIGHT]);
+  prog.cBuffer.update();
   shared.gfx.draw(mesh);
 }
 

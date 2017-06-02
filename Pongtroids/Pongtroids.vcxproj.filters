@@ -153,6 +153,9 @@
     <ClCompile Include="st_Paddles.cpp">
       <Filter>Source Files\Scenes\Scene_Game</Filter>
     </ClCompile>
+    <ClCompile Include="ns_GameScene.cpp">
+      <Filter>Source Files\Scenes\Scene_Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cl_DomainShader.h">
@@ -248,13 +251,13 @@
     <ClInclude Include="st_Ball.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
-    <ClInclude Include="st_ColliderSet.h">
-      <Filter>Header Files\Scenes\Scene_Game</Filter>
-    </ClInclude>
     <ClInclude Include="st_Asteroids.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
     <ClInclude Include="st_Paddles.h">
+      <Filter>Header Files\Scenes\Scene_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="ns_GameScene.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
   </ItemGroup>

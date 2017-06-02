@@ -1,12 +1,11 @@
 #include "st_Asteroids.h"
-#include "st_ColliderSet.h"
+#include "ns_GameScene.h"
 
 using namespace DirectX;
 using namespace Utility;
 
-Asteroids::Asteroids(SharedState& shared, const Regions& regions, size_t count) :
+Asteroids::Asteroids(SharedState& shared, const GameScene::Regions& regions, size_t count) :
   shared(shared),
-  regions(regions),
   mesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh")),
   tex(shared.factory.createTexture(L"../Assets/asteroid_diffuse.png"))
 {
@@ -19,7 +18,7 @@ Asteroids::Asteroids(SharedState& shared, const Regions& regions, size_t count) 
 
 }
 
-void Asteroids::update(float dt) {
+void Asteroids::update(float dt, const GameScene::Regions& regions) {
   for(auto& roid : asteroids) {
     //move
     XMVECTOR vel = XMLoadFloat2(&roid.velocity);
@@ -40,11 +39,11 @@ void Asteroids::update(float dt) {
   }
 }
 
-void Asteroids::draw(ConstantBuffer<DirectX::XMFLOAT4X4>& cBuffer, const Camera& cam) {
+void Asteroids::draw(GameScene::RenderProgram& prog) {
   tex.set(0);
   for(auto& roid : asteroids) {
-    cBuffer.object = cam.getTransposedWVP(roid.xform);
-    cBuffer.update();
+    prog.cBuffer.object = prog.cam.getTransposedWVP(roid.xform);
+    prog.cBuffer.update();
     shared.gfx.draw(mesh);
   }
 }

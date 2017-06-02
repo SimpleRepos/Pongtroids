@@ -2,6 +2,41 @@
 
 using namespace DirectX;
 
+Transform::Transform(XMFLOAT3 translation, XMFLOAT3 scale, XMFLOAT4 rotationQuaternion) :
+  translation(translation),
+  scale(scale),
+  rotationQuaternion(rotationQuaternion),
+  x(this->translation.x),
+  y(this->translation.y),
+  z(this->translation.z),
+  width(this->scale.x),
+  height(this->scale.y),
+  depth(this->scale.z)
+{
+  //nop
+}
+
+Transform::Transform(const Transform& other) :
+  translation(other.translation),
+  scale(other.scale),
+  rotationQuaternion(other.rotationQuaternion),
+  x(translation.x),
+  y(translation.y),
+  z(translation.z),
+  width(scale.x),
+  height(scale.y),
+  depth(scale.z)
+{
+  //nop
+}
+
+Transform& Transform::operator=(const Transform& other) {
+  translation = other.translation;
+  scale = other.scale;
+  rotationQuaternion = other.rotationQuaternion;
+  return *this;
+}
+
 void Transform::translate(DirectX::XMFLOAT3 offset) {
   translation.x += offset.x;
   translation.y += offset.y;

@@ -49,5 +49,8 @@ namespace Utility {
     std::uniform_real_distribution<float> xDist, yDist;
   };
 
+  ///<summary>Clamp a value to a range</summary>
+  float clamp(float val, float min, float max);
+
 }
 

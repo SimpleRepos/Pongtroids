@@ -47,3 +47,10 @@ Utility::RandomPositionGenerator::RandomPositionGenerator(float left, float top,
 DirectX::XMFLOAT2 Utility::RandomPositionGenerator::randPos(std::mt19937& rng) {
   return { xDist(rng), yDist(rng) };
 }
+
+float Utility::clamp(float val, float min, float max) {
+  assert(min <= max);
+  if(val < min) { val = min; }
+  if(val > max) { val = max; }
+  return val;
+}

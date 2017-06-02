@@ -24,10 +24,10 @@ void Ball::update(float dt, const ColliderSet& colliders) {
   if(xform.translation.x > colliders.regions.right.right) {  } //~~_
 
   //check paddle in direction of travel
-  if(velocity.x > 0 && SC::testOverlap(colliders.rPaddle, collider)) {
+  if(velocity.x > 0 && SC::testOverlap(colliders.paddles.getCollider(Paddles::RIGHT), collider)) {
     velocity.x = -velocity.x;
   }
-  if(velocity.x < 0 && SC::testOverlap(colliders.lPaddle, collider)) {
+  if(velocity.x < 0 && SC::testOverlap(colliders.paddles.getCollider(Paddles::LEFT), collider)) {
     velocity.x = -velocity.x;
   }
 

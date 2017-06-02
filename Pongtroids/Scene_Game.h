@@ -7,7 +7,7 @@
 #include "tcl_ConstantBuffer.h"
 #include "cl_StaticMesh.h"
 #include "st_Asteroids.h"
-#include "st_Paddle.h"
+#include "st_Paddles.h"
 #include "st_Ball.h"
 #include "st_ColliderSet.h"
 
@@ -26,14 +26,13 @@ private:
   ConstantBuffer<DirectX::XMFLOAT4X4> cBuffer;
 
   Asteroids asteroids;
-
-  Paddle rPaddle, lPaddle;
+  Paddles paddles;
+  Ball ball;
 
   StaticMesh squareMesh;
-  Texture black, white;
+  Texture black;
+  Texture white;
   DirectX::XMFLOAT4X4 bgx;
-
-  Ball ball;
   
 };
 

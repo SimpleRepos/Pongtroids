@@ -1,7 +1,7 @@
 #pragma once
 #include "cl_Transform.h"
 #include "simpleCollision.h"
-#include "st_Paddle.h"
+#include "st_Paddles.h"
 
 struct ColliderSet;
 

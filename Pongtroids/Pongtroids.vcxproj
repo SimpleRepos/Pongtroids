@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="st_Ball.cpp" />
-    <ClCompile Include="st_Paddle.cpp" />
+    <ClCompile Include="st_Paddles.cpp" />
     <ClCompile Include="simpleCollision.cpp" />
     <ClCompile Include="st_Asteroids.cpp" />
     <ClCompile Include="cl_Camera.cpp" />
@@ -173,7 +173,7 @@
   <ItemGroup>
     <ClInclude Include="st_Ball.h" />
     <ClInclude Include="st_ColliderSet.h" />
-    <ClInclude Include="st_Paddle.h" />
+    <ClInclude Include="st_Paddles.h" />
     <ClInclude Include="simpleCollision.h" />
     <ClInclude Include="st_Asteroids.h" />
     <ClInclude Include="cl_Camera.h" />

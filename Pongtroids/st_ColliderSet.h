@@ -1,6 +1,7 @@
 #pragma once
 #include "simpleCollision.h"
 #include "st_Asteroids.h"
+#include "st_Paddles.h"
 
 struct Regions {
   SC::Rect middle;
@@ -12,8 +13,7 @@ struct Regions {
 
 struct ColliderSet {
   const Regions& regions;
-  const SC::Rect& lPaddle;
-  const SC::Rect& rPaddle;
+  const Paddles& paddles;
   const Asteroids& asteroids;
 };
 

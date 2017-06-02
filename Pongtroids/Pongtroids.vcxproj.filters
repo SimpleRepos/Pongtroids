@@ -144,13 +144,13 @@
     <ClCompile Include="simpleCollision.cpp">
       <Filter>Source Files\Scenes\Scene_Game</Filter>
     </ClCompile>
-    <ClCompile Include="st_Paddle.cpp">
-      <Filter>Source Files\Scenes\Scene_Game</Filter>
-    </ClCompile>
     <ClCompile Include="st_Ball.cpp">
       <Filter>Source Files\Scenes\Scene_Game</Filter>
     </ClCompile>
     <ClCompile Include="st_Asteroids.cpp">
+      <Filter>Source Files\Scenes\Scene_Game</Filter>
+    </ClCompile>
+    <ClCompile Include="st_Paddles.cpp">
       <Filter>Source Files\Scenes\Scene_Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -245,9 +245,6 @@
     <ClInclude Include="simpleCollision.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
-    <ClInclude Include="st_Paddle.h">
-      <Filter>Header Files\Scenes\Scene_Game</Filter>
-    </ClInclude>
     <ClInclude Include="st_Ball.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
@@ -255,6 +252,9 @@
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
     <ClInclude Include="st_Asteroids.h">
+      <Filter>Header Files\Scenes\Scene_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="st_Paddles.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
   </ItemGroup>

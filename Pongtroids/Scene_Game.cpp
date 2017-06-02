@@ -39,7 +39,8 @@ namespace {
 Scene_Game::Scene_Game(SharedState& shared) : 
   Scene(shared),
   regions(genRegions(shared.gfx.VIEWPORT_DIMS)),
-  colliderSet{ regions, lPaddle.collider, rPaddle.collider, asteroids },
+  colliderSet{ regions, paddles, asteroids },
+
   shaders(
     shared.factory,
     "../Assets/VertexShader.cso", D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, "", "", "",
@@ -47,13 +48,15 @@ Scene_Game::Scene_Game(SharedState& shared) :
   ),
   cam(),
   cBuffer(shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()),
+
   asteroids(shared, regions, 3), //~~@ magic
-  rPaddle(765, 250, 20, 100, regions.middle),
-  lPaddle( 15, 250, 20, 100, regions.middle),
+  paddles(shared),
+  ball({ 200, 200 }, Utility::randDirVec(shared.rng)),
+
   squareMesh(shared.factory.createStaticMeshFromVertices(squareVerts)),
   black(shared.factory.createTexture(L"../Assets/black.png")),
-  white(shared.factory.createTexture(L"../Assets/white.png")),
-  ball({ 200, 200 }, Utility::randDirVec(shared.rng))
+  white(shared.factory.createTexture(L"../Assets/white.png"))
+
 {
   shared.win.addKeyFunc(VK_ESCAPE, [](HWND, LPARAM) { PostQuitMessage(0); });
 
@@ -65,15 +68,14 @@ Scene_Game::Scene_Game(SharedState& shared) :
   cam.setEyePos(0, 0, -5);
   cam.setTargetDir(0, 0, 1);
 
-  Transform bg = { { regions.middle.left, 0, 100 }, {0,0,0,1}, { regions.middle.width(), regions.middle.height(), 1 } };
+  Transform bg({ regions.middle.left, 0, 100 }, { regions.middle.width(), regions.middle.height(), 1 });
   bgx = cam.getTransposedWVP(bg);
 }
 
 Scene* Scene_Game::activeUpdate() {
   float dt = (float)shared.timer.getTickDT();
   asteroids.update(dt);
-  rPaddle.update(dt, shared);
-  lPaddle.update(rPaddle);
+  paddles.update(dt);
   ball.update(dt, colliderSet);
   return this;
 }
@@ -82,17 +84,9 @@ void Scene_Game::activeDraw() {
   shared.gfx.clear(ColorF::CYAN);
 
   asteroids.draw(cBuffer, cam);
+  paddles.draw(cBuffer, cam);
 
   white.set(0);
-
-  cBuffer.object = cam.getTransposedWVP(rPaddle.xform);
-  cBuffer.update();
-  shared.gfx.draw(squareMesh);
-
-  cBuffer.object = cam.getTransposedWVP(lPaddle.xform);
-  cBuffer.update();
-  shared.gfx.draw(squareMesh);
-
   cBuffer.object = cam.getTransposedWVP(ball.xform);
   cBuffer.update();
   shared.gfx.draw(squareMesh);

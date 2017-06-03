@@ -21,7 +21,11 @@ Scene_Game::Scene_Game(SharedState& shared) :
 }
 
 Scene* Scene_Game::activeUpdate() {
-  entities.update((float)shared.timer.getTickDT(), regions);
+  constexpr float MAX_FRAME_LENGTH = 1.0f / 60;
+  float dt = Utility::clamp((float)shared.timer.getTickDT(), 0, MAX_FRAME_LENGTH);
+  entities.update(dt, regions);
+  if(entities.ball.xform.translation.x < regions.left.left)   { MessageBoxA(0, "You lost.", 0, 0); return new Scene_Game(shared); }
+  if(entities.ball.xform.translation.x > regions.right.right) { MessageBoxA(0, "You lost.", 0, 0); return new Scene_Game(shared); }
   return this;
 }
 

@@ -61,3 +61,13 @@ void Paddles::draw(GameScene::RenderProgram& prog) {
   shared.gfx.draw(mesh);
 }
 
+float Paddles::getDeflectionAngle(Side side, float ballY) const {
+  auto& paddle = colliders[side];
+
+  //calculate normalized offset such that the ball touching the top of the paddle is -1 and the bottom is +1
+  float halfHeight = paddle.height() / 2;
+  float center = paddle.top + halfHeight;
+  float normalizedOffset = (ballY - center) / halfHeight;
+
+  return MAX_DEFLECTION_ANGLE * normalizedOffset;
+}

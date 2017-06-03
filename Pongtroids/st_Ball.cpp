@@ -23,15 +23,13 @@ void Ball::update(float dt, GameScene::Entities& entities, const GameScene::Regi
   //check bounds
   if(velocity.y > 0 && SC::testOverlap(regions.bottom, collider)) { velocity.y = -velocity.y; }
   if(velocity.y < 0 && SC::testOverlap(regions.top,    collider)) { velocity.y = -velocity.y; }
-  if(xform.translation.x < regions.left.left)   { MessageBoxA(0, "You lost.", 0, 0); PostQuitMessage(0); }
-  if(xform.translation.x > regions.right.right) { MessageBoxA(0, "You lost.", 0, 0); PostQuitMessage(0); }
 
-  //check paddle in direction of travel
-  if(velocity.x > 0 && SC::testOverlap(entities.paddles.getCollider(Paddles::RIGHT), collider)) {
-    velocity.x = -velocity.x;
-  }
-  if(velocity.x < 0 && SC::testOverlap(entities.paddles.getCollider(Paddles::LEFT), collider)) {
-    velocity.x = -velocity.x;
+  //check paddles
+  Paddles::Side side = (velocity.x > 0) ? Paddles::RIGHT : Paddles::LEFT;
+  if(SC::testOverlap(entities.paddles.getCollider(side), collider)) {
+    float theta = entities.paddles.getDeflectionAngle(side, xform.y);
+    int sign = (2 * side) - 1; //LEFT is negative and RIGHT is positive
+    velocity = { -sign * cosf(theta) * SPEED, sinf(theta) * SPEED }; //vel.x should be reversed
   }
 
   //check roids
@@ -54,4 +52,3 @@ void Ball::draw(GameScene::RenderProgram& prog) {
   prog.cBuffer.update();
   shared.gfx.draw(prog.squareMesh);
 }
-

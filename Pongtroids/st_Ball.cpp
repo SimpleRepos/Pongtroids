@@ -40,7 +40,7 @@ void Ball::update(float dt, GameScene::Entities& entities, const GameScene::Regi
       XMVECTOR dir = XMVector2Normalize(DirectX::XMVectorSubtract(myPos, roidPos));
       XMStoreFloat2(&velocity, XMVectorScale(dir, SPEED));
 
-      //~~_ roid.hit();
+      roid.hit({ xform.x, xform.y }, entities.asteroids);
     }
   }
 }

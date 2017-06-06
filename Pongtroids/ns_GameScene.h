@@ -22,12 +22,10 @@ namespace GameScene {
     SC::Rect bottom;
   };
 
-  StaticMesh genSquareMesh(SharedState& shared);
-
   struct Entities {
     Entities(SharedState& shared, const Regions& regions, size_t numRoids);
     void update(float dt, const GameScene::Regions& regions);
-    void draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam);
+    void draw(RenderProgram<DirectX::XMFLOAT4X4>& roidProg, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, Camera& cam);
 
     Asteroids asteroids;
     Paddles paddles;
@@ -41,7 +39,6 @@ namespace GameScene {
     SharedState& shared;
     Texture tex;
     Transform xform;
-    StaticMesh mesh;
   };
 
 }

@@ -17,23 +17,6 @@ GameScene::Regions::Regions(SharedState& shared) {
     bottom = { 0,       TALL, WIDE,    TALL };
 }
 
-///////////RENDER PROGRAM///////////
-
-namespace {
-  const std::vector<Vertex::Pos3Norm3Tex2> squareVerts = {
-    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(0, 0, 0), DirectX::XMFLOAT3(0, 0, -1), DirectX::XMFLOAT2(0, 0) },
-    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(1, 0, 0), DirectX::XMFLOAT3(0, 0, -1), DirectX::XMFLOAT2(1, 0) },
-    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(0, 1, 0), DirectX::XMFLOAT3(0, 0, -1), DirectX::XMFLOAT2(0, 1) },
-    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(0, 1, 0), DirectX::XMFLOAT3(0, 0, -1), DirectX::XMFLOAT2(0, 1) },
-    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(1, 0, 0), DirectX::XMFLOAT3(0, 0, -1), DirectX::XMFLOAT2(1, 0) },
-    Vertex::Pos3Norm3Tex2{ DirectX::XMFLOAT3(1, 1, 0), DirectX::XMFLOAT3(0, 0, -1), DirectX::XMFLOAT2(1, 1) }
-  };
-}
-
-StaticMesh GameScene::genSquareMesh(SharedState& shared) {
-  return shared.factory.createStaticMeshFromVertices(squareVerts);
-}
-
 ///////////ENTITIES///////////
 
 GameScene::Entities::Entities(SharedState& shared, const Regions& regions, size_t numRoids) :
@@ -50,10 +33,10 @@ void GameScene::Entities::update(float dt, const GameScene::Regions& regions) {
   ball.update(dt, *this, regions);
 }
 
-void GameScene::Entities::draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam) {
-  asteroids.draw(prog, cam);
-  paddles.draw(prog, cam);
-  ball.draw(prog, cam);
+void GameScene::Entities::draw(RenderProgram<DirectX::XMFLOAT4X4>& roidProg, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, Camera& cam) {
+  asteroids.draw(roidProg, cam);
+  paddles.draw(spriteProg, cam);
+  ball.draw(spriteProg, cam);
 }
 
 ///////////BACKGROUND///////////
@@ -61,8 +44,7 @@ void GameScene::Entities::draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera&
 GameScene::BackGround::BackGround(SharedState& shared, const Regions& regions) :
   shared(shared),
   tex(shared.factory.createTexture(L"../Assets/black.png")),
-  mesh(shared.factory.createStaticMeshFromVertices(squareVerts)),
-  xform({ regions.middle.left, 0, 100 }, { regions.middle.width(), regions.middle.height(), 1 })
+  xform({ regions.middle.left, 0, 900 }, { regions.middle.width(), regions.middle.height(), 1 })
 {
   //nop
 }
@@ -72,6 +54,6 @@ void GameScene::BackGround::draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camer
   prog.cBuffer.object = cam.getTransposedWVP(xform);
   prog.cBuffer.update();
   tex.set(0);
-  shared.gfx.draw(mesh);
+  shared.gfx.draw(4);
 }
 

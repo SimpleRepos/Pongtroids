@@ -3,7 +3,13 @@ cbuffer cb {
   float time;
 };
 
-float4 main(float4 col : COLOR) : SV_TARGET {
-  col.a = (cos(col.a * time) + 1) * 0.5;
-	return col;
+struct Vert {
+  float4 pos : SV_POSITION;
+  float4 col : COLOR;
+};
+
+
+float4 main(Vert vert) : SV_TARGET {
+  vert.col *= 1 + (cos(time * vert.col.a) * 0.5);
+	return vert.col;
 }

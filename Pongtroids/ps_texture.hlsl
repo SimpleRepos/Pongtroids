@@ -7,5 +7,7 @@ struct VOut {
 };
 
 float4 main(VOut input) : SV_TARGET {
-	return tex.Sample(samp, input.uv);
+  float4 col = tex.Sample(samp, input.uv);
+  clip(col.a - 0.5);
+	return col;
 }

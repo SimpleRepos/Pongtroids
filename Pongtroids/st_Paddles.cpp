@@ -18,7 +18,7 @@ Paddles::Paddles(SharedState& shared) :
   BOT_BOUND(shared.gfx.VIEWPORT_DIMS.height - HEIGHT),
   shared(shared),
   mesh(shared.factory.createStaticMeshFromVertices(squareVerts)),
-  tex(shared.factory.createTexture(L"../Assets/paddle.png"))
+  tex(shared.factory.createTexture(L"../Assets/paddleBlu.png"))
 {
   auto& vp = shared.gfx.VIEWPORT_DIMS;
 
@@ -52,13 +52,15 @@ void Paddles::update(float dt) {
 void Paddles::draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam) {
   tex.set(0);
 
+  prog.set();
+
   prog.cBuffer.object = cam.getTransposedWVP(xforms[LEFT]);
   prog.cBuffer.update();
-  shared.gfx.draw(mesh);
+  shared.gfx.draw(4);
 
   prog.cBuffer.object = cam.getTransposedWVP(xforms[RIGHT]);
   prog.cBuffer.update();
-  shared.gfx.draw(mesh);
+  shared.gfx.draw(4);
 }
 
 float Paddles::getDeflectionAngle(Side side, float ballY) const {

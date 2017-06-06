@@ -73,4 +73,7 @@ Pattern 70 by Yughues
 From https://opengameart.org/content/tilling-texture-pack-13
 
 -----------------------------------------------------------------------
+Paddle Textures
 -----------------------------------------------------------------------
+paddleBlu by Kenney
+From https://opengameart.org/content/puzzle-game-art

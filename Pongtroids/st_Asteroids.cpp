@@ -47,6 +47,7 @@ void Asteroids::update(float dt, const GameScene::Regions& regions) {
 }
 
 void Asteroids::draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam) {
+  prog.set();
   tex.set(0);
   for(auto& roid : asteroids) {
     prog.cBuffer.object = cam.getTransposedWVP(roid.xform);

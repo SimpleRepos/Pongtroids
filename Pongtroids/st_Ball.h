@@ -5,7 +5,6 @@
 #include "cl_Texture.h"
 #include "st_SharedState.h"
 #include "tst_RenderProgram.h"
-#include "cl_StaticMesh.h"
 
 namespace GameScene {
   struct Regions;
@@ -30,7 +29,6 @@ struct Ball {
   SC::Circle collider;
 
   Texture tex;
-  StaticMesh mesh;
 
 };
 

@@ -1,4 +1,5 @@
 #include "ns_GameScene.h"
+#include "cl_Camera.h"
 
 ///////////REGIONS///////////
 
@@ -29,25 +30,8 @@ namespace {
   };
 }
 
-GameScene::RenderProgram::RenderProgram(SharedState& shared) :
-  shaders(
-    shared.factory,
-    "../Assets/VertexShader.cso", D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, "", "", "",
-    RasterizerState::DEFAULT_DESC, "../Assets/PixelShader.cso"
-  ),
-  cam(),
-  cBuffer(shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()),
-  squareMesh(shared.factory.createStaticMeshFromVertices(squareVerts))
-{
-  cam.setOrthographic((float)shared.gfx.VIEWPORT_DIMS.width, (float)shared.gfx.VIEWPORT_DIMS.height);
-  cam.setDepthLimits(-100, 1000);
-  cam.setEyePos(0, 0, -5);
-  cam.setTargetDir(0, 0, 1);
-}
-
-void GameScene::RenderProgram::set() {
-  shaders.set();
-  cBuffer.set(0);
+StaticMesh GameScene::genSquareMesh(SharedState& shared) {
+  return shared.factory.createStaticMeshFromVertices(squareVerts);
 }
 
 ///////////ENTITIES///////////
@@ -66,26 +50,28 @@ void GameScene::Entities::update(float dt, const GameScene::Regions& regions) {
   ball.update(dt, *this, regions);
 }
 
-void GameScene::Entities::draw(RenderProgram& prog) {
-  asteroids.draw(prog);
-  paddles.draw(prog);
-  ball.draw(prog);
+void GameScene::Entities::draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam) {
+  asteroids.draw(prog, cam);
+  paddles.draw(prog, cam);
+  ball.draw(prog, cam);
 }
 
 ///////////BACKGROUND///////////
 
-GameScene::BackGround::BackGround(SharedState& shared, RenderProgram& prog, const Regions& regions) :
+GameScene::BackGround::BackGround(SharedState& shared, const Regions& regions) :
   shared(shared),
-  tex(shared.factory.createTexture(L"../Assets/black.png"))
+  tex(shared.factory.createTexture(L"../Assets/black.png")),
+  mesh(shared.factory.createStaticMeshFromVertices(squareVerts)),
+  xform({ regions.middle.left, 0, 100 }, { regions.middle.width(), regions.middle.height(), 1 })
 {
-  Transform bg({ regions.middle.left, 0, 100 }, { regions.middle.width(), regions.middle.height(), 1 });
-  bgx = prog.cam.getTransposedWVP(bg);
+  //nop
 }
 
-void GameScene::BackGround::draw(RenderProgram& prog) {
-  tex.set(0);
-  prog.cBuffer.object = bgx;
+void GameScene::BackGround::draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam) {
+  prog.set();
+  prog.cBuffer.object = cam.getTransposedWVP(xform);
   prog.cBuffer.update();
-  shared.gfx.draw(prog.squareMesh);
+  tex.set(0);
+  shared.gfx.draw(mesh);
 }
 

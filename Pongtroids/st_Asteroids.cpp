@@ -2,6 +2,7 @@
 #include "ns_GameScene.h"
 #include <algorithm>
 #include <functional>
+#include "cl_Camera.h"
 
 using namespace DirectX;
 using namespace Utility;
@@ -45,10 +46,10 @@ void Asteroids::update(float dt, const GameScene::Regions& regions) {
   spawnQueued();
 }
 
-void Asteroids::draw(GameScene::RenderProgram& prog) {
+void Asteroids::draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam) {
   tex.set(0);
   for(auto& roid : asteroids) {
-    prog.cBuffer.object = prog.cam.getTransposedWVP(roid.xform);
+    prog.cBuffer.object = cam.getTransposedWVP(roid.xform);
     prog.cBuffer.update();
     shared.gfx.draw(mesh);
   }

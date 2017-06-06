@@ -6,19 +6,21 @@
 #include <vector>
 #include "cl_StaticMesh.h"
 #include "cl_Texture.h"
+#include "tst_RenderProgram.h"
 
 namespace GameScene {
   struct Regions;
-  struct RenderProgram;
   struct Entities;
 }
+
+class Camera;
 
 class Asteroids {
   struct RoidArgs;
 public:
   Asteroids(SharedState& shared, const GameScene::Regions& regions, size_t count);
   void update(float dt, const GameScene::Regions& regions);
-  void draw(GameScene::RenderProgram& prog);
+  void draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam);
 
   void enqueue(float size, const DirectX::XMFLOAT3& pos, const DirectX::XMFLOAT2& dir);
   size_t population() const;

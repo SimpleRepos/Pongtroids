@@ -12,26 +12,41 @@
 Scene_Game::Scene_Game(SharedState& shared) : 
   Scene(shared),
   regions(shared),
-  renderProg(shared),
+  renderProg{
+    ShaderSet(
+      shared.factory,
+      "../Assets/vs_temporarySimpleTransform.cso", D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+      "", "", "",
+      RasterizerState::DEFAULT_DESC, "../Assets/ps_texture.cso"
+    ),
+    shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()
+  },
+  cam(),
+  squareMesh(GameScene::genSquareMesh(shared)),
   entities(shared, regions, 3),
-  bg(shared, renderProg, regions)
+  bg(shared, regions)
 {
   shared.win.addKeyFunc(VK_ESCAPE, [](HWND, LPARAM) { PostQuitMessage(0); });
   renderProg.set();
+
+  cam.setOrthographic((float)shared.gfx.VIEWPORT_DIMS.width, (float)shared.gfx.VIEWPORT_DIMS.height);
+  cam.setDepthLimits(-100, 1000);
+  cam.setEyePos(0, 0, -5);
+  cam.setTargetDir(0, 0, 1);
 }
 
 Scene* Scene_Game::activeUpdate() {
   constexpr float MAX_FRAME_LENGTH = 1.0f / 60;
   float dt = Utility::clamp((float)shared.timer.getTickDT(), 0, MAX_FRAME_LENGTH);
   entities.update(dt, regions);
-  if(entities.ball.xform.translation.x < regions.left.left)   { MessageBoxA(0, "You lost.", 0, 0); return new Scene_Game(shared); }
-  if(entities.ball.xform.translation.x > regions.right.right) { MessageBoxA(0, "You lost.", 0, 0); return new Scene_Game(shared); }
+  if(entities.ball.xform.translation.x < regions.left.left)   { return new Scene_Game(shared); }
+  if(entities.ball.xform.translation.x > regions.right.right) { return new Scene_Game(shared); }
   return this;
 }
 
 void Scene_Game::activeDraw() {
   shared.gfx.clear(ColorF::CYAN);
-  bg.draw(renderProg);
-  entities.draw(renderProg);
+  bg.draw(renderProg, cam);
+  entities.draw(renderProg, cam);
 }
 

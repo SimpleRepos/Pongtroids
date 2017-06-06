@@ -4,18 +4,20 @@
 #include "simpleCollision.h"
 #include "cl_StaticMesh.h"
 #include "cl_Texture.h"
+#include "tst_RenderProgram.h"
 
 namespace GameScene {
   struct Regions;
-  struct RenderProgram;
   struct Entities;
 }
+
+class Camera;
 
 class Paddles {
 public:
   Paddles(SharedState& shared);
   void update(float dt);
-  void draw(GameScene::RenderProgram& prog);
+  void draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam);
 
   enum Side {
     LEFT = 0,

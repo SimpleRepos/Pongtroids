@@ -2,6 +2,8 @@
 #include "vcl_Scene.h"
 #include "st_SharedState.h"
 #include "ns_GameScene.h"
+#include "tst_RenderProgram.h"
+#include "cl_Camera.h"
 #include "cl_Texture.h"
 #include <DirectXMath.h>
 
@@ -13,7 +15,9 @@ public:
 
 private:
   const GameScene::Regions regions;
-  GameScene::RenderProgram renderProg;
+  RenderProgram<DirectX::XMFLOAT4X4> renderProg;
+  Camera cam;
+  StaticMesh squareMesh;
   GameScene::Entities entities;
   GameScene::BackGround bg;
 

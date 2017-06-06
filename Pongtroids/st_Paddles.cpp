@@ -49,14 +49,14 @@ void Paddles::update(float dt) {
   colliders[RIGHT].y(y);
 }
 
-void Paddles::draw(GameScene::RenderProgram& prog) {
+void Paddles::draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam) {
   tex.set(0);
 
-  prog.cBuffer.object = prog.cam.getTransposedWVP(xforms[LEFT]);
+  prog.cBuffer.object = cam.getTransposedWVP(xforms[LEFT]);
   prog.cBuffer.update();
   shared.gfx.draw(mesh);
 
-  prog.cBuffer.object = prog.cam.getTransposedWVP(xforms[RIGHT]);
+  prog.cBuffer.object = cam.getTransposedWVP(xforms[RIGHT]);
   prog.cBuffer.update();
   shared.gfx.draw(mesh);
 }

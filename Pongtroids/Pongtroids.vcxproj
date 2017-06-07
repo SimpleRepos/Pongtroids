@@ -293,7 +293,9 @@
     <None Include="..\Assets\black.png" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="ISSUES.txt" />
+    <Text Include="..\IDEAS.txt" />
+    <Text Include="..\ISSUES.txt" />
+    <Text Include="..\TODO.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

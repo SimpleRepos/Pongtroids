@@ -1,0 +1,6 @@
+ -blending
+ -audio
+ -win/lose processing
+ -scoring
+ -improve physics
+ -powerup system

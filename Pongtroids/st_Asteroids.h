@@ -20,7 +20,7 @@ class Asteroids {
 public:
   Asteroids(SharedState& shared, const GameScene::Regions& regions, size_t count);
   void update(float dt, const GameScene::Regions& regions);
-  void draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam);
+  void draw(Camera& cam);
 
   void enqueue(float size, const DirectX::XMFLOAT3& pos, const DirectX::XMFLOAT2& dir);
   size_t population() const;
@@ -57,5 +57,7 @@ private:
     DirectX::XMFLOAT2 dir;
   };
   std::vector<RoidArgs> queue;
+
+  RenderProgram<DirectX::XMFLOAT4X4> prog;
 
 };

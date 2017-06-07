@@ -5,12 +5,13 @@
 
 using namespace DirectX;
 
-Ball::Ball(SharedState& shared, DirectX::XMFLOAT2 position, DirectX::XMFLOAT2 direction) :
+Ball::Ball(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, DirectX::XMFLOAT2 position, DirectX::XMFLOAT2 direction) :
   shared(shared),
   xform({ position.x, position.y, 0 }, { RADIUS * 2, RADIUS * 2, 1 }),
   velocity(direction.x * SPEED, direction.y * SPEED),
   collider{{ position.x, position.y }, RADIUS},
-  tex(shared.factory.createTexture(L"../Assets/ball.png"))
+  tex(shared.factory.createTexture(L"../Assets/ball.png")),
+  prog(&spriteProg)
 {
   //nop
 }
@@ -46,10 +47,10 @@ void Ball::update(float dt, GameScene::Entities& entities, const GameScene::Regi
   }
 }
 
-void Ball::draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam) {
-  prog.set();
-  prog.cBuffer.object = cam.getTransposedWVP(xform);
-  prog.cBuffer.update();
+void Ball::draw(Camera& cam) {
+  prog->set();
+  prog->cBuffer.object = cam.getTransposedWVP(xform);
+  prog->cBuffer.update();
   tex.set(0);
   shared.gfx.draw(4);
 }

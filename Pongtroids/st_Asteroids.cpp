@@ -10,7 +10,16 @@ using namespace Utility;
 Asteroids::Asteroids(SharedState& shared, const GameScene::Regions& regions, size_t count) :
   shared(shared),
   mesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh")),
-  tex(shared.factory.createTexture(L"../Assets/asteroid_diffuse.png"))
+  tex(shared.factory.createTexture(L"../Assets/asteroid_diffuse.png")),
+  prog{
+    ShaderSet(
+      shared.factory,
+      "../Assets/vs_temporarySimpleTransform.cso", D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+      "", "", "",
+      RasterizerState::DEFAULT_DESC, "../Assets/ps_texture.cso"
+    ),
+    shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()
+  }
 {
   RandomPositionGenerator posGen(regions.middle.left, regions.middle.top, regions.middle.right, regions.middle.bottom);
   std::uniform_real_distribution<float> sizeDist(50, 75);
@@ -46,7 +55,7 @@ void Asteroids::update(float dt, const GameScene::Regions& regions) {
   spawnQueued();
 }
 
-void Asteroids::draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam) {
+void Asteroids::draw(Camera& cam) {
   prog.set();
   tex.set(0);
   for(auto& roid : asteroids) {

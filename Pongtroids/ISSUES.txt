@@ -1,5 +1,0 @@
-sometimes a pair of small roids won't die until some other roid gets killed, then they vanish
-
-it's possible for a roid to get hit near vertically when it's passing through the top or bottom, 
-which results in a pair that stay offscreen for a long time
-

@@ -1,0 +1,3 @@
+ -roids should bounce off one another
+ -roids loop both ways and temporarily disable paddles on impact?
+ -other entity types

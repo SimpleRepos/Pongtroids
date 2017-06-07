@@ -15,9 +15,9 @@ class Graphics;
 class Camera;
 
 struct Ball {
-  Ball(SharedState& shared, DirectX::XMFLOAT2 position, DirectX::XMFLOAT2 velocity);
+  Ball(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, DirectX::XMFLOAT2 position, DirectX::XMFLOAT2 velocity);
   void update(float dt, GameScene::Entities& entities, const GameScene::Regions& regions);
-  void draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam);
+  void draw(Camera& cam);
 
   static constexpr float RADIUS = 5;
   static constexpr float SPEED = 200;
@@ -29,6 +29,7 @@ struct Ball {
   SC::Circle collider;
 
   Texture tex;
+  RenderProgram<DirectX::XMFLOAT4X4>* prog;
 
 };
 

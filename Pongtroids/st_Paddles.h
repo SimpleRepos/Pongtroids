@@ -15,9 +15,9 @@ class Camera;
 
 class Paddles {
 public:
-  Paddles(SharedState& shared);
+  Paddles(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg);
   void update(float dt);
-  void draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam);
+  void draw(Camera& cam);
 
   enum Side {
     LEFT = 0,
@@ -45,6 +45,7 @@ private:
 
   StaticMesh mesh;
   Texture tex;
+  RenderProgram<DirectX::XMFLOAT4X4>* prog;
 
 };
 

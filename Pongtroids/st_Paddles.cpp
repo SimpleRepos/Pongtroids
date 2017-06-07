@@ -13,12 +13,13 @@ namespace {
   };
 }
 
-Paddles::Paddles(SharedState& shared) :
+Paddles::Paddles(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg) :
   TOP_BOUND(0),
   BOT_BOUND(shared.gfx.VIEWPORT_DIMS.height - HEIGHT),
   shared(shared),
   mesh(shared.factory.createStaticMeshFromVertices(squareVerts)),
-  tex(shared.factory.createTexture(L"../Assets/paddleBlu.png"))
+  tex(shared.factory.createTexture(L"../Assets/paddleBlu.png")),
+  prog(&spriteProg)
 {
   auto& vp = shared.gfx.VIEWPORT_DIMS;
 
@@ -49,17 +50,17 @@ void Paddles::update(float dt) {
   colliders[RIGHT].y(y);
 }
 
-void Paddles::draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam) {
+void Paddles::draw(Camera& cam) {
   tex.set(0);
 
-  prog.set();
+  prog->set();
 
-  prog.cBuffer.object = cam.getTransposedWVP(xforms[LEFT]);
-  prog.cBuffer.update();
+  prog->cBuffer.object = cam.getTransposedWVP(xforms[LEFT]);
+  prog->cBuffer.update();
   shared.gfx.draw(4);
 
-  prog.cBuffer.object = cam.getTransposedWVP(xforms[RIGHT]);
-  prog.cBuffer.update();
+  prog->cBuffer.object = cam.getTransposedWVP(xforms[RIGHT]);
+  prog->cBuffer.update();
   shared.gfx.draw(4);
 }
 

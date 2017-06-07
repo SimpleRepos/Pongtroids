@@ -23,9 +23,9 @@ namespace GameScene {
   };
 
   struct Entities {
-    Entities(SharedState& shared, const Regions& regions, size_t numRoids);
+    Entities(SharedState& shared, const Regions& regions, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, size_t numRoids);
     void update(float dt, const GameScene::Regions& regions);
-    void draw(RenderProgram<DirectX::XMFLOAT4X4>& roidProg, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, Camera& cam);
+    void draw(Camera& cam);
 
     Asteroids asteroids;
     Paddles paddles;
@@ -33,12 +33,33 @@ namespace GameScene {
   };
 
   struct BackGround {
-    BackGround(SharedState& shared, const Regions& regions);
-    void draw(RenderProgram<DirectX::XMFLOAT4X4>& prog, Camera& cam);
+    BackGround(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg);
+    void update(float dt);
+    void draw(Camera& cam);
 
     SharedState& shared;
     Texture tex;
     Transform xform;
+    RenderProgram<DirectX::XMFLOAT4X4>* spriteProg;
+
+    struct StarCB {
+      DirectX::XMFLOAT3 offset;
+      float time;
+    };
+    RenderProgram<StarCB> starProg;
+
+    struct StarVert {
+      DirectX::XMFLOAT3 pos;
+      float invPeriod;
+      DirectX::XMFLOAT3 col;
+    };
+    static std::vector<StarVert> genStars(SharedState& shared);
+    StaticVertexBuffer starVerts;
+    static constexpr size_t NUM_STARS = 100;
+
   };
 
 }
+
+
+

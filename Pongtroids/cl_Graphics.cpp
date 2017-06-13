@@ -62,6 +62,14 @@ GfxFactory Graphics::createFactory() {
   return GfxFactory(device.p, context.p);
 }
 
+void Graphics::setBlend(const D3D11_RENDER_TARGET_BLEND_DESC& desc) {
+  D3D11_BLEND_DESC bd = {0};
+  bd.RenderTarget[0] = desc;
+  device->CreateBlendState(&bd, &blendState);
+  context->OMSetBlendState(blendState, NULL, 0xFFFFFFFF);
+  blendState.Release();
+}
+
 void Graphics::generateDeviceContextAndSwapChain(HWND winHandle) {
   DXGI_SWAP_CHAIN_DESC sd = {
     DXGI_MODE_DESC{

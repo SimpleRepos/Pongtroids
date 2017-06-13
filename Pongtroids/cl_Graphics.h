@@ -37,12 +37,16 @@ public:
   ///<summary>Generate a factory for creating objects that rely on the Graphics instance</summary>
   GfxFactory createFactory();
 
+  ///<summary>configure the blend state for the first RT ~~@ this needs to be refactored for better support</summary>
+  void setBlend(const D3D11_RENDER_TARGET_BLEND_DESC& desc);
+
 private:
   CComPtr<ID3D11Device> device;
   CComPtr<ID3D11DeviceContext> context;
   CComPtr<IDXGISwapChain> swapChain;
   CComPtr<ID3D11RenderTargetView> backBuffer;
   CComPtr<ID3D11DepthStencilView> depthStencilView;
+  CComPtr<ID3D11BlendState> blendState;
   #if defined(DEBUG) || defined(_DEBUG)
   CComPtr<ID3D11Debug> debug;
   #endif

@@ -24,6 +24,18 @@ Scene_Game::Scene_Game(SharedState& shared) :
   entities(shared, regions, spriteProg, 3),
   bg(shared, spriteProg)
 {
+  D3D11_RENDER_TARGET_BLEND_DESC desc = {
+    TRUE, //enable
+    D3D11_BLEND_SRC_ALPHA, //src
+    D3D11_BLEND_INV_SRC_ALPHA, //dest
+    D3D11_BLEND_OP_ADD, //op
+    D3D11_BLEND_ONE, //srca
+    D3D11_BLEND_ONE, //desta
+    D3D11_BLEND_OP_ADD, //opa
+    D3D11_COLOR_WRITE_ENABLE_ALL //write mask
+  };
+  shared.gfx.setBlend(desc);
+
   shared.win.addKeyFunc(VK_ESCAPE, [](HWND, LPARAM) { PostQuitMessage(0); });
 
   cam.setOrthographic((float)shared.gfx.VIEWPORT_DIMS.width, (float)shared.gfx.VIEWPORT_DIMS.height);

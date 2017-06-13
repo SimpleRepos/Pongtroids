@@ -156,6 +156,12 @@
     <ClCompile Include="ns_GameScene.cpp">
       <Filter>Source Files\Scenes\Scene_Game</Filter>
     </ClCompile>
+    <ClCompile Include="cl_Sound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_Audio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cl_DomainShader.h">
@@ -263,6 +269,12 @@
     <ClInclude Include="tst_RenderProgram.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
+    <ClInclude Include="cl_Sound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_Audio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="tcl_DynamicVertexBuffer.inl">
@@ -299,6 +311,9 @@
       <Filter>Resource Files\Assets</Filter>
     </None>
     <None Include="..\Assets\black.png">
+      <Filter>Resource Files\Assets</Filter>
+    </None>
+    <None Include="..\Assets\83976__theredshore__punch.mp3">
       <Filter>Resource Files\Assets</Filter>
     </None>
   </ItemGroup>

@@ -9,6 +9,7 @@ using namespace Utility;
 
 Asteroids::Asteroids(SharedState& shared, const GameScene::Regions& regions, size_t count) :
   shared(shared),
+  hitSound(shared.audio.genSound("../Assets/83976__theredshore__punch.mp3")),
   mesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh")),
   tex(shared.factory.createTexture(L"../Assets/asteroid_diffuse.png")),
   prog{
@@ -85,6 +86,8 @@ Asteroids::Asteroid::Asteroid(const RoidArgs& args) :
 
 void Asteroids::Asteroid::hit(DirectX::XMFLOAT2 ballPos, Asteroids& asteroids) {
   alive = false;
+
+  asteroids.hitSound.play();
 
   float newSize = collider.radius / 2;
   if(newSize < MIN_SIZE) { return; }

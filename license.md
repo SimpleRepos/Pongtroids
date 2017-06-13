@@ -77,3 +77,17 @@ Paddle Textures
 -----------------------------------------------------------------------
 paddleBlu by Kenney
 From https://opengameart.org/content/puzzle-game-art
+
+-----------------------------------------------------------------------
+Audio API
+-----------------------------------------------------------------------
+FMOD Studio, copyright © Firelight Technologies Pty, Ltd., 2012–2016.
+Audio engine : FMOD Studio by Firelight Technologies
+FMOD Studio by Firelight Technologies
+
+-----------------------------------------------------------------------
+Sound Effects
+-----------------------------------------------------------------------
+"punch.mp3" by theredshore
+From https://www.freesound.org/people/theredshore/sounds/83976/
+

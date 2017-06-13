@@ -7,6 +7,7 @@
 #include "cl_StaticMesh.h"
 #include "cl_Texture.h"
 #include "tst_RenderProgram.h"
+#include "cl_Sound.h"
 
 namespace GameScene {
   struct Regions;
@@ -48,6 +49,7 @@ private:
 
   SharedState& shared;
 
+  Sound hitSound;
   StaticMesh mesh;
   Texture tex;
 

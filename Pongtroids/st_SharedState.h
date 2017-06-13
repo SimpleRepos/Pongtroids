@@ -4,6 +4,7 @@
 #include "cl_Timer.h"
 #include "cl_GfxFactory.h"
 #include "cl_Input.h"
+#include "cl_Audio.h"
 #include <random>
 
 ///<summary>Storage of centralized objects and access point for scenes to share persistent state</summary>
@@ -23,6 +24,7 @@ struct SharedState {
   GfxFactory factory;
   Timer timer;
   Input input;
+  Audio audio;
   std::mt19937 rng;
 
 };

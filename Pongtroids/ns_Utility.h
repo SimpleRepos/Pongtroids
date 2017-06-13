@@ -5,6 +5,8 @@
 #include <random>
 #include <array>
 #include <DirectXMath.h>
+#include <memory>
+#include <functional>
 
 #define HR(a) { HRESULT hr = a; assert(SUCCEEDED(hr)); }
 

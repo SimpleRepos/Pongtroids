@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="cl_Audio.cpp" />
+    <ClCompile Include="cl_Sound.cpp" />
     <ClCompile Include="st_Ball.cpp" />
     <ClCompile Include="st_Paddles.cpp" />
     <ClCompile Include="simpleCollision.cpp" />
@@ -172,6 +174,8 @@
     <ClCompile Include="vcl_Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cl_Audio.h" />
+    <ClInclude Include="cl_Sound.h" />
     <ClInclude Include="ns_GameScene.h" />
     <ClInclude Include="st_Ball.h" />
     <ClInclude Include="st_Paddles.h" />
@@ -296,6 +300,11 @@
     <Text Include="..\IDEAS.txt" />
     <Text Include="..\ISSUES.txt" />
     <Text Include="..\TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Assets\83976__theredshore__punch.mp3">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

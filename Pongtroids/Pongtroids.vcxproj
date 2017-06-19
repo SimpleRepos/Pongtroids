@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cl_Audio.cpp" />
+    <ClCompile Include="cl_GameBackground.cpp" />
     <ClCompile Include="cl_Sound.cpp" />
     <ClCompile Include="st_Ball.cpp" />
     <ClCompile Include="st_Paddles.cpp" />
@@ -176,6 +177,7 @@
   <ItemGroup>
     <ClInclude Include="cl_Audio.h" />
     <ClInclude Include="cl_Sound.h" />
+    <ClInclude Include="cl_GameBackground.h" />
     <ClInclude Include="ns_GameScene.h" />
     <ClInclude Include="st_Ball.h" />
     <ClInclude Include="st_Paddles.h" />

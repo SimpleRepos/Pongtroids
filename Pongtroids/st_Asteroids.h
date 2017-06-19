@@ -9,18 +9,13 @@
 #include "tst_RenderProgram.h"
 #include "cl_Sound.h"
 
-namespace GameScene {
-  struct Regions;
-  struct Entities;
-}
-
 class Camera;
 
 class Asteroids {
   struct RoidArgs;
 public:
-  Asteroids(SharedState& shared, const GameScene::Regions& regions, size_t count);
-  void update(float dt, const GameScene::Regions& regions);
+  Asteroids(SharedState& shared, const SC::Rect& bounds, size_t count);
+  void update(float dt);
   void draw(Camera& cam);
 
   void enqueue(float size, const DirectX::XMFLOAT3& pos, const DirectX::XMFLOAT2& dir);
@@ -46,6 +41,8 @@ public:
 private:
   void clean();
   void spawnQueued();
+
+  SC::Rect centerRegion;
 
   SharedState& shared;
 

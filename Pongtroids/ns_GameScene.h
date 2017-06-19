@@ -32,34 +32,4 @@ namespace GameScene {
     Ball ball;
   };
 
-  struct BackGround {
-    BackGround(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg);
-    void update(float dt);
-    void draw(Camera& cam);
-
-    SharedState& shared;
-    Texture tex;
-    Transform xform;
-    RenderProgram<DirectX::XMFLOAT4X4>* spriteProg;
-
-    struct StarCB {
-      DirectX::XMFLOAT3 offset;
-      float time;
-    };
-    RenderProgram<StarCB> starProg;
-
-    struct StarVert {
-      DirectX::XMFLOAT3 pos;
-      float invPeriod;
-      DirectX::XMFLOAT3 col;
-    };
-    static std::vector<StarVert> genStars(SharedState& shared);
-    StaticVertexBuffer starVerts;
-    static constexpr size_t NUM_STARS = 100;
-
-  };
-
 }
-
-
-

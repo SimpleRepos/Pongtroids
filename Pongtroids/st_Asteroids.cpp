@@ -7,7 +7,8 @@
 using namespace DirectX;
 using namespace Utility;
 
-Asteroids::Asteroids(SharedState& shared, const GameScene::Regions& regions, size_t count) :
+Asteroids::Asteroids(SharedState& shared, const SC::Rect& bounds, size_t count) :
+  centerRegion(bounds),
   shared(shared),
   hitSound(shared.audio.genSound("../Assets/83976__theredshore__punch.mp3")),
   mesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh")),
@@ -22,7 +23,7 @@ Asteroids::Asteroids(SharedState& shared, const GameScene::Regions& regions, siz
     shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()
   }
 {
-  RandomPositionGenerator posGen(regions.middle.left, regions.middle.top, regions.middle.right, regions.middle.bottom);
+  RandomPositionGenerator posGen(centerRegion.left, centerRegion.top, centerRegion.right, centerRegion.bottom);
   std::uniform_real_distribution<float> sizeDist(50, 75);
 
   for(size_t i = 0; i < count; i++) {
@@ -32,7 +33,7 @@ Asteroids::Asteroids(SharedState& shared, const GameScene::Regions& regions, siz
   }
 }
 
-void Asteroids::update(float dt, const GameScene::Regions& regions) {
+void Asteroids::update(float dt) {
   for(auto& roid : asteroids) {
     //move
     XMVECTOR vel = XMLoadFloat2(&roid.velocity);
@@ -41,12 +42,12 @@ void Asteroids::update(float dt, const GameScene::Regions& regions) {
     roid.collider.center = SC::Point{ roid.xform.translation.x, roid.xform.translation.y };
 
     //bounce off left/right walls
-    if(roid.velocity.x < 0 && SC::testOverlap(roid.collider, regions.left))  { roid.velocity.x = -roid.velocity.x; }
-    if(roid.velocity.x > 0 && SC::testOverlap(roid.collider, regions.right)) { roid.velocity.x = -roid.velocity.x; }
+    if(roid.velocity.x < 0 && (roid.collider.center.x - roid.collider.radius) < centerRegion.left)  { roid.velocity.x = -roid.velocity.x; }
+    if(roid.velocity.x > 0 && (roid.collider.center.x + roid.collider.radius) > centerRegion.right) { roid.velocity.x = -roid.velocity.x; }
 
     //loop around top/bottom walls
-    if(!SC::testOverlap(roid.collider, regions.middle)) {
-      float displace = regions.middle.height() + roid.collider.radius;
+    if(!SC::testOverlap(roid.collider, centerRegion)) {
+      float displace = centerRegion.height() + roid.collider.radius;
       if(roid.velocity.y > 0) { displace = -displace; }
       roid.xform.translation.y += displace;
     }

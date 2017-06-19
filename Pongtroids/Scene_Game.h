@@ -7,6 +7,7 @@
 #include "cl_Texture.h"
 #include <DirectXMath.h>
 #include "cl_StaticVertexBuffer.h"
+#include "cl_GameBackground.h"
 
 class Scene_Game : public Scene {
 public:
@@ -22,7 +23,7 @@ private:
   Camera cam;
 
   GameScene::Entities entities;
-  GameScene::BackGround bg;
+  GameBackGround bg;
 
 };
 

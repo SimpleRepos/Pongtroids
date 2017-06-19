@@ -61,6 +61,12 @@
     <Filter Include="Header Files\Graphics\GfxCore">
       <UniqueIdentifier>{62895036-b0db-41f0-ad87-61863843d341}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Audio">
+      <UniqueIdentifier>{14044032-d9a0-49cf-a138-0d3d3c3ae14f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Audio">
+      <UniqueIdentifier>{1dd8c4e9-cc33-488a-8f3a-b08df5c3eff3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cl_Game.cpp">
@@ -157,10 +163,13 @@
       <Filter>Source Files\Scenes\Scene_Game</Filter>
     </ClCompile>
     <ClCompile Include="cl_Sound.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Audio</Filter>
     </ClCompile>
     <ClCompile Include="cl_Audio.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_GameBackground.cpp">
+      <Filter>Source Files\Scenes\Scene_Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -269,11 +278,14 @@
     <ClInclude Include="tst_RenderProgram.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
-    <ClInclude Include="cl_Sound.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="cl_Audio.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_Sound.h">
+      <Filter>Header Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_GameBackground.h">
+      <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

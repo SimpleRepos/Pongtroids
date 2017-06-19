@@ -6,11 +6,6 @@
 #include "cl_Texture.h"
 #include "tst_RenderProgram.h"
 
-namespace GameScene {
-  struct Regions;
-  struct Entities;
-}
-
 class Camera;
 
 class Paddles {

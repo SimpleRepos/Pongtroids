@@ -26,6 +26,8 @@ void Ball::update(float dt, GameScene::Entities& entities, const GameScene::Regi
   if(velocity.y > 0 && SC::testOverlap(regions.bottom, collider)) { velocity.y = -velocity.y; }
   if(velocity.y < 0 && SC::testOverlap(regions.top,    collider)) { velocity.y = -velocity.y; }
 
+  //~~@ stuff below here should be handled in entity update
+
   //check paddles
   Paddles::Side side = (velocity.x > 0) ? Paddles::RIGHT : Paddles::LEFT;
   if(SC::testOverlap(entities.paddles.getCollider(side), collider)) {

@@ -18,23 +18,16 @@ public:
   void activeDraw() override;
 
 private:
+  void ballVPaddles();
+  void ballVRoids();
+
   RenderProgram<DirectX::XMFLOAT4X4> spriteProg;
 
   Camera cam;
 
-  struct Entities {
-    Entities(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, size_t numRoids);
-    void update(float dt);
-    void draw(Camera& cam);
-
-    void ballVPaddles();
-    void ballVRoids();
-
-    Asteroids asteroids;
-    Paddles paddles;
-    Ball ball;
-  };
-  Entities entities;
+  Asteroids asteroids;
+  Paddles paddles;
+  Ball ball;
 
   GameBackGround bg;
 

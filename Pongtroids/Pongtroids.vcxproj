@@ -170,7 +170,6 @@
     <ClCompile Include="Scene_Game.cpp" />
     <ClCompile Include="cl_StaticMesh.cpp" />
     <ClCompile Include="st_ColorF.cpp" />
-    <ClCompile Include="ns_GameScene.cpp" />
     <ClCompile Include="st_ShaderSet.cpp" />
     <ClCompile Include="vcl_Scene.cpp" />
   </ItemGroup>
@@ -178,7 +177,6 @@
     <ClInclude Include="cl_Audio.h" />
     <ClInclude Include="cl_Sound.h" />
     <ClInclude Include="cl_GameBackground.h" />
-    <ClInclude Include="ns_GameScene.h" />
     <ClInclude Include="st_Ball.h" />
     <ClInclude Include="st_Paddles.h" />
     <ClInclude Include="simpleCollision.h" />

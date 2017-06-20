@@ -1,7 +1,9 @@
 #pragma once
 #include "vcl_Scene.h"
 #include "st_SharedState.h"
-#include "ns_GameScene.h"
+#include "st_Asteroids.h"
+#include "st_Paddles.h"
+#include "st_Ball.h"
 #include "tst_RenderProgram.h"
 #include "cl_Camera.h"
 #include "cl_Texture.h"
@@ -16,13 +18,24 @@ public:
   void activeDraw() override;
 
 private:
-  const GameScene::Regions regions;
-
   RenderProgram<DirectX::XMFLOAT4X4> spriteProg;
 
   Camera cam;
 
-  GameScene::Entities entities;
+  struct Entities {
+    Entities(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, size_t numRoids);
+    void update(float dt);
+    void draw(Camera& cam);
+
+    void ballVPaddles();
+    void ballVRoids();
+
+    Asteroids asteroids;
+    Paddles paddles;
+    Ball ball;
+  };
+  Entities entities;
+
   GameBackGround bg;
 
 };

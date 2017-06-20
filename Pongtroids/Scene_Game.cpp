@@ -10,7 +10,6 @@
 
 Scene_Game::Scene_Game(SharedState& shared) : 
   Scene(shared),
-  regions(shared),
   spriteProg{
     ShaderSet(
       shared.factory,
@@ -21,7 +20,7 @@ Scene_Game::Scene_Game(SharedState& shared) :
     shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()
   },
   cam(),
-  entities(shared, regions, spriteProg, 3),
+  entities(shared, spriteProg, 3),
   bg(shared, spriteProg)
 {
   D3D11_RENDER_TARGET_BLEND_DESC desc = {
@@ -49,9 +48,11 @@ Scene* Scene_Game::activeUpdate() {
   float dt = Utility::clamp((float)shared.timer.getTickDT(), 0, MAX_FRAME_LENGTH);
 
   bg.update(dt);
-  entities.update(dt, regions);
-  if(entities.ball.xform.translation.x < regions.left.left)   { return new Scene_Game(shared); }
-  if(entities.ball.xform.translation.x > regions.right.right) { return new Scene_Game(shared); }
+  entities.update(dt);
+
+  if(entities.ball.xform.translation.x < 0)                                     { return new Scene_Game(shared); }
+  if(entities.ball.xform.translation.x > (float)shared.gfx.VIEWPORT_DIMS.width) { return new Scene_Game(shared); }
+
   return this;
 }
 
@@ -61,3 +62,52 @@ void Scene_Game::activeDraw() {
   entities.draw(cam);
 }
 
+//////////////Entities//////////////////
+
+Scene_Game::Entities::Entities(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, size_t numRoids) :
+  asteroids(shared, numRoids),
+  paddles(shared, spriteProg),
+  ball(shared, spriteProg, { 400, 300 }, Utility::randDirVec(shared.rng))
+{
+  //nop
+}
+
+void Scene_Game::Entities::update(float dt) {
+  asteroids.update(dt);
+  paddles.update(dt);
+  ball.update(dt);
+
+  ballVPaddles();
+  ballVRoids();
+}
+
+void Scene_Game::Entities::draw(Camera& cam) {
+  asteroids.draw(cam);
+  paddles.draw(cam);
+  ball.draw(cam);
+}
+
+void Scene_Game::Entities::ballVPaddles() {
+  auto& ballVel = ball.getVelocity();
+  Paddles::Side approachedSide = (ballVel.x > 0) ? Paddles::RIGHT : Paddles::LEFT;
+  auto& paddleCol = paddles.getCollider(approachedSide);
+  auto& ballCol = ball.getCollider();
+
+  if(SC::testOverlap(ballCol, paddleCol)) { //~~@?
+    float theta = paddles.getDeflectionAngle(approachedSide, ballCol.center.y - ballCol.radius);
+    int sign = (approachedSide == Paddles::LEFT) ? 1 : -1;
+    ball.setDirection({ sign * cosf(theta), sinf(theta) });
+  }
+
+}
+
+void Scene_Game::Entities::ballVRoids() {
+  auto& ballCol = ball.getCollider();
+  for(auto& roid : asteroids.asteroids) {
+    auto& roidCol = roid.getCollider();
+    if(SC::testOverlap(ballCol, roidCol)) {
+      ball.setDirection({ ballCol.center.x - roidCol.center.x, ballCol.center.y - roidCol.center.y });
+      roid.hit({ ballCol.center.x, ballCol.center.y }, asteroids);
+    }
+  }
+}

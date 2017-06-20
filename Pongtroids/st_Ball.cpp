@@ -1,5 +1,4 @@
 #include "st_Ball.h"
-#include "ns_GameScene.h"
 #include "cl_Graphics.h"
 #include "cl_Camera.h"
 
@@ -16,37 +15,19 @@ Ball::Ball(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, 
   //nop
 }
 
-void Ball::update(float dt, GameScene::Entities& entities, const GameScene::Regions& regions) {
+void Ball::update(float dt) {
   //integrate
   xform.translate(XMVectorScale(XMLoadFloat2(&velocity), dt));
   collider.center.x = xform.translation.x + RADIUS;
   collider.center.y = xform.translation.y + RADIUS;
 
-  //check bounds
-  if(velocity.y > 0 && SC::testOverlap(regions.bottom, collider)) { velocity.y = -velocity.y; }
-  if(velocity.y < 0 && SC::testOverlap(regions.top,    collider)) { velocity.y = -velocity.y; }
+  static const float SCREEN_TOP = 0;
+  static const float SCREEN_BOT = (float)shared.gfx.VIEWPORT_DIMS.height;
 
-  //~~@ stuff below here should be handled in entity update
+  //bounce off top and bottom
+  if(velocity.y > 0 && ((collider.center.y + collider.radius) > SCREEN_BOT)) { velocity.y = -velocity.y; }
+  if(velocity.y < 0 && ((collider.center.y - collider.radius) < SCREEN_TOP)) { velocity.y = -velocity.y; }
 
-  //check paddles
-  Paddles::Side side = (velocity.x > 0) ? Paddles::RIGHT : Paddles::LEFT;
-  if(SC::testOverlap(entities.paddles.getCollider(side), collider)) {
-    float theta = entities.paddles.getDeflectionAngle(side, xform.y);
-    int sign = (2 * side) - 1; //LEFT is negative and RIGHT is positive
-    velocity = { -sign * cosf(theta) * SPEED, sinf(theta) * SPEED }; //vel.x should be reversed
-  }
-
-  //check roids
-  for(auto& roid : entities.asteroids.asteroids) {
-    if(SC::testOverlap(collider, roid.collider)) {
-      XMVECTOR myPos = XMLoadFloat2(reinterpret_cast<const DirectX::XMFLOAT2*>(&collider.center));
-      XMVECTOR roidPos = XMLoadFloat2(reinterpret_cast<const DirectX::XMFLOAT2*>(&roid.collider.center));
-      XMVECTOR dir = XMVector2Normalize(DirectX::XMVectorSubtract(myPos, roidPos));
-      XMStoreFloat2(&velocity, XMVectorScale(dir, SPEED));
-
-      roid.hit({ xform.x, xform.y }, entities.asteroids);
-    }
-  }
 }
 
 void Ball::draw(Camera& cam) {
@@ -55,4 +36,8 @@ void Ball::draw(Camera& cam) {
   prog->cBuffer.update();
   tex.set(0);
   shared.gfx.draw(4);
+}
+
+void Ball::setDirection(const DirectX::XMFLOAT2& dir) {
+  XMStoreFloat2(&velocity, XMVectorScale(XMVector2Normalize(XMLoadFloat2(&dir)), SPEED));
 }

@@ -159,9 +159,6 @@
     <ClCompile Include="st_Paddles.cpp">
       <Filter>Source Files\Scenes\Scene_Game</Filter>
     </ClCompile>
-    <ClCompile Include="ns_GameScene.cpp">
-      <Filter>Source Files\Scenes\Scene_Game</Filter>
-    </ClCompile>
     <ClCompile Include="cl_Sound.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
@@ -270,9 +267,6 @@
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
     <ClInclude Include="st_Paddles.h">
-      <Filter>Header Files\Scenes\Scene_Game</Filter>
-    </ClInclude>
-    <ClInclude Include="ns_GameScene.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
     <ClInclude Include="tst_RenderProgram.h">

@@ -14,7 +14,7 @@ class Camera;
 class Asteroids {
   struct RoidArgs;
 public:
-  Asteroids(SharedState& shared, const SC::Rect& bounds, size_t count);
+  Asteroids(SharedState& shared, size_t count);
   void update(float dt);
   void draw(Camera& cam);
 
@@ -24,6 +24,7 @@ public:
   struct Asteroid {
     Asteroid(const RoidArgs& args);
     void hit(DirectX::XMFLOAT2 ballPos, Asteroids& asteroids);
+    const SC::Circle& getCollider() const { return collider; }
 
     static constexpr float SPEED = 50;
     static constexpr float MAX_START_SIZE = 75;
@@ -42,6 +43,7 @@ private:
   void clean();
   void spawnQueued();
 
+  static constexpr float HBOUND_MARGIN = 50;
   SC::Rect centerRegion;
 
   SharedState& shared;

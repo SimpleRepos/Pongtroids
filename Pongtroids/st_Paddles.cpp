@@ -1,6 +1,5 @@
 #include "st_Paddles.h"
 #include "cl_Camera.h"
-#include "ns_GameScene.h"
 
 namespace {
   std::vector<Vertex::Pos3Norm3Tex2> squareVerts = {

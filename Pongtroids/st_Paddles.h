@@ -22,7 +22,7 @@ public:
   const Transform& getXform(Side side)   const { return xforms[side]; }
   const SC::Rect& getCollider(Side side) const { return colliders[side]; }
 
-  float getDeflectionAngle(Side side, float ballY) const;
+  DirectX::XMFLOAT2 getDeflectionDirection(Side side, float ballY) const;
 
 private:
   static constexpr float MAX_DEFLECTION_ANGLE = 0.785398163f;

@@ -57,8 +57,10 @@ Scene* Scene_Game::activeUpdate() {
   ballVPaddles();
   ballVRoids();
 
-  if(ball.xform.translation.x < 0)                                     { return new Scene_Game(shared); }
-  if(ball.xform.translation.x > (float)shared.gfx.VIEWPORT_DIMS.width) { return new Scene_Game(shared); }
+  //~~@
+  float ballX = ball.getCollider().center.x;
+  if(ballX < 0)                                     { return new Scene_Game(shared); }
+  if(ballX > (float)shared.gfx.VIEWPORT_DIMS.width) { return new Scene_Game(shared); }
 
   return this;
 }
@@ -72,15 +74,12 @@ void Scene_Game::activeDraw() {
 }
 
 void Scene_Game::ballVPaddles() {
-  auto& ballVel = ball.getVelocity();
-  Paddles::Side approachedSide = (ballVel.x > 0) ? Paddles::RIGHT : Paddles::LEFT;
-  auto& paddleCol = paddles.getCollider(approachedSide);
+  Paddles::Side side = (ball.getVelocity().x > 0) ? Paddles::RIGHT : Paddles::LEFT;
+
   auto& ballCol = ball.getCollider();
 
-  if(SC::testOverlap(ballCol, paddleCol)) { //~~@?
-    float theta = paddles.getDeflectionAngle(approachedSide, ballCol.center.y - ballCol.radius);
-    int sign = (approachedSide == Paddles::LEFT) ? 1 : -1;
-    ball.setDirection({ sign * cosf(theta), sinf(theta) });
+  if(SC::testOverlap(ballCol, paddles.getCollider(side))) {
+    ball.setDirection(paddles.getDeflectionDirection(side, ballCol.center.y));
   }
 
 }

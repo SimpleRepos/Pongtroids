@@ -62,10 +62,9 @@ std::vector<D3D11_INPUT_ELEMENT_DESC> VertexShader::reflectInputLayout(const std
   std::vector<D3D11_SIGNATURE_PARAMETER_DESC> sigDesc;
 
   {
-    //CComPtr<ID3D11ShaderReflection> reflection; //~~! this causes the stack top be laid out wrong in release build
+    //~~! For some reason releasing the reflection interface corrupts the stack, so I'm letting it leak for now.
     ID3D11ShaderReflection* reflection;
     HR(D3DReflect(data.data(), data.size(), IID_ID3D11ShaderReflection, reinterpret_cast<void**>(&reflection)));
-    //Utility::OnScopeExit ose([reflection]() { reflection->Release(); }); //~~! so does this
 
     D3D11_SHADER_DESC shaderDesc;
     HR(reflection->GetDesc(&shaderDesc));
@@ -76,7 +75,6 @@ std::vector<D3D11_INPUT_ELEMENT_DESC> VertexShader::reflectInputLayout(const std
       sigDesc.push_back(paramDesc);
     }
 
-    //reflection->Release(); //~~! okay, something is up here...
   }
 
   std::vector<D3D11_INPUT_ELEMENT_DESC> layoutDesc;

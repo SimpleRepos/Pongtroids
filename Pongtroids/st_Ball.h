@@ -24,8 +24,6 @@ public:
   static constexpr float SPEED = 200;
 
 private:
-  friend class Scene_Game; //~~@
-
   SharedState& shared;
 
   Transform xform;

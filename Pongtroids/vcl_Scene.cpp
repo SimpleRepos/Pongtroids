@@ -7,12 +7,20 @@ Scene::Scene(SharedState& shared) : shared(shared) {
 
 Scene* Scene::update() {
   passiveUpdate();
-  if(subState) { return subState->update(); }
-  else         { return activeUpdate(); }
+
+  if(subScene) {
+    Scene* next = subScene->update();
+    if(next != subScene.get()) { subScene.reset(next); }
+
+    return this;
+  }
+
+  return activeUpdate();
+
 }
 
 void Scene::draw() {
   passiveDraw();
-  if(subState) { subState->draw(); }
+  if(subScene) { subScene->draw(); }
   else         { activeDraw(); }
 }

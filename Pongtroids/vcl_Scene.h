@@ -21,6 +21,6 @@ public:
 
 protected:
   SharedState& shared;
-  std::unique_ptr<Scene> subState;
+  std::unique_ptr<Scene> subScene;
 
 };

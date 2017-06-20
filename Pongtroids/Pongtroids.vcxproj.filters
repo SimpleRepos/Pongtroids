@@ -281,6 +281,9 @@
     <ClInclude Include="cl_GameBackground.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
+    <ClInclude Include="Scene_Null.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="tcl_DynamicVertexBuffer.inl">

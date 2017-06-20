@@ -7,6 +7,7 @@
 #include "ns_Vertex.h"
 #include "cl_Window.h"
 #include "ns_Utility.h"
+#include "Scene_Null.h"
 
 Scene_Game::Scene_Game(SharedState& shared) : 
   Scene(shared),
@@ -20,10 +21,13 @@ Scene_Game::Scene_Game(SharedState& shared) :
     shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()
   },
   cam(),
+  bg(shared, spriteProg),
   asteroids(shared, 3),
   paddles(shared, spriteProg),
   ball(shared, spriteProg, { 400, 300 }, Utility::randDirVec(shared.rng)),
-  bg(shared, spriteProg)
+  LEFT_OOB(0),
+  RIGHT_OOB((float)shared.gfx.VIEWPORT_DIMS.width),
+  reset(false)
 {
   D3D11_RENDER_TARGET_BLEND_DESC desc = {
     TRUE, //enable
@@ -37,19 +41,20 @@ Scene_Game::Scene_Game(SharedState& shared) :
   };
   shared.gfx.setBlend(desc);
 
-  shared.win.addKeyFunc(VK_ESCAPE, [](HWND, LPARAM) { PostQuitMessage(0); });
-
   cam.setOrthographic((float)shared.gfx.VIEWPORT_DIMS.width, (float)shared.gfx.VIEWPORT_DIMS.height);
   cam.setDepthLimits(-100, 1000);
   cam.setEyePos(0, 0, -5);
   cam.setTargetDir(0, 0, 1);
 }
 
-Scene* Scene_Game::activeUpdate() {
-  constexpr float MAX_FRAME_LENGTH = 1.0f / 60;
-  float dt = Utility::clamp((float)shared.timer.getTickDT(), 0, MAX_FRAME_LENGTH);
-
+void Scene_Game::passiveUpdate() {
+  float dt = (float)shared.timer.getTickDT();
   bg.update(dt);
+}
+
+Scene* Scene_Game::activeUpdate() {
+  float dt = (float)shared.timer.getTickDT();
+
   asteroids.update(dt);
   paddles.update(dt);
   ball.update(dt);
@@ -57,20 +62,19 @@ Scene* Scene_Game::activeUpdate() {
   ballVPaddles();
   ballVRoids();
 
-  //~~@
-  float ballX = ball.getCollider().center.x;
-  if(ballX < 0)                                     { return new Scene_Game(shared); }
-  if(ballX > (float)shared.gfx.VIEWPORT_DIMS.width) { return new Scene_Game(shared); }
-
-  return this;
+  return processWinLoss();
 }
 
-void Scene_Game::activeDraw() {
+void Scene_Game::passiveDraw() {
   shared.gfx.clear(ColorF::CYAN);
   bg.draw(cam);
   asteroids.draw(cam);
   paddles.draw(cam);
   ball.draw(cam);
+}
+
+void Scene_Game::activeDraw() {
+  //nop
 }
 
 void Scene_Game::ballVPaddles() {
@@ -86,11 +90,31 @@ void Scene_Game::ballVPaddles() {
 
 void Scene_Game::ballVRoids() {
   auto& ballCol = ball.getCollider();
-  for(auto& roid : asteroids.asteroids) {
-    auto& roidCol = roid.getCollider();
-    if(SC::testOverlap(ballCol, roidCol)) {
-      ball.setDirection({ ballCol.center.x - roidCol.center.x, ballCol.center.y - roidCol.center.y });
-      roid.hit({ ballCol.center.x, ballCol.center.y }, asteroids);
-    }
+
+  auto* roid = asteroids.findCollision(ballCol);
+  if(roid) {
+    ball.setDirection({ ballCol.center.x - roid->collider.center.x, ballCol.center.y - roid->collider.center.y });
+    asteroids.hit(*roid, { ballCol.center.x, ballCol.center.y });
   }
+
+}
+
+Scene* Scene_Game::processWinLoss() {
+  if(reset) { return new Scene_Game(shared); }
+
+  bool lose = false;
+  float ballX = ball.getCollider().center.x;
+  if(ballX < LEFT_OOB)  { lose = true; }
+  if(ballX > RIGHT_OOB) { lose = true; }
+  if(lose) {
+    subScene = std::make_unique<Scene_Null>(shared);
+    reset = true;
+  }
+
+  bool win = asteroids.population() == 0;
+  if(win) {
+    return new Scene_Game(shared);
+  }
+
+  return this;
 }

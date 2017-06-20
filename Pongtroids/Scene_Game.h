@@ -14,22 +14,27 @@
 class Scene_Game : public Scene {
 public:
   Scene_Game(SharedState& shared);
+  void passiveUpdate() override;
   Scene* activeUpdate() override;
+  void passiveDraw() override;
   void activeDraw() override;
 
 private:
   void ballVPaddles();
   void ballVRoids();
+  Scene* processWinLoss();
 
   RenderProgram<DirectX::XMFLOAT4X4> spriteProg;
-
   Camera cam;
 
+  GameBackGround bg;
   Asteroids asteroids;
   Paddles paddles;
   Ball ball;
 
-  GameBackGround bg;
+  const float LEFT_OOB;
+  const float RIGHT_OOB;
 
+  bool reset;
 };
 

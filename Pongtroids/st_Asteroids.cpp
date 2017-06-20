@@ -23,12 +23,12 @@ Asteroids::Asteroids(SharedState& shared, size_t count) :
   }
 {
   RandomPositionGenerator posGen(centerRegion.left, centerRegion.top, centerRegion.right, centerRegion.bottom);
-  std::uniform_real_distribution<float> sizeDist(50, 75);
+  std::uniform_real_distribution<float> sizeDist(Asteroid::MIN_START_SIZE, Asteroid::MAX_START_SIZE);
 
   for(size_t i = 0; i < count; i++) {
     float size = sizeDist(shared.rng);
     auto pos = posGen.randPos(shared.rng);
-    asteroids.emplace_back(RoidArgs{ size, { pos.x, pos.y, 0 }, randDirVec(shared.rng) });
+    enqueue(size, { pos.x, pos.y, 0 }, randDirVec(shared.rng));
   }
 }
 
@@ -66,35 +66,21 @@ void Asteroids::draw(Camera& cam) {
   }
 }
 
-void Asteroids::enqueue(float size, const DirectX::XMFLOAT3& pos, const DirectX::XMFLOAT2& dir) {
-  queue.push_back(RoidArgs{size, pos, dir});
-}
-
 size_t Asteroids::population() const {
   return asteroids.size() + queue.size();
 }
 
-Asteroids::Asteroid::Asteroid(const RoidArgs& args) : 
-  velocity(XMFLOAT2(args.dir.x * SPEED, args.dir.y * SPEED)),
-  alive(true)
-{
-  xform.translation = args.pos;
-  xform.mulScale(args.size);
-  collider.center = SC::Point{ args.pos.x, args.pos.y };
-  collider.radius = args.size;
-}
+void Asteroids::hit(Asteroid& roid, DirectX::XMFLOAT2 ballPos) {
+  roid.alive = false;
 
-void Asteroids::Asteroid::hit(DirectX::XMFLOAT2 ballPos, Asteroids& asteroids) {
-  alive = false;
+  hitSound.play();
 
-  asteroids.hitSound.play();
-
-  float newSize = collider.radius / 2;
-  if(newSize < MIN_SIZE) { return; }
+  float newSize = roid.collider.radius / 2;
+  if(newSize < Asteroid::MIN_SIZE) { return; }
 
   XMVECTOR vDir = XMVector2Orthogonal(
     XMVector2Normalize(
-      XMLoadFloat2(&ballPos) - XMLoadFloat3(&xform.translation)
+      XMLoadFloat2(&ballPos) - XMLoadFloat3(&roid.xform.translation)
     )
   );
 
@@ -102,22 +88,30 @@ void Asteroids::Asteroid::hit(DirectX::XMFLOAT2 ballPos, Asteroids& asteroids) {
   XMStoreFloat2(&posDir,  vDir);
   XMStoreFloat2(&negDir, -vDir);
 
-  asteroids.enqueue(newSize, xform.translation, posDir);
-  asteroids.enqueue(newSize, xform.translation, negDir);
+  enqueue(newSize, roid.xform.translation, posDir);
+  enqueue(newSize, roid.xform.translation, negDir);
 }
 
-namespace {
-  bool isDead(const Asteroids::Asteroid& roid) {
-    return !roid.alive;
+Asteroids::Asteroid* Asteroids::findCollision(const SC::Circle& ballCol) {
+  for(auto& roid : asteroids) {
+    if(SC::testOverlap(ballCol, roid.collider)) { return &roid; }
   }
+  return nullptr;
+}
+
+void Asteroids::enqueue(float size, const DirectX::XMFLOAT3& pos, const DirectX::XMFLOAT2& dir) {
+  queue.emplace_back(Asteroid{ Transform(), { dir.x * Asteroid::SPEED, dir.y * Asteroid::SPEED }, true, { { pos.x, pos.y }, size } });
+  auto& roid = queue.back();
+  roid.xform.translation = pos;
+  roid.xform.mulScale(size);
 }
 
 void Asteroids::clean() {
-  auto iter = std::remove_if(asteroids.begin(), asteroids.end(), isDead);
+  auto iter = std::remove_if(asteroids.begin(), asteroids.end(), [](const Asteroids::Asteroid& roid) -> bool { return !roid.alive; });
   if(iter != asteroids.end()) { asteroids.erase(iter); }}
 
 void Asteroids::spawnQueued() {
-  for(auto& args : queue) { asteroids.emplace_back(args); }
+  asteroids.insert(asteroids.end(), queue.begin(), queue.end());
   queue.clear();
 }
 

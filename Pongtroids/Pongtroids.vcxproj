@@ -177,6 +177,7 @@
     <ClInclude Include="cl_Audio.h" />
     <ClInclude Include="cl_Sound.h" />
     <ClInclude Include="cl_GameBackground.h" />
+    <ClInclude Include="Scene_Null.h" />
     <ClInclude Include="st_Ball.h" />
     <ClInclude Include="st_Paddles.h" />
     <ClInclude Include="simpleCollision.h" />

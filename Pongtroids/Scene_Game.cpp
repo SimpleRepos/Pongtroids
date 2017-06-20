@@ -25,6 +25,7 @@ Scene_Game::Scene_Game(SharedState& shared) :
   asteroids(shared, 3),
   paddles(shared, spriteProg),
   ball(shared, spriteProg, { 400, 300 }, Utility::randDirVec(shared.rng)),
+  scoreFont(shared.factory.createFont(L"Courier")),
   LEFT_OOB(0),
   RIGHT_OOB((float)shared.gfx.VIEWPORT_DIMS.width),
   reset(false)
@@ -50,12 +51,12 @@ Scene_Game::Scene_Game(SharedState& shared) :
 void Scene_Game::passiveUpdate() {
   float dt = (float)shared.timer.getTickDT();
   bg.update(dt);
+  asteroids.update(dt);
 }
 
 Scene* Scene_Game::activeUpdate() {
   float dt = (float)shared.timer.getTickDT();
 
-  asteroids.update(dt);
   paddles.update(dt);
   ball.update(dt);
 
@@ -70,11 +71,12 @@ void Scene_Game::passiveDraw() {
   bg.draw(cam);
   asteroids.draw(cam);
   paddles.draw(cam);
-  ball.draw(cam);
+
+  scoreFont.drawText(Utility::stringf(L"Lives: %d", shared.gameState.lives), 24, 5, 5, ColorF::YELLOW);
 }
 
 void Scene_Game::activeDraw() {
-  //nop
+  ball.draw(cam);
 }
 
 void Scene_Game::ballVPaddles() {
@@ -100,7 +102,10 @@ void Scene_Game::ballVRoids() {
 }
 
 Scene* Scene_Game::processWinLoss() {
-  if(reset) { return new Scene_Game(shared); }
+  if(reset) {
+    if(--shared.gameState.lives < 0) { return nullptr; }
+    return new Scene_Game(shared);
+  }
 
   bool lose = false;
   float ballX = ball.getCollider().center.x;

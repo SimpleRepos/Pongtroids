@@ -10,6 +10,7 @@
 #include <DirectXMath.h>
 #include "cl_StaticVertexBuffer.h"
 #include "cl_GameBackground.h"
+#include "cl_Font.h"
 
 class Scene_Game : public Scene {
 public:
@@ -31,6 +32,7 @@ private:
   Asteroids asteroids;
   Paddles paddles;
   Ball ball;
+  Font scoreFont;
 
   const float LEFT_OOB;
   const float RIGHT_OOB;

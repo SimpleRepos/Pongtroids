@@ -67,6 +67,9 @@
     <Filter Include="Header Files\Audio">
       <UniqueIdentifier>{1dd8c4e9-cc33-488a-8f3a-b08df5c3eff3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{0216a583-722c-4804-ad42-f6060bfae248}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cl_Game.cpp">
@@ -257,9 +260,6 @@
     <ClInclude Include="ns_Vertex.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="simpleCollision.h">
-      <Filter>Header Files\Scenes\Scene_Game</Filter>
-    </ClInclude>
     <ClInclude Include="st_Ball.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
@@ -282,7 +282,13 @@
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
     <ClInclude Include="Scene_Null.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="simpleCollision.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="st_GameState.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

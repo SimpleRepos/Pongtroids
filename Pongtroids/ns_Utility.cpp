@@ -1,5 +1,6 @@
 #include "ns_Utility.h"
 #include <fstream>
+#include <cstdarg>
 
 Utility::OnScopeExit::OnScopeExit(std::function<void()> func) {
   reset(func);
@@ -53,4 +54,25 @@ float Utility::clamp(float val, float min, float max) {
   if(val < min) { val = min; }
   if(val > max) { val = max; }
   return val;
+}
+
+std::string Utility::stringf(const char* format, ...) {
+  va_list args;
+  va_start(args, format);
+  std::vector<char> buffer(_vscprintf(format, args) + 1);
+  _vsnprintf_s(buffer.data(), buffer.size(), buffer.size(), format, args);
+  va_end(args);
+
+  return buffer.data();
+}
+
+
+std::wstring Utility::stringf(const wchar_t* format, ...) {
+  va_list args;
+  va_start(args, format);
+  std::vector<wchar_t> buffer(_vscwprintf(format, args) + 1);
+  _vsnwprintf_s(buffer.data(), buffer.size(), buffer.size(), format, args);
+  va_end(args);
+
+  return buffer.data();
 }

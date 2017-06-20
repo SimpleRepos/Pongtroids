@@ -54,5 +54,8 @@ namespace Utility {
   ///<summary>Clamp a value to a range</summary>
   float clamp(float val, float min, float max);
 
+  ///~~#
+  std::string stringf(const char* format, ...);
+  std::wstring stringf(const wchar_t* format, ...);
 }
 

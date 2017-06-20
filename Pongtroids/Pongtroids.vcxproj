@@ -179,6 +179,7 @@
     <ClInclude Include="cl_GameBackground.h" />
     <ClInclude Include="Scene_Null.h" />
     <ClInclude Include="st_Ball.h" />
+    <ClInclude Include="st_GameState.h" />
     <ClInclude Include="st_Paddles.h" />
     <ClInclude Include="simpleCollision.h" />
     <ClInclude Include="st_Asteroids.h" />

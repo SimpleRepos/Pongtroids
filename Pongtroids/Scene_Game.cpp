@@ -7,7 +7,7 @@
 #include "ns_Vertex.h"
 #include "cl_Window.h"
 #include "ns_Utility.h"
-#include "Scene_Null.h"
+#include "SubScene_BallOut.h"
 
 Scene_Game::Scene_Game(SharedState& shared) : 
   Scene(shared),
@@ -28,7 +28,7 @@ Scene_Game::Scene_Game(SharedState& shared) :
   scoreFont(shared.factory.createFont(L"Courier")),
   LEFT_OOB(0),
   RIGHT_OOB((float)shared.gfx.VIEWPORT_DIMS.width),
-  reset(false)
+  resetBall(false)
 {
   D3D11_RENDER_TARGET_BLEND_DESC desc = {
     TRUE, //enable
@@ -63,19 +63,23 @@ Scene* Scene_Game::activeUpdate() {
   ballVPaddles();
   ballVRoids();
 
-  return processWinLoss();
+  if(shared.gameState.lives < 0)   { return nullptr; }
+  if(asteroids.population() == 0)  { return nullptr; }
+  if(resetBall)  { return new Scene_Game(shared); }
+
+  return this;
 }
 
 void Scene_Game::passiveDraw() {
   shared.gfx.clear(ColorF::CYAN);
   bg.draw(cam);
   asteroids.draw(cam);
-  paddles.draw(cam);
 
   scoreFont.drawText(Utility::stringf(L"Lives: %d", shared.gameState.lives), 24, 5, 5, ColorF::YELLOW);
 }
 
 void Scene_Game::activeDraw() {
+  paddles.draw(cam);
   ball.draw(cam);
 }
 
@@ -101,25 +105,14 @@ void Scene_Game::ballVRoids() {
 
 }
 
-Scene* Scene_Game::processWinLoss() {
-  if(reset) {
-    if(--shared.gameState.lives < 0) { return nullptr; }
-    return new Scene_Game(shared);
-  }
-
-  bool lose = false;
+void Scene_Game::ballVBounds() {
+  bool out = false;
   float ballX = ball.getCollider().center.x;
-  if(ballX < LEFT_OOB)  { lose = true; }
-  if(ballX > RIGHT_OOB) { lose = true; }
-  if(lose) {
-    subScene = std::make_unique<Scene_Null>(shared);
-    reset = true;
+  if(ballX < LEFT_OOB)  { out = true; }
+  if(ballX > RIGHT_OOB) { out = true; }
+  if(out) {
+    subScene = std::make_unique<SubScene_BallOut>(shared);
+    resetBall = true;
   }
-
-  bool win = asteroids.population() == 0;
-  if(win) {
-    return new Scene_Game(shared);
-  }
-
-  return this;
 }
+

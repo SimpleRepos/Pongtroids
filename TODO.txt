@@ -1,4 +1,4 @@
- -win/lose processing
- -scoring
- -improve physics
- -powerup system
+> make ball resetable
+> scoring
+> improve physics
+> powerup system

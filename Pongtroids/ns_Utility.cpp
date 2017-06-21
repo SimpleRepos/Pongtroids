@@ -3,19 +3,19 @@
 #include <cstdarg>
 
 Utility::OnScopeExit::OnScopeExit(std::function<void()> func) {
-  reset(func);
+  resetBall(func);
 }
 
 Utility::OnScopeExit::~OnScopeExit() {
   func();
 }
 
-void Utility::OnScopeExit::reset(std::function<void()> func) {
+void Utility::OnScopeExit::resetBall(std::function<void()> func) {
   this->func = func;
 }
 
 void Utility::OnScopeExit::release() {
-  reset([]() {});
+  resetBall([]() {});
 }
 
 std::vector<char> Utility::readFile(const std::string& filename) {

@@ -2,9 +2,15 @@
 #include "vcl_Scene.h"
 #include "st_SharedState.h"
 
-class Scene_Null : public Scene {
+class SubScene_BallOut : public Scene {
 public:
-  Scene_Null(SharedState& shared) : Scene(shared), delay(3) {}
+  SubScene_BallOut(SharedState& shared) :
+    Scene(shared),
+    delay(3)
+  {
+    shared.gameState.lives--;
+  }
+
   void activeDraw() override {}
 
   Scene* activeUpdate() override {

@@ -26,7 +26,7 @@ namespace Utility {
 
     ///<summary>Set a new associated function, replaceing the previous one</summary>
     ///<param name="func">The function to be executed when this object destructs</param>
-    void reset(std::function<void()> func);
+    void resetBall(std::function<void()> func);
 
     ///<summary>Set the associated function to an empty one</summary>
     void release();

@@ -472,7 +472,7 @@ namespace FMOD
         FMOD_RESULT F_API setChannelFormat       (FMOD_CHANNELMASK channelmask, int numchannels, FMOD_SPEAKERMODE source_speakermode);
         FMOD_RESULT F_API getChannelFormat       (FMOD_CHANNELMASK *channelmask, int *numchannels, FMOD_SPEAKERMODE *source_speakermode);
         FMOD_RESULT F_API getOutputChannelFormat (FMOD_CHANNELMASK inmask, int inchannels, FMOD_SPEAKERMODE inspeakermode, FMOD_CHANNELMASK *outmask, int *outchannels, FMOD_SPEAKERMODE *outspeakermode);
-        FMOD_RESULT F_API reset                  ();
+        FMOD_RESULT F_API resetBall                  ();
 
         // DSP parameter control.
         FMOD_RESULT F_API setParameterFloat      (int index, float value);

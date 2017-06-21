@@ -281,14 +281,14 @@
     <ClInclude Include="cl_GameBackground.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
-    <ClInclude Include="Scene_Null.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="simpleCollision.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="st_GameState.h">
       <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SubScene_BallOut.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

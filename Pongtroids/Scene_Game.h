@@ -23,7 +23,8 @@ public:
 private:
   void ballVPaddles();
   void ballVRoids();
-  Scene* processWinLoss();
+  void ballVBounds();
+
 
   RenderProgram<DirectX::XMFLOAT4X4> spriteProg;
   Camera cam;
@@ -37,6 +38,6 @@ private:
   const float LEFT_OOB;
   const float RIGHT_OOB;
 
-  bool reset;
+  bool resetBall;
 };
 

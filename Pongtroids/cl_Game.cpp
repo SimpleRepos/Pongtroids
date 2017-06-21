@@ -17,7 +17,7 @@ void Game::run() {
     shared.input.update();
 
     Scene* next = scene->update();
-    if(next != scene.get()) { scene.reset(next); }
+    if(next != scene.get()) { scene.resetBall(next); }
 
     if(scene) {
       scene->draw();

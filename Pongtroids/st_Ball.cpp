@@ -4,15 +4,14 @@
 
 using namespace DirectX;
 
-Ball::Ball(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, DirectX::XMFLOAT2 position, DirectX::XMFLOAT2 direction) :
+Ball::Ball(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, DirectX::XMFLOAT2 startPos) :
   shared(shared),
-  xform({ position.x, position.y, 0 }, { RADIUS * 2, RADIUS * 2, 1 }),
-  velocity(direction.x * SPEED, direction.y * SPEED),
-  collider{{ position.x, position.y }, RADIUS},
+  resetPos(startPos),
+  collider{{ startPos.x, startPos.y }, RADIUS},
   tex(shared.factory.createTexture(L"../Assets/ball.png")),
   prog(&spriteProg)
 {
-  //nop
+  reset();
 }
 
 void Ball::update(float dt) {
@@ -41,3 +40,11 @@ void Ball::draw(Camera& cam) {
 void Ball::setDirection(const DirectX::XMFLOAT2& dir) {
   XMStoreFloat2(&velocity, XMVectorScale(XMVector2Normalize(XMLoadFloat2(&dir)), SPEED));
 }
+
+void Ball::reset() {
+  xform = Transform({ resetPos.x, resetPos.y, 0 }, { RADIUS * 2, RADIUS * 2, 1 });
+  velocity = Utility::randDirVec(shared.rng);
+  velocity.x *= SPEED;
+  velocity.y *= SPEED;
+}
+

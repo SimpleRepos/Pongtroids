@@ -10,7 +10,7 @@ Scene* Scene::update() {
 
   if(subScene) {
     Scene* next = subScene->update();
-    if(next != subScene.get()) { subScene.resetBall(next); }
+    if(next != subScene.get()) { subScene.reset(next); }
 
     return this;
   }

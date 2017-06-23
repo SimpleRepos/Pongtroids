@@ -24,11 +24,10 @@ Scene_Game::Scene_Game(SharedState& shared) :
   bg(shared, spriteProg),
   asteroids(shared, 3),
   paddles(shared, spriteProg),
-  ball(shared, spriteProg, { 400, 300 }, Utility::randDirVec(shared.rng)),
+  ball(shared, spriteProg, { 400, 300 }),
   scoreFont(shared.factory.createFont(L"Courier")),
   LEFT_OOB(0),
-  RIGHT_OOB((float)shared.gfx.VIEWPORT_DIMS.width),
-  resetBall(false)
+  RIGHT_OOB((float)shared.gfx.VIEWPORT_DIMS.width)
 {
   D3D11_RENDER_TARGET_BLEND_DESC desc = {
     TRUE, //enable
@@ -52,20 +51,20 @@ void Scene_Game::passiveUpdate() {
   float dt = (float)shared.timer.getTickDT();
   bg.update(dt);
   asteroids.update(dt);
+  paddles.update(dt);
 }
 
 Scene* Scene_Game::activeUpdate() {
   float dt = (float)shared.timer.getTickDT();
 
-  paddles.update(dt);
   ball.update(dt);
 
   ballVPaddles();
   ballVRoids();
+  ballVBounds();
 
   if(shared.gameState.lives < 0)   { return nullptr; }
   if(asteroids.population() == 0)  { return nullptr; }
-  if(resetBall)  { return new Scene_Game(shared); }
 
   return this;
 }
@@ -74,12 +73,12 @@ void Scene_Game::passiveDraw() {
   shared.gfx.clear(ColorF::CYAN);
   bg.draw(cam);
   asteroids.draw(cam);
+  paddles.draw(cam);
 
   scoreFont.drawText(Utility::stringf(L"Lives: %d", shared.gameState.lives), 24, 5, 5, ColorF::YELLOW);
 }
 
 void Scene_Game::activeDraw() {
-  paddles.draw(cam);
   ball.draw(cam);
 }
 
@@ -112,7 +111,7 @@ void Scene_Game::ballVBounds() {
   if(ballX > RIGHT_OOB) { out = true; }
   if(out) {
     subScene = std::make_unique<SubScene_BallOut>(shared);
-    resetBall = true;
+    ball.reset();
   }
 }
 

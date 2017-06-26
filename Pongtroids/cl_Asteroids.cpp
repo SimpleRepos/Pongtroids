@@ -1,4 +1,4 @@
-#include "st_Asteroids.h"
+#include "cl_Asteroids.h"
 #include <algorithm>
 #include <functional>
 #include "cl_Camera.h"
@@ -15,7 +15,7 @@ Asteroids::Asteroids(SharedState& shared, size_t count) :
   prog{
     ShaderSet(
       shared.factory,
-      "../Assets/vs_temporarySimpleTransform.cso", D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
+      "../Assets/vs_simpleXform.cso", D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST,
       "", "", "",
       RasterizerState::DEFAULT_DESC, "../Assets/ps_texture.cso"
     ),
@@ -71,6 +71,8 @@ size_t Asteroids::population() const {
 }
 
 void Asteroids::hit(Asteroid& roid, DirectX::XMFLOAT2 ballPos) {
+  shared.gameState.score += 100;
+
   roid.alive = false;
 
   hitSound.play();

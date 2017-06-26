@@ -1,16 +1,16 @@
 #pragma once
 #include "vcl_Scene.h"
 #include "st_SharedState.h"
-#include "st_Asteroids.h"
-#include "st_Paddles.h"
-#include "st_Ball.h"
+#include "cl_Asteroids.h"
+#include "cl_Paddles.h"
+#include "cl_Ball.h"
 #include "tst_RenderProgram.h"
 #include "cl_Camera.h"
 #include "cl_Texture.h"
 #include <DirectXMath.h>
 #include "cl_StaticVertexBuffer.h"
 #include "cl_GameBackground.h"
-#include "cl_Font.h"
+#include "cl_ScoreBoard.h"
 
 class Scene_Game : public Scene {
 public:
@@ -33,7 +33,7 @@ private:
   Asteroids asteroids;
   Paddles paddles;
   Ball ball;
-  Font scoreFont;
+  ScoreBoard scoreBoard;
 
   const float LEFT_OOB;
   const float RIGHT_OOB;

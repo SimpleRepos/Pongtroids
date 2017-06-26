@@ -16,7 +16,8 @@ Scene_Game::Scene_Game(SharedState& shared) :
       shared.factory,
       "../Assets/vs_sprite.cso", D3D_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP,
       "", "", "",
-      RasterizerState::DEFAULT_DESC, "../Assets/ps_texture.cso"
+      RasterizerState::DEFAULT_DESC,
+      "../Assets/ps_texture.cso"
     ),
     shared.factory.createConstantBuffer<DirectX::XMFLOAT4X4>()
   },
@@ -25,7 +26,7 @@ Scene_Game::Scene_Game(SharedState& shared) :
   asteroids(shared, 3),
   paddles(shared, spriteProg),
   ball(shared, spriteProg, { 400, 300 }),
-  scoreFont(shared.factory.createFont(L"Courier")),
+  scoreBoard(shared),
   LEFT_OOB(0),
   RIGHT_OOB((float)shared.gfx.VIEWPORT_DIMS.width)
 {
@@ -63,6 +64,8 @@ Scene* Scene_Game::activeUpdate() {
   ballVRoids();
   ballVBounds();
 
+  scoreBoard.update();
+
   if(shared.gameState.lives < 0)   { return nullptr; }
   if(asteroids.population() == 0)  { return nullptr; }
 
@@ -74,8 +77,7 @@ void Scene_Game::passiveDraw() {
   bg.draw(cam);
   asteroids.draw(cam);
   paddles.draw(cam);
-
-  scoreFont.drawText(Utility::stringf(L"Lives: %d", shared.gameState.lives), 24, 5, 5, ColorF::YELLOW);
+  scoreBoard.draw();  
 }
 
 void Scene_Game::activeDraw() {

@@ -153,15 +153,6 @@
     <ClCompile Include="simpleCollision.cpp">
       <Filter>Source Files\Scenes\Scene_Game</Filter>
     </ClCompile>
-    <ClCompile Include="st_Ball.cpp">
-      <Filter>Source Files\Scenes\Scene_Game</Filter>
-    </ClCompile>
-    <ClCompile Include="st_Asteroids.cpp">
-      <Filter>Source Files\Scenes\Scene_Game</Filter>
-    </ClCompile>
-    <ClCompile Include="st_Paddles.cpp">
-      <Filter>Source Files\Scenes\Scene_Game</Filter>
-    </ClCompile>
     <ClCompile Include="cl_Sound.cpp">
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
@@ -169,6 +160,18 @@
       <Filter>Source Files\Audio</Filter>
     </ClCompile>
     <ClCompile Include="cl_GameBackground.cpp">
+      <Filter>Source Files\Scenes\Scene_Game</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_Asteroids.cpp">
+      <Filter>Source Files\Scenes\Scene_Game</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_Ball.cpp">
+      <Filter>Source Files\Scenes\Scene_Game</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_Paddles.cpp">
+      <Filter>Source Files\Scenes\Scene_Game</Filter>
+    </ClCompile>
+    <ClCompile Include="cl_ScoreBoard.cpp">
       <Filter>Source Files\Scenes\Scene_Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -260,15 +263,6 @@
     <ClInclude Include="ns_Vertex.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="st_Ball.h">
-      <Filter>Header Files\Scenes\Scene_Game</Filter>
-    </ClInclude>
-    <ClInclude Include="st_Asteroids.h">
-      <Filter>Header Files\Scenes\Scene_Game</Filter>
-    </ClInclude>
-    <ClInclude Include="st_Paddles.h">
-      <Filter>Header Files\Scenes\Scene_Game</Filter>
-    </ClInclude>
     <ClInclude Include="tst_RenderProgram.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
@@ -289,6 +283,18 @@
     </ClInclude>
     <ClInclude Include="SubScene_BallOut.h">
       <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_Asteroids.h">
+      <Filter>Header Files\Scenes\Scene_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_Ball.h">
+      <Filter>Header Files\Scenes\Scene_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_Paddles.h">
+      <Filter>Header Files\Scenes\Scene_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="cl_ScoreBoard.h">
+      <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -336,9 +342,6 @@
     <FxCompile Include="ps_texture.hlsl">
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="vs_temporarySimpleTransform.hlsl">
-      <Filter>Resource Files\Shaders</Filter>
-    </FxCompile>
     <FxCompile Include="vs_stars.hlsl">
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
@@ -346,6 +349,9 @@
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="vs_sprite.hlsl">
+      <Filter>Resource Files\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="vs_simpleXform.hlsl">
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
   </ItemGroup>

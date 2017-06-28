@@ -38,5 +38,6 @@ private:
   const float LEFT_OOB;
   const float RIGHT_OOB;
 
+  float cheatyTimeScale;
 };
 

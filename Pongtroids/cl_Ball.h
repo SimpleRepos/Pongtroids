@@ -14,6 +14,7 @@ public:
   void update(float dt);
   void draw(Camera& cam);
 
+  void deflect(const DirectX::XMFLOAT2& normal);
   void setDirection(const DirectX::XMFLOAT2& dir);
   void reset();
 

@@ -63,7 +63,7 @@ void Paddles::draw(Camera& cam) {
   shared.gfx.draw(4);
 }
 
-DirectX::XMFLOAT2 Paddles::getDeflectionDirection(Side side, float ballY) const {
+DirectX::XMFLOAT2 Paddles::getDeflectionNormal(Side side, float ballY) const {
   auto& paddle = colliders[side];
 
   //calculate normalized offset such that the ball touching the top of the paddle is -1 and the bottom is +1
@@ -73,8 +73,8 @@ DirectX::XMFLOAT2 Paddles::getDeflectionDirection(Side side, float ballY) const 
 
   float theta = MAX_DEFLECTION_ANGLE * normalizedOffset;
 
-  DirectX::XMFLOAT2 dir{ cosf(theta), sinf(theta) };
-  if(side == Paddles::RIGHT) { dir.x = -dir.x; }
+  DirectX::XMFLOAT2 nrm{ cosf(theta), sinf(theta) };
+  if(side == Paddles::RIGHT) { nrm.x = -nrm.x; }
 
-  return dir;
+  return nrm;
 }

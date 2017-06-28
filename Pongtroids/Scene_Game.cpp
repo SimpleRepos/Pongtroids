@@ -6,7 +6,6 @@
 #include <fstream>
 #include "ns_Vertex.h"
 #include "cl_Window.h"
-#include "ns_Utility.h"
 #include "SubScene_BallOut.h"
 
 Scene_Game::Scene_Game(SharedState& shared) : 
@@ -28,7 +27,8 @@ Scene_Game::Scene_Game(SharedState& shared) :
   ball(shared, spriteProg, { 400, 300 }),
   scoreBoard(shared),
   LEFT_OOB(0),
-  RIGHT_OOB((float)shared.gfx.VIEWPORT_DIMS.width)
+  RIGHT_OOB((float)shared.gfx.VIEWPORT_DIMS.width),
+  cheatyTimeScale(1)
 {
   D3D11_RENDER_TARGET_BLEND_DESC desc = {
     TRUE, //enable
@@ -46,17 +46,21 @@ Scene_Game::Scene_Game(SharedState& shared) :
   cam.setDepthLimits(-100, 1000);
   cam.setEyePos(0, 0, -5);
   cam.setTargetDir(0, 0, 1);
+
+  shared.win.addKeyFunc(VK_ADD,      [this](HWND, LPARAM) { cheatyTimeScale *= 1.25f; });
+  shared.win.addKeyFunc(VK_SUBTRACT, [this](HWND, LPARAM) { cheatyTimeScale *= 0.8f; });
+  shared.win.addKeyFunc(VK_ESCAPE,   [this](HWND, LPARAM) { PostQuitMessage(0); });
 }
 
 void Scene_Game::passiveUpdate() {
-  float dt = (float)shared.timer.getTickDT();
+  float dt = (float)shared.timer.getTickDT() * cheatyTimeScale;
   bg.update(dt);
   asteroids.update(dt);
   paddles.update(dt);
 }
 
 Scene* Scene_Game::activeUpdate() {
-  float dt = (float)shared.timer.getTickDT();
+  float dt = (float)shared.timer.getTickDT() * cheatyTimeScale;
 
   ball.update(dt);
 
@@ -90,7 +94,7 @@ void Scene_Game::ballVPaddles() {
   auto& ballCol = ball.getCollider();
 
   if(SC::testOverlap(ballCol, paddles.getCollider(side))) {
-    ball.setDirection(paddles.getDeflectionDirection(side, ballCol.center.y));
+    ball.deflect(paddles.getDeflectionNormal(side, ballCol.center.y));
   }
 
 }
@@ -100,7 +104,7 @@ void Scene_Game::ballVRoids() {
 
   auto* roid = asteroids.findCollision(ballCol);
   if(roid) {
-    ball.setDirection({ ballCol.center.x - roid->collider.center.x, ballCol.center.y - roid->collider.center.y });
+    ball.deflect({ roid->collider.center.x - ballCol.center.x, roid->collider.center.y - ballCol.center.y });
     asteroids.hit(*roid, { ballCol.center.x, ballCol.center.y });
   }
 

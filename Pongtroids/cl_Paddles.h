@@ -5,6 +5,7 @@
 #include "cl_StaticMesh.h"
 #include "cl_Texture.h"
 #include "tst_RenderProgram.h"
+#include "ns_Utility.h"
 
 class Camera;
 
@@ -22,10 +23,10 @@ public:
   const Transform& getXform(Side side)   const { return xforms[side]; }
   const SC::Rect& getCollider(Side side) const { return colliders[side]; }
 
-  DirectX::XMFLOAT2 getDeflectionDirection(Side side, float ballY) const;
+  DirectX::XMFLOAT2 getDeflectionNormal(Side side, float ballY) const;
 
 private:
-  static constexpr float MAX_DEFLECTION_ANGLE = 0.785398163f;
+  static constexpr float MAX_DEFLECTION_ANGLE = Utility::PI / 16;
   static constexpr float HORZ_BORDER_GAP = 15;
   static constexpr float WIDTH = 20;
   static constexpr float HEIGHT = 100;

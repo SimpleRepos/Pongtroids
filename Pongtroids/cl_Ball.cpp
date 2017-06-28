@@ -37,6 +37,18 @@ void Ball::draw(Camera& cam) {
   shared.gfx.draw(4);
 }
 
+void Ball::deflect(const DirectX::XMFLOAT2& normal) {
+  XMVECTOR nrm = XMVector2Normalize(XMLoadFloat2(&normal));
+  XMVECTOR vel = XMLoadFloat2(&velocity);
+
+  float dot = XMVector2Dot(nrm, vel).m128_f32[0];
+  XMVECTOR deflector(XMVectorScale(nrm, 2 * dot));
+
+  vel = XMVectorSubtract(vel, deflector);
+
+  XMStoreFloat2(&velocity, vel);
+}
+
 void Ball::setDirection(const DirectX::XMFLOAT2& dir) {
   XMStoreFloat2(&velocity, XMVectorScale(XMVector2Normalize(XMLoadFloat2(&dir)), SPEED));
 }

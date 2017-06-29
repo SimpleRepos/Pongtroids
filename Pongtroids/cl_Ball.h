@@ -5,6 +5,7 @@
 #include "cl_Texture.h"
 #include "st_SharedState.h"
 #include "tst_RenderProgram.h"
+#include "cl_Sound.h"
 
 class Camera;
 
@@ -34,6 +35,8 @@ private:
 
   Texture tex;
   RenderProgram<DirectX::XMFLOAT4X4>* prog;
+
+  Sound wallBounce;
 
 };
 

@@ -28,8 +28,11 @@ Scene_Game::Scene_Game(SharedState& shared) :
   scoreBoard(shared),
   LEFT_OOB(0),
   RIGHT_OOB((float)shared.gfx.VIEWPORT_DIMS.width),
-  cheatyTimeScale(1)
+  cheatyTimeScale(1),
+  paddleBounce(shared.audio.genSound("../Assets/361230__someguy22__8-bit-bounce.wav"))
 {
+  paddleBounce.volume(0.25f);
+
   D3D11_RENDER_TARGET_BLEND_DESC desc = {
     TRUE, //enable
     D3D11_BLEND_SRC_ALPHA, //src
@@ -95,6 +98,7 @@ void Scene_Game::ballVPaddles() {
 
   if(SC::testOverlap(ballCol, paddles.getCollider(side))) {
     ball.deflect(paddles.getDeflectionNormal(side, ballCol.center.y));
+    paddleBounce.play();
   }
 
 }

@@ -9,7 +9,8 @@ Ball::Ball(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, 
   resetPos(startPos),
   collider{{ startPos.x, startPos.y }, RADIUS},
   tex(shared.factory.createTexture(L"../Assets/ball.png")),
-  prog(&spriteProg)
+  prog(&spriteProg),
+  wallBounce(shared.audio.genSound("../Assets/350905__cabled-mess__jump-c-05.wav"))
 {
   reset();
 }
@@ -24,8 +25,14 @@ void Ball::update(float dt) {
   static const float SCREEN_BOT = (float)shared.gfx.VIEWPORT_DIMS.height;
 
   //bounce off top and bottom
-  if(velocity.y > 0 && ((collider.center.y + collider.radius) > SCREEN_BOT)) { velocity.y = -velocity.y; }
-  if(velocity.y < 0 && ((collider.center.y - collider.radius) < SCREEN_TOP)) { velocity.y = -velocity.y; }
+  if(velocity.y > 0 && ((collider.center.y + collider.radius) > SCREEN_BOT)) {
+    velocity.y = -velocity.y;
+    wallBounce.play();
+  }
+  if(velocity.y < 0 && ((collider.center.y - collider.radius) < SCREEN_TOP)) {
+    velocity.y = -velocity.y;
+    wallBounce.play();
+  }
 
 }
 

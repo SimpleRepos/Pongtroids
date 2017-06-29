@@ -11,6 +11,7 @@
 #include "cl_StaticVertexBuffer.h"
 #include "cl_GameBackground.h"
 #include "cl_ScoreBoard.h"
+#include "cl_Sound.h"
 
 class Scene_Game : public Scene {
 public:
@@ -25,7 +26,6 @@ private:
   void ballVRoids();
   void ballVBounds();
 
-
   RenderProgram<DirectX::XMFLOAT4X4> spriteProg;
   Camera cam;
 
@@ -39,5 +39,8 @@ private:
   const float RIGHT_OOB;
 
   float cheatyTimeScale;
+
+  Sound paddleBounce;
+
 };
 

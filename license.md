@@ -91,3 +91,8 @@ Sound Effects
 "punch.mp3" by theredshore
 From https://www.freesound.org/people/theredshore/sounds/83976/
 
+"Jump (Retro video game SFX)" by cabled_mess
+From http://freesound.org/people/cabled_mess/sounds/350905/
+
+"8-Bit Bounce" by SomeGuy22
+From http://freesound.org/people/SomeGuy22/sounds/361230/

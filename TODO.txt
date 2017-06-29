@@ -1,4 +1,5 @@
-> improve physics
-> scoring multipliers
 > asteroid horizontal wrap and paddle damage
+
+> scoring multipliers
+
 > powerup system

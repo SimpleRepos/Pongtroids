@@ -8,6 +8,7 @@ public:
   ~Sound();
 
   void play();
+  void volume(float vol);
 
 private:
   friend class Audio;
@@ -16,6 +17,8 @@ private:
 
   FMOD::Sound* sound;
   FMOD::System* sys;
+
+  float vol;
 
 };
 

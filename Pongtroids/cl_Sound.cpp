@@ -5,11 +5,21 @@ Sound::~Sound() {
 }
 
 void Sound::play() {
-  FMOD_RESULT sult = sys->playSound(sound, 0, false, nullptr);
+  FMOD::Channel* chan;
+  FMOD_RESULT sult = sys->playSound(sound, nullptr, true, &chan);
+  assert(sult == FMOD_OK);
+  sult = chan->setVolume(vol);
+  assert(sult == FMOD_OK);
+  sult = chan->setPaused(false);
   assert(sult == FMOD_OK);
 }
 
-Sound::Sound(const std::string& fname, FMOD::System* sys) : sys(sys) {
+void Sound::volume(float vol) {
+  this->vol = vol;
+}
+
+Sound::Sound(const std::string& fname, FMOD::System* sys) : sys(sys), vol(1) {
   FMOD_RESULT sult = sys->createSound(fname.c_str(), FMOD_DEFAULT, 0, &sound);
   assert(sult == FMOD_OK);
 }
+

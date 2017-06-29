@@ -2,3 +2,4 @@
  -it's possible for a roid to get hit near vertically when it's passing through the top or bottom, which results in a pair that stay offscreen for a long time
  -audio latency
  -ball gets to a very steep angle and there's no gameplay for a long time
+ -sound effects stop playing after a while

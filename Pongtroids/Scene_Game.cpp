@@ -50,6 +50,9 @@ Scene_Game::Scene_Game(SharedState& shared) :
   cam.setEyePos(0, 0, -5);
   cam.setTargetDir(0, 0, 1);
 
+  shared.audio.bgmVolume(0.6f);
+  shared.audio.setBGMTrack("../Assets/Cupid's Revenge.mp3");
+
   shared.win.addKeyFunc(VK_ADD,      [this](HWND, LPARAM) { cheatyTimeScale *= 1.25f; });
   shared.win.addKeyFunc(VK_SUBTRACT, [this](HWND, LPARAM) { cheatyTimeScale *= 0.8f; });
   shared.win.addKeyFunc(VK_ESCAPE,   [this](HWND, LPARAM) { PostQuitMessage(0); });

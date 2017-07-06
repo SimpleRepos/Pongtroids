@@ -8,7 +8,7 @@
 #endif // !_DEBUG
 
 
-Audio::Audio() {
+Audio::Audio() : system(nullptr), bgm(nullptr), bgmChan(nullptr), bgmVol(1.0f) {
   FMOD_RESULT sult = FMOD::System_Create(&system);
   assert(sult == FMOD_OK);
 
@@ -23,6 +23,7 @@ Audio::Audio() {
 }
 
 Audio::~Audio() {
+  if(bgm) { bgm->release(); }
   system->release();
 }
 
@@ -33,3 +34,39 @@ void Audio::update() {
 Sound Audio::genSound(const std::string& filename) {
   return Sound(filename, system);
 }
+
+void Audio::setBGMTrack(const std::string& fname) {
+  FMOD_RESULT sult = system->createStream(fname.c_str(), FMOD_LOOP_NORMAL, 0, &bgm);
+  assert(sult == FMOD_OK);
+  sult = system->playSound(bgm, 0, true, &bgmChan);
+  assert(sult == FMOD_OK);
+  updateVol();
+  pauseToggleBGM();
+}
+
+void Audio::pauseToggleBGM() {
+  if(!bgm) { return; }
+
+  bool wtf;
+  FMOD_RESULT sult = bgmChan->getPaused(&wtf);
+  assert(sult == FMOD_OK);
+  sult = bgmChan->setPaused(!wtf);
+  assert(sult == FMOD_OK);
+}
+
+float Audio::bgmVolume() const {
+  return bgmVol;
+}
+
+void Audio::bgmVolume(float vol) {
+  bgmVol = vol;
+  updateVol();
+}
+
+void Audio::updateVol() {
+  if(!bgm) { return; }
+
+  FMOD_RESULT sult = bgmChan->setVolume(bgmVol);
+  assert(sult == FMOD_OK);
+}
+

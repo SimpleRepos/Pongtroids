@@ -2,13 +2,25 @@
 #include "FMOD/fmod.hpp"
 #include <string>
 #include "ns_Utility.h"
+#include <memory>
 
 class Sound;
+
+namespace std {
+  template<>
+  struct default_delete<FMOD::Sound> {
+    void operator()(FMOD::Sound* p) { p->release(); }
+  };
+
+  template<>
+  struct default_delete<FMOD::System> {
+    void operator()(FMOD::System* p) { p->release(); }
+  };
+}
 
 class Audio {
 public:
   Audio();
-  ~Audio();
 
   void update();
 
@@ -22,8 +34,8 @@ public:
 private:
   void updateVol();
 
-  FMOD::System* system;
-  FMOD::Sound* bgm;
+  std::unique_ptr<FMOD::System> system;
+  std::unique_ptr<FMOD::Sound> bgm;
   FMOD::Channel* bgmChan;
   float bgmVol;
 

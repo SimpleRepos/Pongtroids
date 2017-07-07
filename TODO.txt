@@ -1,5 +1,7 @@
-> asteroid horizontal wrap and paddle damage
-
-> scoring multipliers
-
-> powerup system
+> scoring multiplier
+> powerups
+> scene intro
+> scene title
+> scene hiscore
+> scene credits
+> improve assets

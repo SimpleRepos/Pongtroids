@@ -2,22 +2,20 @@
 #include "FMOD\fmod.hpp"
 #include "ns_Utility.h"
 #include <string>
+#include "cl_Audio.h"
 
 class Sound {
 public:
-  ~Sound();
-
   void play();
   void volume(float vol);
 
 private:
   friend class Audio;
+  Sound(FMOD::Sound* sound, FMOD::System* sys);
 
-  Sound(const std::string& fname, FMOD::System* sys);
-
-  FMOD::Sound* sound;
+  std::unique_ptr<FMOD::Sound> sound;
+  FMOD::Channel* chan;
   FMOD::System* sys;
-
   float vol;
 
 };

@@ -8,23 +8,14 @@
 #endif // !_DEBUG
 
 
-Audio::Audio() : system(nullptr), bgm(nullptr), bgmChan(nullptr), bgmVol(1.0f) {
-  FMOD_RESULT sult = FMOD::System_Create(&system);
+Audio::Audio() : bgmChan(nullptr), bgmVol(1.0f) {
+  FMOD::System* sys;
+  FMOD_RESULT sult = FMOD::System_Create(&sys);
   assert(sult == FMOD_OK);
+  system.reset(sys);
 
-  //exception may happen soon and dtor won't fire, so ensure that system pointer is raii in this funciton
-  Utility::OnScopeExit raii([this]() { system->release(); });
-  
-  sult = system->init(512, FMOD_INIT_NORMAL, 0);
+  sult = system->init(32, FMOD_INIT_NORMAL, 0);
   assert(sult == FMOD_OK);
-
-  //validate the system pointer (won't be released in this function)
-  raii.release();
-}
-
-Audio::~Audio() {
-  if(bgm) { bgm->release(); }
-  system->release();
 }
 
 void Audio::update() {
@@ -32,14 +23,22 @@ void Audio::update() {
 }
 
 Sound Audio::genSound(const std::string& filename) {
-  return Sound(filename, system);
+  FMOD::Sound* sound;
+  FMOD_RESULT sult = system->createSound(filename.c_str(), FMOD_DEFAULT, 0, &sound);
+  assert(sult == FMOD_OK);
+
+  return Sound(sound, system.get());
 }
 
 void Audio::setBGMTrack(const std::string& fname) {
-  FMOD_RESULT sult = system->createStream(fname.c_str(), FMOD_LOOP_NORMAL, 0, &bgm);
+  FMOD::Sound* tmp;
+  FMOD_RESULT sult = system->createStream(fname.c_str(), FMOD_LOOP_NORMAL, 0, &tmp);
   assert(sult == FMOD_OK);
-  sult = system->playSound(bgm, 0, true, &bgmChan);
+  bgm.reset(tmp);
+
+  sult = system->playSound(bgm.get(), 0, true, &bgmChan);
   assert(sult == FMOD_OK);
+
   updateVol();
   pauseToggleBGM();
 }

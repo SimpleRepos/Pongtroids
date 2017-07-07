@@ -9,7 +9,7 @@ using namespace Utility;
 Asteroids::Asteroids(SharedState& shared, size_t count) :
   centerRegion{ HBOUND_MARGIN, 0, (float)shared.gfx.VIEWPORT_DIMS.width - HBOUND_MARGIN, (float)shared.gfx.VIEWPORT_DIMS.height },
   shared(shared),
-  hitSound(shared.audio.genSound("../Assets/83976__theredshore__punch.mp3")),
+  hitSound(shared.audio.genSound("../Assets/83976__theredshore__punch.wav")),
   mesh(shared.factory.createStaticMeshFromOldMeshFileFormat("../Assets/asteroid.mesh")),
   tex(shared.factory.createTexture(L"../Assets/asteroid_diffuse.png")),
   prog{

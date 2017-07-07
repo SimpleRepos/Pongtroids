@@ -13,6 +13,7 @@ Game::~Game() {
 
 void Game::run() {
   while(shared.win.update() && scene) {
+    shared.audio.update();
     shared.timer.tick();
     shared.input.update();
 

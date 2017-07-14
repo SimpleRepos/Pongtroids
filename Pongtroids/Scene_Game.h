@@ -22,6 +22,8 @@ public:
   void activeDraw() override;
 
 private:
+  static constexpr int POINTS_PER_HIT = 100;
+
   void ballVPaddles();
   void ballVRoids();
   void ballVBounds();

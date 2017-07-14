@@ -63,6 +63,7 @@ void Scene_Game::passiveUpdate() {
   bg.update(dt);
   asteroids.update(dt);
   paddles.update(dt);
+  scoreBoard.update();
 }
 
 Scene* Scene_Game::activeUpdate() {
@@ -73,8 +74,6 @@ Scene* Scene_Game::activeUpdate() {
   ballVPaddles();
   ballVRoids();
   ballVBounds();
-
-  scoreBoard.update();
 
   if(shared.gameState.lives < 0)   { return nullptr; }
   if(asteroids.population() == 0)  { return nullptr; }
@@ -102,6 +101,7 @@ void Scene_Game::ballVPaddles() {
   if(SC::testOverlap(ballCol, paddles.getCollider(side))) {
     ball.deflect(paddles.getDeflectionNormal(side, ballCol.center.y));
     paddleBounce.play();
+    shared.gameState.resetMultiplier();
   }
 
 }
@@ -113,6 +113,10 @@ void Scene_Game::ballVRoids() {
   if(roid) {
     ball.deflect({ roid->collider.center.x - ballCol.center.x, roid->collider.center.y - ballCol.center.y });
     asteroids.hit(*roid, { ballCol.center.x, ballCol.center.y });
+
+    scoreBoard.pushFlair(ballCol.center.x, ballCol.center.y);
+
+    shared.gameState.scoreUp(POINTS_PER_HIT);
   }
 
 }
@@ -125,6 +129,7 @@ void Scene_Game::ballVBounds() {
   if(out) {
     subScene = std::make_unique<SubScene_BallOut>(shared);
     ball.reset();
+    shared.gameState.resetMultiplier();
   }
 }
 

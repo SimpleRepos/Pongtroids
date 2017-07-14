@@ -1,4 +1,4 @@
-> scoring multiplier
+> fix paddle deflection
 > powerups
 > scene intro
 > scene title

@@ -71,8 +71,6 @@ size_t Asteroids::population() const {
 }
 
 void Asteroids::hit(Asteroid& roid, DirectX::XMFLOAT2 ballPos) {
-  shared.gameState.score += 100;
-
   roid.alive = false;
 
   hitSound.play();

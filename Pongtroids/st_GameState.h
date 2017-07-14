@@ -1,14 +1,16 @@
 #pragma once
 
 struct GameState {
-  bool operator==(const GameState& other) {
-    return (lives == other.lives) && (score == other.score);
+  void scoreUp(int preMulAmt) {
+    score += preMulAmt * multiplier;
+    multiplier++;
   }
 
-  bool operator!=(const GameState& other) {
-    return !operator==(other);
+  void resetMultiplier() {
+    multiplier = 1;
   }
 
   int lives = 3;
   int score = 0;
+  int multiplier = 1;
 };

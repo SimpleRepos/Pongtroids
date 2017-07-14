@@ -136,11 +136,12 @@ Input::GamepadDevice::GamepadDevice() : Device(BUTTON_CT, AXIS_CT) {
 void Input::KeyboardDevice::updateHandler(DeviceState& devState, std::queue<RAWINPUT>& eventQueue, uint64_t frameTime) {
   while(!eventQueue.empty()) {
     auto event = eventQueue.front().data.keyboard;
+    eventQueue.pop();
 
+    if(event.VKey == 255) { return; } //"extended" key message - can happen if numlock is off or shift is held
     if(event.Message == WM_KEYDOWN) { triggerButton(event.VKey, frameTime); }
     if(event.Message == WM_KEYUP)   { releaseButton(event.VKey); }
 
-    eventQueue.pop();
   }
 }
 

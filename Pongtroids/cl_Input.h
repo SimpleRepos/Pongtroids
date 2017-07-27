@@ -34,7 +34,7 @@ public:
   };
 
   struct Mouse {
-    enum Axes    { DELTA_X, DELTA_Y, DELTA_WHEEL };
+    enum Axes    { DELTA_X, DELTA_Y, DELTA_WHEEL, CURSOR_X, CURSOR_Y };
     enum Buttons { L_BUTTON, R_BUTTON, WHEEL_BUTTON, BACK, FORWARD };
   };
   const DeviceState& mouse() const { return mouseDev.state(); }
@@ -118,7 +118,7 @@ private:
   class MouseDevice : public Device {
   public:
     static constexpr size_t BUTTON_CT = 5;
-    static constexpr size_t AXIS_CT = 3;
+    static constexpr size_t AXIS_CT = 5;
     MouseDevice();
 
   private:

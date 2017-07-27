@@ -53,6 +53,11 @@ void Ball::deflect(const DirectX::XMFLOAT2& normal) {
 
   vel = XMVectorSubtract(vel, deflector);
 
+  //hack to make more pleasing behavior for deflections at very steep angles
+  if(signbit(vel.m128_f32[0]) == signbit(velocity.x)) {
+    vel.m128_f32[0] = -vel.m128_f32[0];
+  }
+
   XMStoreFloat2(&velocity, vel);
 }
 
@@ -67,3 +72,44 @@ void Ball::reset() {
   velocity.y *= SPEED;
 }
 
+DebugBall::DebugBall(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, DirectX::XMFLOAT2 startPos) :
+  Ball(shared, spriteProg, startPos),
+  testing(-1), aiming(false),
+  mpos(400, 300, 0)
+{
+  //nop
+}
+
+void DebugBall::update(float dt) {
+  if(testing >= 0) {
+    Ball::update(dt);
+    testing -= dt;
+    return;
+  }
+
+  auto mouse = shared.input.mouse();
+
+  if(mouse.buttons[0].held) {
+    aiming = true;
+  }
+  else {
+    if(aiming) {
+      aiming = false;
+
+      DirectX::XMFLOAT2 aim(
+        (mouse.axes[Input::Mouse::CURSOR_X] - RADIUS) - xform.translation.x,
+        (mouse.axes[Input::Mouse::CURSOR_Y] - RADIUS) - xform.translation.y
+      );
+      setDirection(aim);
+
+      testing = TEST_DURATION;
+    }
+    else {
+      xform.translation.x = mouse.axes[Input::Mouse::CURSOR_X] - RADIUS;
+      xform.translation.y = mouse.axes[Input::Mouse::CURSOR_Y] - RADIUS;
+      collider.center.x = xform.translation.x + RADIUS;
+      collider.center.y = xform.translation.y + RADIUS;
+    }
+  }
+
+}

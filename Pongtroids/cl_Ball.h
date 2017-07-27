@@ -12,7 +12,7 @@ class Camera;
 class Ball {
 public:
   Ball(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, DirectX::XMFLOAT2 startPos);
-  void update(float dt);
+  virtual void update(float dt);
   void draw(Camera& cam);
 
   void deflect(const DirectX::XMFLOAT2& normal);
@@ -25,7 +25,7 @@ public:
   static constexpr float RADIUS = 5;
   static constexpr float SPEED = 200;
 
-private:
+protected:
   SharedState& shared;
 
   Transform xform;
@@ -40,3 +40,16 @@ private:
 
 };
 
+//ball controlled directly by the mouse for use in deflection debugging
+class DebugBall : public Ball {
+public:
+  DebugBall(SharedState& shared, RenderProgram<DirectX::XMFLOAT4X4>& spriteProg, DirectX::XMFLOAT2 startPos);
+  void update(float dt);
+
+private:
+  static constexpr float TEST_DURATION = 2.0f;
+  float testing;
+  bool aiming;
+  DirectX::XMFLOAT3 mpos;
+
+};

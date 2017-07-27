@@ -72,7 +72,6 @@ DirectX::XMFLOAT2 Paddles::getDeflectionNormal(Side side, float ballY) const {
   float normalizedOffset = (ballY - center) / halfHeight;
 
   float theta = MAX_DEFLECTION_ANGLE * normalizedOffset;
-
   DirectX::XMFLOAT2 nrm{ cosf(theta), sinf(theta) };
   if(side == Paddles::RIGHT) { nrm.x = -nrm.x; }
 

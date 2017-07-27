@@ -146,6 +146,12 @@ void Input::KeyboardDevice::updateHandler(DeviceState& devState, std::queue<RAWI
 }
 
 void Input::MouseDevice::updateHandler(DeviceState& devState, std::queue<RAWINPUT>& eventQueue, uint64_t frameTime) {
+  POINT cursorPos;
+  GetCursorPos(&cursorPos);
+  ScreenToClient(GetActiveWindow(), &cursorPos);
+  devState.axes[Input::Mouse::CURSOR_X] = (float)cursorPos.x;
+  devState.axes[Input::Mouse::CURSOR_Y] = (float)cursorPos.y;
+
   while(!eventQueue.empty()) {
     auto event = eventQueue.front().data.mouse;
 

@@ -26,7 +26,7 @@ public:
   DirectX::XMFLOAT2 getDeflectionNormal(Side side, float ballY) const;
 
 private:
-  static constexpr float MAX_DEFLECTION_ANGLE = Utility::PI / 16;
+  static constexpr float MAX_DEFLECTION_ANGLE = Utility::PI / 12;
   static constexpr float HORZ_BORDER_GAP = 15;
   static constexpr float WIDTH = 20;
   static constexpr float HEIGHT = 100;

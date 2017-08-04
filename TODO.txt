@@ -1,6 +1,11 @@
+> scene title
+ - expand font class
+   * italic/bold/etc?
+   * get Rect?
+   * bordered print
+
 > powerups
 > scene intro
-> scene title
 > scene hiscore
 > scene credits
 > improve assets

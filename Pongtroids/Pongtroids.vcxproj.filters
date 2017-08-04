@@ -70,6 +70,12 @@
     <Filter Include="Header Files\Game">
       <UniqueIdentifier>{0216a583-722c-4804-ad42-f6060bfae248}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scenes\Scene_Title">
+      <UniqueIdentifier>{c35149af-a613-4228-92b0-f8d8d7da94da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes\Scene_Title">
+      <UniqueIdentifier>{6dcfb434-fe19-40b5-8a38-8ba8cff8b108}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cl_Game.cpp">
@@ -173,6 +179,9 @@
     </ClCompile>
     <ClCompile Include="cl_ScoreBoard.cpp">
       <Filter>Source Files\Scenes\Scene_Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_Title.cpp">
+      <Filter>Source Files\Scenes\Scene_Title</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -281,9 +290,6 @@
     <ClInclude Include="st_GameState.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="SubScene_BallOut.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="cl_Asteroids.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
     </ClInclude>
@@ -295,6 +301,12 @@
     </ClInclude>
     <ClInclude Include="cl_ScoreBoard.h">
       <Filter>Header Files\Scenes\Scene_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SubScene_BallOut.h">
+      <Filter>Header Files\Scenes\Scene_Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_Title.h">
+      <Filter>Header Files\Scenes\Scene_Title</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

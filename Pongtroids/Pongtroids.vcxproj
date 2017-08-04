@@ -145,6 +145,7 @@
     <ClCompile Include="cl_Sound.cpp" />
     <ClCompile Include="cl_Ball.cpp" />
     <ClCompile Include="cl_Paddles.cpp" />
+    <ClCompile Include="Scene_Title.cpp" />
     <ClCompile Include="simpleCollision.cpp" />
     <ClCompile Include="cl_Asteroids.cpp" />
     <ClCompile Include="cl_Camera.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="cl_ScoreBoard.h" />
     <ClInclude Include="cl_Sound.h" />
     <ClInclude Include="cl_GameBackground.h" />
+    <ClInclude Include="Scene_Title.h" />
     <ClInclude Include="SubScene_BallOut.h" />
     <ClInclude Include="cl_Ball.h" />
     <ClInclude Include="st_GameState.h" />

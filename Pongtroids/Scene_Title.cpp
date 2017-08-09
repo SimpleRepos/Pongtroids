@@ -15,36 +15,40 @@ Scene_Title::Scene_Title(SharedState& shared) :
   titleFont(shared.factory.createFont(L"Arial")),
   menuFont(shared.factory.createFont(L"Courier New"))
 {
-  //~~_
-}
-
-void Scene_Title::passiveUpdate() {
-  //~~_
+  //nop
 }
 
 Scene* Scene_Title::activeUpdate() {
   return this;
 }
 
-void Scene_Title::passiveDraw() {
-  constexpr float TITLE_WIDTH_AT_64PT = 298;
-  float title_x = ((float)shared.gfx.VIEWPORT_DIMS.width - TITLE_WIDTH_AT_64PT) / 2;
-  titleFont.drawText(TITLE, 64, title_x, 50, ColorF::WHITE);
+void Scene_Title::activeDraw() {
+  constexpr float TITLE_Y_POS = 50;
+  constexpr float TITLE_SIZE = 64;
+
+  FW1_RECTF rect = titleFont.measure(TITLE, TITLE_SIZE);
+  float width = rect.Right - rect.Left;
+  float title_x = ((float)shared.gfx.VIEWPORT_DIMS.width - width) / 2;
+  title_x -= rect.Left;
+
+  titleFont.drawText(TITLE, TITLE_SIZE, title_x, TITLE_Y_POS, ColorF::WHITE);
 
   constexpr float APPX_CHAR_WIDTH_FOR_24PT_COURIER_NEW = 44.0f / 3;
 
-  float y = 365;
+  constexpr float ITEM_SIZE = 24;
+  constexpr float SPACING = ITEM_SIZE;
+  constexpr float TOP_Y = 365;
+
+  float y = TOP_Y;
   for(const auto& item : MENU_OPTIONS) {
-    float width = item.size() * APPX_CHAR_WIDTH_FOR_24PT_COURIER_NEW;
+    FW1_RECTF rect = menuFont.measure(item, ITEM_SIZE);
+    float width = rect.Right - rect.Left;
     float x = ((float)shared.gfx.VIEWPORT_DIMS.width - width) / 2;
+    x -= rect.Left;
 
-    menuFont.drawText(item, 24, x, y, ColorF::WHITE);
-    y += 24;
+    menuFont.drawText(item, ITEM_SIZE, x, y, ColorF::WHITE);
+    y += SPACING;
   }
-}
-
-void Scene_Title::activeDraw() {
-  //~~_
 }
 
 const std::wstring Scene_Title::TITLE = L"Pongtroids";

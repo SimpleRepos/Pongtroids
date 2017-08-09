@@ -10,9 +10,7 @@
 class Scene_Title : public Scene {
 public:
   Scene_Title(SharedState& shared);
-  void passiveUpdate() override;
   Scene* activeUpdate() override;
-  void passiveDraw() override;
   void activeDraw() override;
 
 private:

@@ -26,7 +26,7 @@ private:
 
   struct Flair {
     Flair(float x, float y, int mul);
-    void draw(Font& font);
+    void draw(Font& titleFont);
 
     static constexpr float BASE_SIZE = 24;
     static constexpr int SIZE_RATE = 4;

@@ -46,11 +46,11 @@ ScoreBoard::Flair::Flair(float x, float y, int mul) :
   //nop
 }
 
-void ScoreBoard::Flair::draw(Font& font) {
+void ScoreBoard::Flair::draw(Font& titleFont) {
   int colSw = (int)(timeRemaining / BLINK_RATE) & 1;
 
   auto color = colSw ? ColorF::RED : ColorF::YELLOW;
   if(timeRemaining < 1) { color.a = timeRemaining; }
 
-  font.drawText(text, size, x, y, color);
+  titleFont.drawText(text, size, x, y, color);
 }

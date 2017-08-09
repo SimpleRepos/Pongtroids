@@ -1,9 +1,6 @@
 > scene title
  - expand font class
-   * italic/bold/etc?
-   * get Rect?
-   * bordered print
-
+  * bordered print
 > powerups
 > scene intro
 > scene hiscore

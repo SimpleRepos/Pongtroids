@@ -6,8 +6,15 @@ void Font::drawText(const std::wstring& text, float size, float x, float y, Colo
   wrapper->DrawString(context, text.c_str(), size, x, y, color, FW1_RESTORESTATE);
 }
 
-Font::Font(IFW1Factory* factory, ID3D11Device* device, ID3D11DeviceContext* context, const std::wstring& fontFace) :
-  context(context)
-{
-  factory->CreateFontWrapper(device, fontFace.c_str(), &wrapper);
+FW1_RECTF Font::measure(const std::wstring& text, float size) {
+  FW1_RECTF layoutRect = { 0, 0, 0, 0 };
+  return wrapper->MeasureString(text.c_str(), fontFam.c_str(), size, &layoutRect, FW1_RESTORESTATE|FW1_NOWORDWRAP);
 }
+
+Font::Font(IFW1Factory* factory, ID3D11Device* device, ID3D11DeviceContext* context, const std::wstring& fontFace) :
+  context(context),
+  fontFam(fontFace)
+{
+  factory->CreateFontWrapper(device, fontFam.c_str(), &wrapper);
+}
+

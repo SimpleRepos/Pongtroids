@@ -1,6 +1,7 @@
+> correct visual problems with special font printing
+> font R2T
+
 > scene title
- - expand font class
-  * bordered print
 > powerups
 > scene intro
 > scene hiscore

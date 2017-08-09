@@ -31,7 +31,8 @@ void Scene_Title::activeDraw() {
   float title_x = ((float)shared.gfx.VIEWPORT_DIMS.width - width) / 2;
   title_x -= rect.Left;
 
-  titleFont.drawText(TITLE, TITLE_SIZE, title_x, TITLE_Y_POS, ColorF::WHITE);
+  //titleFont.drawText(TITLE, TITLE_SIZE, title_x, TITLE_Y_POS, ColorF::WHITE);
+  titleFont.drawShadowedText(TITLE, TITLE_SIZE, title_x, TITLE_Y_POS, 2, ColorF::WHITE, ColorF::RED);
 
   constexpr float APPX_CHAR_WIDTH_FOR_24PT_COURIER_NEW = 44.0f / 3;
 

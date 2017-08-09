@@ -18,6 +18,9 @@ public:
   ///<param name="color">Color to draw in (note that there is automatic conversion from ColorF to uCol32)</param>
   void drawText(const std::wstring& text, float size, float x, float y, ColorF color);
 
+  void drawBorderedText(const std::wstring& text, float size, float x, float y, int borderWidth, ColorF foreColor, ColorF backColor);
+  void drawShadowedText(const std::wstring& text, float size, float x, float y, int shadowOffset, ColorF color, ColorF shadowColor);
+
   ///<summary>Get a rect indicating the offset and size of the text rendered from the target x,y position</summary>
   ///<param name="text">Text to draw</param>
   ///<param name="size">Font size in points</param>

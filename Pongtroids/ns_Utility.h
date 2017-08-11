@@ -54,8 +54,14 @@ namespace Utility {
   ///<summary>Clamp a value to a range</summary>
   float clamp(float val, float min, float max);
 
-  ///~~#
+  ///<summary>Populates a std::string or std::wstring using sprintf.</summary>
+  ///<param name="format">The format string</param>
+  ///<param name="...">The arguments</param>
   std::string stringf(const char* format, ...);
+
+  ///<summary>Populates a std::string or std::wstring using sprintf.</summary>
+  ///<param name="format">The format string</param>
+  ///<param name="...">The arguments</param>
   std::wstring stringf(const wchar_t* format, ...);
 }
 

@@ -15,14 +15,17 @@ Scene_Title::Scene_Title(SharedState& shared) :
   titleFont(shared.factory.createFont(L"Arial")),
   menuFont(shared.factory.createFont(L"Courier New"))
 {
-  //nop
+  fo = 0;
 }
 
 Scene* Scene_Title::activeUpdate() {
+  fo += 0.001f;
   return this;
 }
 
 void Scene_Title::activeDraw() {
+  shared.gfx.clear();
+
   constexpr float TITLE_Y_POS = 50;
   constexpr float TITLE_SIZE = 64;
 
@@ -31,8 +34,7 @@ void Scene_Title::activeDraw() {
   float title_x = ((float)shared.gfx.VIEWPORT_DIMS.width - width) / 2;
   title_x -= rect.Left;
 
-  //titleFont.drawText(TITLE, TITLE_SIZE, title_x, TITLE_Y_POS, ColorF::WHITE);
-  titleFont.drawShadowedText(TITLE, TITLE_SIZE, title_x, TITLE_Y_POS, 2, ColorF::WHITE, ColorF::RED);
+  titleFont.drawShadowedText(TITLE, TITLE_SIZE, title_x + fo, TITLE_Y_POS + fo, 2, ColorF::WHITE, ColorF::RED);
 
   constexpr float APPX_CHAR_WIDTH_FOR_24PT_COURIER_NEW = 44.0f / 3;
 

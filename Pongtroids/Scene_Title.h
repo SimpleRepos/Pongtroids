@@ -22,6 +22,8 @@ private:
   Font titleFont;
   Font menuFont;
 
+  float fo;
+
 };
 
 

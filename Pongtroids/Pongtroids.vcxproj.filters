@@ -183,6 +183,12 @@
     <ClCompile Include="Scene_Title.cpp">
       <Filter>Source Files\Scenes\Scene_Title</Filter>
     </ClCompile>
+    <ClCompile Include="GDIFont.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GDIFontFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cl_DomainShader.h">
@@ -308,6 +314,9 @@
     <ClInclude Include="Scene_Title.h">
       <Filter>Header Files\Scenes\Scene_Title</Filter>
     </ClInclude>
+    <ClInclude Include="GDIFontTool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="tcl_DynamicVertexBuffer.inl">
@@ -364,6 +373,9 @@
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
     <FxCompile Include="vs_simpleXform.hlsl">
+      <Filter>Resource Files\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="ps_font.hlsl">
       <Filter>Resource Files\Shaders</Filter>
     </FxCompile>
   </ItemGroup>

@@ -3,9 +3,11 @@
 #include "st_SharedState.h"
 #include "tst_RenderProgram.h"
 #include "cl_Camera.h"
-#include "cl_Font.h"
 #include <array>
 #include <string>
+#include "cl_Texture.h"
+#include <memory>
+#include "cl_Transform.h"
 
 class Scene_Title : public Scene {
 public:
@@ -15,14 +17,22 @@ public:
 
 private:
   static const std::wstring TITLE;
-  static const std::array<std::wstring, 4> MENU_OPTIONS;
+  static const std::wstring MENU_OPTIONS;
 
-  RenderProgram<DirectX::XMFLOAT4X4> spriteProg;
+  struct CBuffer {
+    DirectX::XMFLOAT4X4 transform;
+    DirectX::XMFLOAT4   foreColor;
+    DirectX::XMFLOAT4   backColor;
+  };
+
+  RenderProgram<CBuffer> fontProg;
+
+  std::unique_ptr<Texture> title;
+  std::unique_ptr<Texture> menu;
+
   Camera cam;
-  Font titleFont;
-  Font menuFont;
-
-  float fo;
+  Transform titleXF;
+  Transform menuXF;
 
 };
 

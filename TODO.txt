@@ -1,6 +1,3 @@
-> correct visual problems with special font printing - FW1 is using integer alignment?
-> font R2T
-
 > scene title
 > powerups
 > scene intro

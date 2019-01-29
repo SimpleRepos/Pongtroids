@@ -1,6 +1,5 @@
 #pragma once
 #include <vector> //required for SC::Aggregate
-#include <DirectXMath.h>
 
 namespace SC {
   //following here are several collision primitives:

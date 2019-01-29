@@ -5,13 +5,7 @@
 #pragma comment(lib, "windowscodecs.lib")
 
 ImageLoader::ImageLoader() {
-  CoInitialize(0);
   HR(CoCreateInstance(CLSID_WICImagingFactory, 0, CLSCTX_INPROC_SERVER, IID_IWICImagingFactory, reinterpret_cast<LPVOID*>(&factory.p)));
-}
-
-ImageLoader::~ImageLoader() {
-  factory.Release();
-  CoUninitialize();
 }
 
 std::pair<DirectX::XMUINT2, std::vector<ColorF::uCol32>> ImageLoader::loadRaw(const std::wstring& filename) {
@@ -27,7 +21,6 @@ std::pair<DirectX::XMUINT2, std::vector<ColorF::uCol32>> ImageLoader::loadRaw(co
   HR(factory->CreateFormatConverter(&converter));
   converter->Initialize(frame, GUID_WICPixelFormat32bppRGBA, WICBitmapDitherTypeNone, 0, 0, WICBitmapPaletteTypeMedianCut);
 
-  //~~? got this from MSDN - no clue about IWIC pitch. works for 512x512, needs testing otherwise
   constexpr int bpp = 32;
   D3D11_SUBRESOURCE_DATA subData;
   subData.SysMemPitch = (dims.x * bpp + 7) / 8;

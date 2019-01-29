@@ -12,7 +12,6 @@
 class ImageLoader {
 public:
   ImageLoader();
-  ~ImageLoader();
 
   ///<summary>Load an image from disk into a std::vector of texels</summary>
   ///<returns>A std::pair containing the texel dimensions and the vector of data</returns>
@@ -40,6 +39,11 @@ public:
   std::pair<DirectX::XMUINT2, ID3D11Texture2D*> create(const DirectX::XMUINT2 dimensions, const std::vector<uint8_t>& data, ID3D11Device* device);
 
 private:
+  struct COM_RAII {
+    COM_RAII()  { CoInitialize(0); }
+    ~COM_RAII() { CoUninitialize(); }
+  } com;
+
   CComPtr<IWICImagingFactory> factory;
 
 };

@@ -76,3 +76,5 @@ std::wstring Utility::stringf(const wchar_t* format, ...) {
 
   return buffer.data();
 }
+
+
